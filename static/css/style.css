@@ -1,0 +1,87 @@
+body {background-color: #4bb370;}
+
+#title_frontpage{text-align: center;}
+
+#header_pic{margin-left: auto; margin-right: auto; display: block; height: 150px;}
+
+#dark_mode{margin-left: 10px; background-color: #212529cf;}
+#reset_dark_mode{margin-left: 5px;}
+
+#header{margin-bottom: 25px;}
+
+/* First Plot (GOAL SCORERS 2019) */
+
+#plotly_test{height:100%;}
+
+/* Class for all Text Headers */
+.header_for_graph{text-align: center;}
+
+/* Plotly Stats Filter Table */
+#statsFilterContainer{
+border: solid rgba(209, 217, 226, 0.89) 2px;
+border-radius: 20px;
+margin-bottom: 75px;
+padding-top: 20px;
+padding-bottom: 10px;
+text-align:center;
+}
+
+#statBarGraph{margin-top: 20px;}
+
+#statsList option{margin-left: auto; margin-right: auto;}
+
+/* Tabulator Table */
+
+#table_container_full{
+border: solid rgba(209, 217, 226, 0.89) 2px;
+border-radius: 20px;
+padding-bottom: 10px;
+margin-bottom: 75px;
+}
+
+#positionFilterContainer{
+    text-align: center;
+    padding-bottom: 50px;
+}
+
+#priceFilterContainer{margin-top: 25px;
+margin-bottom: 25px;
+padding-top: 10px;
+padding-bottom: 10px;
+text-align:center;}
+
+#priceFilter{width: 300px;}
+
+#priceFilterButton{width: 150px;}
+
+/* Player Filter */
+#playerFilterContainer{border: solid rgba(209, 217, 226, 0.89) 2px;
+    border-radius: 20px;
+    margin-bottom: 75px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+text-align:center;}
+
+#playerBoxPlot{margin-top: 20px;}
+
+/* Compare Player Graph */
+
+#playerComparisonContainer{border: solid rgba(209, 217, 226, 0.89) 2px;
+    border-radius: 20px;
+    margin-bottom: 75px;
+    padding-top: 20px;
+    padding-bottom: 10px;}
+
+#compare_player_div{text-align: center;}
+
+#comparePlayerGraph{margin-top: 20px;}
+
+.btn.btn-primary.filterbutton{margin-top: 10px;}
+
+
+/* Samsung Mobile Styling */
+
+@media only screen and (max-width: 990px) {
+    #statBarGraph{width: 100%;}
+    
+}
