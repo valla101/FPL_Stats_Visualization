@@ -1,7 +1,3 @@
-import pandas as pd
-
-import numpy as np
-
 from flask import Flask, jsonify, render_template
 
 import sqlalchemy
@@ -11,7 +7,7 @@ from sqlalchemy.sql import text  #ES import text to use SQL text directly
 from sqlalchemy import create_engine, func, inspect
 
 # Connecting to the Postgres Database
-engine = create_engine(f'postgresql://postgres:50mL*android@localhost:5432/PL_Stats')
+engine = create_engine(f'postgres://wbqnbbqkykqdaj:63bf019edf08344171db6162cbfdd7dc8bb288a6068fdb6f029eeb18eb53271c@ec2-3-215-76-208.compute-1.amazonaws.com:5432/ddad815989gh9j')
 
 # reflect an existing database into a new model
 Base = automap_base()
@@ -149,7 +145,7 @@ def player_route(player):
 def stat_testing(stat):
     connection = engine.connect()
 
-    result = connection.execute(f"select player, {stat} from combined_fpl_table order by {stat} desc")
+    result = connection.execute(f"select player, {stat} from combined_fpl_table_test_gk2 order by {stat} desc")
     # for record in result:
     #     print(record)
     return jsonify([dict(row) for row in result])
@@ -159,7 +155,7 @@ def stat_testing(stat):
 def filter_by_price(price):
     connection = engine.connect()
 
-    query_player_price_limit = connection.execute(f"select * from combined_fpl_table2 where current_price <='{price}' order by current_price desc, total_points desc", price = price)
+    query_player_price_limit = connection.execute(f"select * from combined_fpl_table_test_gk2 where current_price <='{price}' order by current_price desc, total_points desc", price = price)
 
     return jsonify([dict(row) for row in query_player_price_limit])
 
@@ -187,7 +183,7 @@ def compare_players_route(player1, player2):
 def filter_by_position(position):
     connection = engine.connect()
 
-    query_player_position = connection.execute(f"select * from combined_fpl_table2 where player_position = '{position}' order by total_points desc", position = position)
+    query_player_position = connection.execute(f"select * from combined_fpl_table_test_gk2 where player_position = '{position}' order by total_points desc", position = position)
 
     return jsonify([dict(row) for row in query_player_position])
 
