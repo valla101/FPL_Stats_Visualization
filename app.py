@@ -15,9 +15,9 @@ Base = automap_base()
 Base.prepare(engine, reflect=True)
 
 # Base Class
-stats_pl_2019 = Base.classes.pl_2019
+# stats_pl_2019 = Base.classes.pl_2019
 
-combined_fpl_2020 = Base.classes.combined_fpl_table
+combined_fpl_2020 = Base.classes.combined_fpl_table_test_gk2
 
 
 # Creating Flask Application
@@ -28,7 +28,7 @@ app = Flask(__name__)
 def home_route_function():
     inspector = inspect(engine)
 
-    stats_list = inspector.get_columns('combined_fpl_table2')
+    stats_list = inspector.get_columns('combined_fpl_table_test_gk2')
 
     clean_stats_list = ["Player",
     "Nationality",
@@ -64,7 +64,7 @@ def home_route_function():
     "Non Penalty Expected Goals + Expected Assists Per 90",
     "Season"]
 
-    zipped_columns = zip(stats_list, clean_stats_list)
+    # zipped_columns = zip(stats_list, clean_stats_list)
     
     # Working Query Using SQLAlchemy Classes
     session = Session(engine)
@@ -72,11 +72,11 @@ def home_route_function():
     query_player = session.query(combined_fpl_2020.player).order_by(combined_fpl_2020.total_points.desc()).all()
 
     connection = engine.connect()
-    query_fpl_positions = connection.execute("select distinct player_position from combined_fpl_table2")
+    query_fpl_positions = connection.execute("select distinct player_position from combined_fpl_table_test_gk2")
 
     # session.query(combined_fpl_2020.player_positon).order_by(combined_fpl_2020.total_points.desc()).all()
-    return render_template('index.html', query_player = query_player, zipped_columns = zipped_columns, query_fpl_positions = query_fpl_positions)
-
+    return render_template('index.html', query_player = query_player, query_fpl_positions = query_fpl_positions)
+    #  zipped_columns = zipped_columns,
 # TESTING ROUTES FROM HERE TO BOTTOM
 
 # Testing Route
