@@ -30,41 +30,52 @@ def home_route_function():
 
     stats_list = inspector.get_columns('combined_fpl_table_test_gk2')
 
-    # clean_stats_list = ["Player",
-    # "Nationality",
-    # "Team",
-    # "Player Position",
-    # "Age",
-    # "Games Played",
-    # "Games Started",
-    # "Total FPL Points",
-    # "Minutes Played",
-    # "Selected By Percent",
-    # "Current FPL Price",
-    # "Transfers In (This Gameweek)",
-    # "FPL Points/FPL Value",
-    # "Goals Scored",
-    # "Assists",
-    # "Penalty Kicks Scored",
-    # "Penalty Kicks Attempted",
-    # "Yellow Cards",
-    # "Red Cards",
-    # "Goals Per 90",
-    # "Assists Per 90",
-    # "Goals + Assists Per 90",
-    # "Goals - Penalty Kicks Per 90",
-    # "Goals + Assists - Penalty Kicks Per 90",
-    # "Expected Goals",
-    # "Non Penalty Expected Goals",
-    # "Expected Assists",
-    # "Expected Goals Per 90",
-    # "Expected Assists Per 90",
-    # "Expected Goals + Expected Assists Per 90",
-    # "Non Penalty Expected Goals Per 90",
-    # "Non Penalty Expected Goals + Expected Assists Per 90",
-    # "Season"]
+    clean_stats_list = ["Player",
+    "Nationality",
+    "Team",
+    "Player Position",
+    "Age",
+    "Games Played",
+    "Games Started",
+    "Total FPL Points",
+    "Minutes Played",
+    "Selected By Percent",
+    "Current FPL Price",
+    "Transfers In (This Gameweek)",
+    "FPL Points/FPL Value",
+    "Goals Scored",
+    "Assists",
+    "Penalty Kicks Scored",
+    "Penalty Kicks Attempted",
+    "Yellow Cards",
+    "Red Cards",
+    "Goals Per 90",
+    "Assists Per 90",
+    "Goals + Assists Per 90",
+    "Goals - Penalty Kicks Per 90",
+    "Goals + Assists - Penalty Kicks Per 90",
+    "Expected Goals",
+    "Non Penalty Expected Goals",
+    "Expected Assists",
+    "Expected Goals Per 90",
+    "Expected Assists Per 90",
+    "Expected Goals + Expected Assists Per 90",
+    "Non Penalty Expected Goals Per 90",
+    "Non Penalty Expected Goals + Expected Assists Per 90",
+    "Goals Against",
+    "Goals Against Per 90",
+    "Shots On Target Against",
+    "Saves",
+    "Save Percentage",
+    "Clean Sheets",
+    "Clean Sheet Percentage",
+    "Penalty Kicks Against",
+    "Penalty Kicks Scored Against",
+    "Penalty Kicks Saved",
+    "Penalty Kicks Missed Against",
+    "Season"]
 
-    # zipped_columns = zip(stats_list, clean_stats_list)
+    zipped_columns = zip(stats_list, clean_stats_list)
     
     # Working Query Using SQLAlchemy Classes
     session = Session(engine)
@@ -74,9 +85,7 @@ def home_route_function():
     connection = engine.connect()
     query_fpl_positions = connection.execute("select distinct player_position from combined_fpl_table_test_gk2")
 
-    # session.query(combined_fpl_2020.player_positon).order_by(combined_fpl_2020.total_points.desc()).all()
-    return render_template('index.html', query_player = query_player, query_fpl_positions = query_fpl_positions, stats_list = stats_list)
-    #  zipped_columns = zipped_columns,
+    return render_template('index.html', query_player = query_player, query_fpl_positions = query_fpl_positions, zipped_columns = zipped_columns)
 # TESTING ROUTES FROM HERE TO BOTTOM
 
 # Testing Route
@@ -87,7 +96,7 @@ def player_route(player):
 
     session = Session(engine)
 
-    query_fpl_view = connection.execute(f"select * from combined_fpl_table_test_gk2 where combined_fpl_table2_test_gk2.player='{player}'", player=player)
+    query_fpl_view = connection.execute(f"select * from combined_fpl_table_test_gk2 where combined_fpl_table_test_gk2.player='{player}'", player=player)
 
     session.close()
 
