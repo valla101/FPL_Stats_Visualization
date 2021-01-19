@@ -99,53 +99,6 @@ def player_route(player):
 
     return jsonify([dict(row) for row in query_fpl_view])
 
-
-    # for query in query_fpl_view: 
-    #     print(query)
-
-    # all_rows = []
-    # for player, nation, team, age, games_played, starts, total_points, minutes, selected_by_percent, current_price,transfers_in, value_season, Goals, Assists, Penalty_Kicks_Scored, Penalty_Kicks_Attempted, Yellow_Cards, Red_Cards, Goals_Per_90, Assists_Per_90, Goals_Plus_Assists_Per_90, Goals_Minus_Penalty_Kicks_Per_90, Goals_Plus_Assists_Minus_Penalty_Kicks_Per_90, Expected_Goals, Non_Penalty_Expected_Goals, Expected_Assists, Expected_Goals_Per_90, Expected_Assists_Per_90, Expected_Goals_Plus_Expected_Assists_Per_90, Non_Penalty_Expected_Goals_Per_90, Non_Penalty_Expected_Goals_Plus_Expected_Assists_Per_90, Season in query_fpl_view:
-    # # for player in query_player:
-    #     test_dict = {}
-    #     test_dict["player"] = player
-    #     test_dict["nation"] = nation
-    #     test_dict["team"] = team
-    #     test_dict["age"] = age
-    #     test_dict["games_played"] = games_played
-    #     test_dict["starts"] = starts
-    #     test_dict["total_points"] = total_points
-    #     test_dict["minutes"] = minutes
-    #     test_dict["selected_by_percent"] = selected_by_percent
-    #     test_dict["current_price"] = current_price
-    #     test_dict["transfers_in"] = transfers_in
-    #     test_dict["value_season"] = value_season
-    #     test_dict["Goals"] = Goals
-    #     test_dict["Assists"] = Assists
-    #     test_dict["Penalty_Kicks_Scored"] = Penalty_Kicks_Scored
-    #     test_dict["Penalty_Kicks_Attempted"] = Penalty_Kicks_Attempted
-    #     test_dict["Yellow_Cards"] = Yellow_Cards
-    #     test_dict["Red_Cards"] = Red_Cards
-    #     test_dict["Goals_Per_90"] = Goals_Per_90
-    #     test_dict["Assists_Per_90"] = Assists_Per_90
-    #     test_dict["Goals_Plus_Assists_Per_90"] = Goals_Plus_Assists_Per_90
-    #     test_dict["Goals_Minus_Penalty_Kicks_Per_90"] = Goals_Minus_Penalty_Kicks_Per_90
-    #     test_dict["Goals_Plus_Assists_Minus_Penalty_Kicks_Per_90"] = Goals_Plus_Assists_Minus_Penalty_Kicks_Per_90
-    #     test_dict["Expected_Goals"] = Expected_Goals
-    #     test_dict["Non_Penalty_Expected_Goals"] = Non_Penalty_Expected_Goals
-    #     test_dict["Expected_Assists"] = Expected_Assists
-    #     test_dict["Expected_Goals_Per_90"] = Expected_Goals_Per_90
-    #     test_dict["Expected_Assists_Per_90"] = Expected_Assists_Per_90
-    #     test_dict["Expected_Goals_Plus_Expected_Assists_Per_90"] = Expected_Goals_Plus_Expected_Assists_Per_90
-    #     test_dict["Non_Penalty_Expected_Goals_Per_90"] = Non_Penalty_Expected_Goals_Per_90
-    #     test_dict["Non_Penalty_Expected_Goals_Plus_Expected_Assists_Per_90"] = Non_Penalty_Expected_Goals_Plus_Expected_Assists_Per_90
-    #     test_dict["Season"] = Season
-        
-
-    #     all_rows.append(test_dict)
-    # unique_player = list(np.ravel(query_fpl_view))
-
-    # return jsonify(all_rows) 
-
 # Querying player & requested stat in order by descending. Used for interactive bar graph
 @app.route("/<stat>")
 def stat_testing(stat):
@@ -171,10 +124,6 @@ def compare_players_route(player1, player2):
     connection = engine.connect()
 
     session = Session(engine)
-
-    # query_fpl_view1 = connection.execute(f"select * from combined_fpl_table2 where combined_fpl_table2.player='{player1}'", player=player1)
-
-    # query_fpl_view2 = connection.execute(f"select * from combined_fpl_table2 where combined_fpl_table2.player='{player2}'", player=player2)
 
     query_fpl_view1 = connection.execute(f"select * from combined_fpl_table_test_gk2 where combined_fpl_table_test_gk2.player='{player1}'", player=player1)
 
