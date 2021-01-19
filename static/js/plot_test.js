@@ -235,17 +235,17 @@ function filterByPlayer(){
       var playerPosition1 = data.map(Player => Player["player_position"]);
 
       // Player 1 GK Stats
-      var cleanSheet = data[0].map(Player => Player["clean_sheets"]);
-      var cleanSheetPercentage = data[0].map(Player => Player["clean_sheet_percentage"]);
-      var goalsConceded = data[0].map(Player => Player["goals_against"]);
-      var goalsConcededPerMatch = data[0].map(Player => Player["goals_against_per_90"]);
-      var pkAttemptAgainst = data[0].map(Player => Player["pk_attempts_against"]);
-      var pkSaved = data[0].map(Player => Player["penalty_kicks_saved"]);
-      var pkScoredOn = data[0].map(Player => Player["penalty_kicks_scored_on"]);
-      var pkMissedAgainst = data[0].map(Player => Player["penalty_kicks_missed"]);
-      var gkSaves = data[0].map(Player => Player["saves"]);
-      var gkSavePercentage = data[0].map(Player => Player["save_percentage"]);
-      var gkShotsOnTargetAgainst = data[0].map(Player => Player["shots_on_target_against"]);
+      var cleanSheet = data.map(Player => Player["clean_sheets"]);
+      var cleanSheetPercentage = data.map(Player => Player["clean_sheet_percentage"]);
+      var goalsConceded = data.map(Player => Player["goals_against"]);
+      var goalsConcededPerMatch = data.map(Player => Player["goals_against_per_90"]);
+      var pkAttemptAgainst = data.map(Player => Player["pk_attempts_against"]);
+      var pkSaved = data.map(Player => Player["penalty_kicks_saved"]);
+      var pkScoredOn = data.map(Player => Player["penalty_kicks_scored_on"]);
+      var pkMissedAgainst = data.map(Player => Player["penalty_kicks_missed"]);
+      var gkSaves = data.map(Player => Player["saves"]);
+      var gkSavePercentage = data.map(Player => Player["save_percentage"]);
+      var gkShotsOnTargetAgainst = data.map(Player => Player["shots_on_target_against"]);
 
       if(playerPosition1 != "Goalkeeper"){
         var trace1 = {
