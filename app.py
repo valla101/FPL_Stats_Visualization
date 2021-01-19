@@ -28,12 +28,9 @@ app = Flask(__name__)
 def home_route_function():
     inspector = inspect(engine)
 
-    stats_list = inspector.get_columns('combined_fpl_table_test_gk2')
+    stats_list = inspector.get_columns('combined_fpl_table_test_gk2')[4:42]
 
-    clean_stats_list = ["Player",
-    "Nationality",
-    "Team",
-    "Player Position",
+    clean_stats_list = [
     "Age",
     "Games Played",
     "Games Started",
@@ -72,8 +69,8 @@ def home_route_function():
     "Penalty Kicks Against",
     "Penalty Kicks Scored Against",
     "Penalty Kicks Saved",
-    "Penalty Kicks Missed Against",
-    "Season"]
+    "Penalty Kicks Missed Against"
+    ]
 
     zipped_columns = zip(stats_list, clean_stats_list)
     
