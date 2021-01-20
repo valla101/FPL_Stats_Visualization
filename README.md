@@ -1,5 +1,5 @@
 # FPL_Stats_Visualization
-Repository with the objective of creating a visualization of statistics of real life as well as Fantasy Premier League related stats.
+Repository with the objective of creating a visualization of statistics of Fantasy Premier League related stats.
 
 Fantasy Premier League is the official fantasy game for England's First Division Professional Soccer. It attracts over 7 million players worldwide! The purpose of this repository is to aid users in picking the best players for their squad!
 
