@@ -77,7 +77,7 @@ def home_route_function():
     # Working Query Using SQLAlchemy Classes
     session = Session(engine)
 
-    query_player = session.query(combined_fpl_2020.player).order_by(combined_fpl_2020.total_points.desc()).all()
+    query_player = session.query(combined_fpl_2020.player).order_by(combined_fpl_2020.player.asc()).all()
 
     connection = engine.connect()
     query_fpl_positions = connection.execute("select distinct player_position from combined_fpl_table_test_gk2")
