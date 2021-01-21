@@ -60,8 +60,7 @@ d3.json(url2).then(function(data) {
     console.log(data);
 
     var PlayerName = data.map(Player => Player["player"]);
-    var statQueried = data.map(Player => Player[stat]);
-    
+    var statQueried = data.map(Player => Player[stat]);    
 
     var trace1 = {
         x: PlayerName,
@@ -74,8 +73,8 @@ d3.json(url2).then(function(data) {
       var layout = {
         title: "2020/2021 Premier League Top Performers",
         margin: {b:185},
-        yaxis: {automargin: true},
-        xaxis: {type: 'category'}
+        yaxis: {automargin: true, fixedrange: true},
+        xaxis: {type: 'category', fixedrange: true}
       };
       
       var config = {responsive: true};
@@ -411,8 +410,8 @@ function filterByPlayer(){
       
       var layout = {
         title: `2020/2021 Premier League Stats: ${PlayerName}`,
-        yaxis: {automargin: true},
-        xaxis: {type: 'category'},
+        yaxis: {automargin: true, fixedrange: true},
+        xaxis: {type: 'category', fixedrange: true},
         // barmode: 'group'
       };
 
@@ -543,8 +542,8 @@ function comparePlayers(){
       
       var layout = {
         title: `2020/2021 Premier League Stats: ${PlayerName1} vs ${PlayerName2}`,
-        yaxis: {automargin: true},
-        xaxis: {type: 'category'},
+        yaxis: {automargin: true, fixedrange: true},
+        xaxis: {type: 'category', fixedrange: true},
         barmode: 'group',
         margin: {b:100},
       };
