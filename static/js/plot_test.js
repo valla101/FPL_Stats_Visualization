@@ -60,8 +60,7 @@ d3.json(url2).then(function(data) {
     console.log(data);
 
     var PlayerName = data.map(Player => Player["player"]);
-    var statQueried = data.map(Player => Player[stat]);
-    
+    var statQueried = data.map(Player => Player[stat]);    
 
     var trace1 = {
         x: PlayerName,
@@ -74,11 +73,13 @@ d3.json(url2).then(function(data) {
       var layout = {
         title: "2020/2021 Premier League Top Performers",
         margin: {b:185},
-        yaxis: {automargin: true},
-        xaxis: {type: 'category'}
+        yaxis: {automargin: true, fixedrange: true},
+        xaxis: {type: 'category', fixedrange: true}
       };
       
-      Plotly.newPlot("statBarGraph", data, layout);
+      var config = {responsive: true};
+
+      Plotly.newPlot("statBarGraph", data, layout, config);
   });
 };
 
@@ -230,57 +231,193 @@ function filterByPlayer(){
       var totalAssists = data.map(Player => Player["assists"]);
       var xGoals = data.map(Player => Player["expected_goals"]);
       var xAssists = data.map(Player => Player["expected_assists"]);
+      var playerPosition1 = data.map(Player => Player["player_position"]);
 
-      var trace1 = {
-        x: PlayerName,
-        y: totalPoints,
-        name: "Total Points",
-        type: "bar",
-        // text: totalPoints
-      };
+      // Player 1 GK Stats
+      var cleanSheet = data.map(Player => Player["clean_sheets"]);
+      var cleanSheetPercentage = data.map(Player => Player["clean_sheet_percentage"]);
+      var goalsConceded = data.map(Player => Player["goals_against"]);
+      var goalsConcededPerMatch = data.map(Player => Player["goals_against_per_90"]);
+      var pkAttemptAgainst = data.map(Player => Player["pk_attempts_against"]);
+      var pkSaved = data.map(Player => Player["penalty_kicks_saved"]);
+      var pkScoredOn = data.map(Player => Player["penalty_kicks_scored_on"]);
+      var pkMissedAgainst = data.map(Player => Player["penalty_kicks_missed"]);
+      var gkSaves = data.map(Player => Player["saves"]);
+      var gkSavePercentage = data.map(Player => Player["save_percentage"]);
+      var gkShotsOnTargetAgainst = data.map(Player => Player["shots_on_target_against"]);
 
-      var trace2 = {
-        x: PlayerName,
-        y: totalGoals,
-        name: "Total Goals Scored",
-        type: "bar",
-        // text: totalGoals
-      };
+      if(playerPosition1 != "Goalkeeper"){
+        var trace1 = {
+          x: PlayerName,
+          y: totalPoints,
+          name: "Total Points",
+          type: "bar",
+          text: totalPoints.map(String),
+          textposition: 'auto'
+        };
+  
+        var trace2 = {
+          x: PlayerName,
+          y: totalGoals,
+          name: "Total Goals Scored",
+          type: "bar",
+          text: totalGoals.map(String),
+          textposition: 'auto'
+        };
+  
+        var trace3 = {
+          x: PlayerName,
+          y: xGoals,
+          name: "Expected Goals",
+          type: "bar",
+          text: xGoals.map(String),
+          textposition: 'auto'
+        };
+  
+        var trace4 = {
+          x: PlayerName,
+          y: totalAssists,
+          name: "Total Assists",
+          type: "bar",
+          text: totalAssists.map(String),
+          textposition: 'auto'
+        };
+  
+        var trace5 = {
+          x: PlayerName,
+          y: xAssists,
+          name: "Expected Assists",
+          type: "bar",
+          text: xAssists.map(String),
+          textposition: 'auto'
+        };
+  
+        var data = [trace1, trace2, trace3, trace4, trace5];
+      }
 
-      var trace3 = {
-        x: PlayerName,
-        y: xGoals,
-        name: "Expected Goals",
-        type: "bar",
-        // text: xGoals
-      };
+      else{
+        var trace1 = {
+          x: PlayerName,
+          y: totalPoints,
+          name: "Total Points",
+          type: "bar",
+          text: totalPoints.map(String),
+          textposition: 'auto'
+        };
 
-      var trace4 = {
-        x: PlayerName,
-        y: totalAssists,
-        name: "Total Assists",
-        type: "bar",
-        // text: totalAssists
-      };
+        var trace2 = {
+          x: PlayerName,
+          y: gkSaves,
+          name: "Total Saves",
+          type: "bar",
+          text: gkSaves.map(String),
+          textposition: 'auto'
+        };
 
-      var trace5 = {
-        x: PlayerName,
-        y: xAssists,
-        name: "Expected Assists",
-        type: "bar",
-        // text: xAssists
-      };
+        var trace3 = {
+          x: PlayerName,
+          y: gkSavePercentage,
+          name: "Save Percentage",
+          type: "bar",
+          text: gkSavePercentage.map(String),
+          textposition: 'auto'
+        };
 
-      var data = [trace1, trace2, trace3, trace4, trace5];
+        var trace4 = {
+          x: PlayerName,
+          y: gkShotsOnTargetAgainst,
+          name: "Shots on Target Against",
+          type: "bar",
+          text: gkShotsOnTargetAgainst.map(String),
+          textposition: 'auto'
+        };
+
+        var trace5 = {
+          x: PlayerName,
+          y: cleanSheet,
+          name: "Clean Sheets",
+          type: "bar",
+          text: cleanSheet.map(String),
+          textposition: 'auto'
+        };
+
+        var trace6 = {
+          x: PlayerName,
+          y: cleanSheetPercentage,
+          name: "Clean Sheet Percentage",
+          type: "bar",
+          text: cleanSheetPercentage.map(String),
+          textposition: 'auto'
+        };
+
+        var trace7 = {
+          x: PlayerName,
+          y: goalsConceded,
+          name: "Goals Conceded",
+          type: "bar",
+          text: goalsConceded.map(String),
+          textposition: 'auto'
+        };
+
+        var trace8 = {
+          x: PlayerName,
+          y: goalsConcededPerMatch,
+          name: "Goals Conceded Per 90",
+          type: "bar",
+          text: goalsConcededPerMatch.map(String),
+          textposition: 'auto'
+        };
+
+        var trace9 = {
+          x: PlayerName,
+          y: pkAttemptAgainst,
+          name: "Attempted Penalty Kicks Against",
+          type: "bar",
+          text: pkAttemptAgainst.map(String),
+          textposition: 'auto'
+        };
+
+        var trace10 = {
+          x: PlayerName,
+          y: pkSaved,
+          name: "Saved Penalty Kicks",
+          type: "bar",
+          text: pkSaved.map(String),
+          textposition: 'auto'
+        };
+
+        var trace11 = {
+          x: PlayerName,
+          y: pkScoredOn,
+          name: "Penalty Kicks Scored Against",
+          type: "bar",
+          text: pkScoredOn.map(String),
+          textposition: 'auto'
+        };
+
+        var trace12 = {
+          x: PlayerName,
+          y: pkMissedAgainst,
+          name: "Penalty Kicks Missed Against",
+          type: "bar",
+          text: pkMissedAgainst.map(String),
+          textposition: 'auto'
+        };
+
+        var data = [trace1, trace2, trace3, trace4, trace5, trace6, trace7, trace8, trace9, trace10, trace11, trace12];
+      }
+
       
       var layout = {
         title: `2020/2021 Premier League Stats: ${PlayerName}`,
-        yaxis: {automargin: true},
-        xaxis: {type: 'category'},
+        yaxis: {automargin: true, fixedrange: true},
+        xaxis: {type: 'category', fixedrange: true},
         // barmode: 'group'
       };
+
+      var config = {responsive: true};
       
-      Plotly.newPlot("playerBoxPlot", data, layout);
+      Plotly.newPlot("playerBoxPlot", data, layout, config);
   
   });
 });
@@ -356,113 +493,68 @@ function comparePlayers(){
       var gkShotsOnTargetAgainst2 = data[1].map(Player => Player["shots_on_target_against"]);
 
       if(playerPosition1 != "Goalkeeper"){
+        var yStats = [parseInt(totalPoints1), parseInt(totalGoals1), parseInt(totalAssists1), parseFloat(totalG_plus_A_per90_1), parseFloat(xGoals1), parseFloat(xAssists1) ]
         var trace1 = {
           x: ["Points", "Goals", "Assists", "Goals + Assists per 90", "xGoals", "xAssists"],
-          y: [parseInt(totalPoints1), parseInt(totalGoals1), parseInt(totalAssists1), parseFloat(totalG_plus_A_per90_1), parseFloat(xGoals1), parseFloat(xAssists1) ],
+          y: yStats,
           name: `${PlayerName1}`,
           type: "bar",
+          text: yStats.map(String),
+          textposition: 'auto'
         };
       }
       else{
+        var yStats= [parseInt(totalPoints1), parseInt(gkSaves1), parseInt(gkSavePercentage1), parseInt(gkShotsOnTargetAgainst1), parseInt(cleanSheet1), parseFloat(cleanSheetPercentage1), parseInt(goalsConceded1), parseFloat(goalsConcededPerMatch1), parseInt(pkAttemptAgainst1), parseInt(pkSaved1), parseInt(pkScoredOn1), parseInt(pkMissedAgainst1)]
         var trace1 = {
           x: ["Points", "Saves", "Save Percentage", "Shots On Target Against","Clean Sheets", "Clean Sheet Percentage", "Goals Conceded", "Goals Per Match", "PKs Attempted Against", "PKs Saved", "PKs Scored Against", "PKs Missed Against"],
-          y: [parseInt(totalPoints1), parseInt(gkSaves1), parseInt(gkSavePercentage1), parseInt(gkShotsOnTargetAgainst1), parseInt(cleanSheet1), parseFloat(cleanSheetPercentage1), parseInt(goalsConceded1), parseFloat(goalsConcededPerMatch1), parseInt(pkAttemptAgainst1), parseInt(pkSaved1), parseInt(pkScoredOn1), parseInt(pkMissedAgainst1)],
+          y: yStats,
           name: `${PlayerName1}`,
           type: "bar",
+          text: yStats.map(String),
+          textposition: 'auto'
         };
       }
 
       if(playerPosition2 != "Goalkeeper"){
+        var yStats = [parseInt(totalPoints2), parseInt(totalGoals2), parseInt(totalAssists2), parseFloat(totalG_plus_A_per90_2), parseFloat(xGoals2), parseFloat(xAssists2)]
         var trace2 = {
           x: ["Points", "Goals", "Assists", "Goals + Assists per 90", "xGoals", "xAssists"],
-          y: [parseInt(totalPoints2), parseInt(totalGoals2), parseInt(totalAssists2), parseFloat(totalG_plus_A_per90_2), parseFloat(xGoals2), parseFloat(xAssists2) ],
+          y: yStats,
           name: `${PlayerName2}`,
           type: "bar",
+          text: yStats.map(String),
+          textposition: 'auto'
         };  
       }
       else{
+        var yStats = [parseInt(totalPoints2), parseInt(gkSaves2), parseInt(gkSavePercentage2), parseInt(gkShotsOnTargetAgainst2), parseInt(cleanSheet2), parseFloat(cleanSheetPercentage2), parseInt(goalsConceded2), parseFloat(goalsConcededPerMatch2), parseInt(pkAttemptAgainst2), parseInt(pkSaved2), parseInt(pkScoredOn2), parseInt(pkMissedAgainst2)]
         var trace2 = {
           x: ["Points", "Saves", "Save Percentage", "Shots On Target Against","Clean Sheets", "Clean Sheet Percentage", "Goals Conceded", "Goals Per Match", "PKs Attempted Against", "PKs Saved", "PKs Scored Against", "PKs Missed Against"],
-          y: [parseInt(totalPoints2), parseInt(gkSaves2), parseInt(gkSavePercentage2), parseInt(gkShotsOnTargetAgainst2), parseInt(cleanSheet2), parseFloat(cleanSheetPercentage2), parseInt(goalsConceded2), parseFloat(goalsConcededPerMatch2), parseInt(pkAttemptAgainst2), parseInt(pkSaved2), parseInt(pkScoredOn2), parseInt(pkMissedAgainst2)],
+          y: yStats,
           name: `${PlayerName2}`,
           type: "bar",
+          text: yStats.map(String),
+          textposition: 'auto'
         };
       }
-
-      // var trace1 = {
-      //   x: ["Points", "Goals", "Assists", "Goals + Assists per 90", "xGoals", "xAssists"],
-      //   y: [parseInt(totalPoints1), parseInt(totalGoals1), parseInt(totalAssists1), parseFloat(totalG_plus_A_per90_1), parseFloat(xGoals1), parseFloat(xAssists1) ],
-      //   name: `${PlayerName1}`,
-      //   type: "bar",
-      // };
-
-      // var trace2 = {
-      //   x: ["Points", "Goals", "Assists", "Goals + Assists per 90", "xGoals", "xAssists"],
-      //   y: [parseInt(totalPoints2), parseInt(totalGoals2), parseInt(totalAssists2), parseFloat(totalG_plus_A_per90_2), parseFloat(xGoals2), parseFloat(xAssists2) ],
-      //   name: `${PlayerName2}`,
-      //   type: "bar",
-      // };
 
       var data = [trace1, trace2];
       
       var layout = {
         title: `2020/2021 Premier League Stats: ${PlayerName1} vs ${PlayerName2}`,
-        yaxis: {automargin: true},
-        xaxis: {type: 'category'},
+        yaxis: {automargin: true, fixedrange: true},
+        xaxis: {type: 'category', fixedrange: true},
         barmode: 'group',
         margin: {b:100},
       };
       
-      Plotly.newPlot("comparePlayerGraph", data, layout);
-
+      var config = {responsive: true};
       
-  
+      Plotly.newPlot("comparePlayerGraph", data, layout, config);
+
   });
 });
 };
 
 var playerComparedFinalButton = document.getElementById("comparePlayersButton");
 playerComparedFinalButton.addEventListener("change", comparePlayers());
-
-// playerCompared2.addEventListener("change", comparePlayers())
-
-// FROM HERE TO END IS TESTING SECTION. DO NOT ERASE ANYTHING ABOVE
-
-//                        !!! DO NOT ERASE !!!
-
-//              THIS WORKS
-// var button = document.getElementById("priceFilterButton");
-
-// button.addEventListener("click", function(data) {
-
-//   (console.log("it worked"));
-
-// });
-
-
-
-//            TESTING CHART JS CODE RADAR CHART
-
-
-// var trace1 = {
-//   labels: ["Goals", "Assists", "xGoals", "xAssists"],
-//   datasets: [{
-//     label: `${PlayerName1}`,
-//     data: [parseInt(totalGoals1), parseInt(totalAssists1), parseFloat(xGoals1), parseFloat(xAssists1)]
-//   }, {
-//     label: `${PlayerName2}`,
-//     data: [parseInt(totalGoals2), parseInt(totalAssists2), parseFloat(xGoals2), parseFloat(xAssists2)]
-//   }]
-// };
-
-// var data = trace1;
-
-// var ctx = document.getElementById('comparePlayerGraph');
-
-//       var myRadarChart = new Chart(ctx, {
-//         type: 'radar',
-//         data: data,
-//         // options: options
-//     });
-
-
