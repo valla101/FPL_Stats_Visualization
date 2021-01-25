@@ -6,10 +6,8 @@ from sqlalchemy.orm import Session
 from sqlalchemy.sql import text  #ES import text to use SQL text directly
 from sqlalchemy import create_engine, func, inspect
 
-from config import username_heroku, password_heroku, database_heroku, host_heroku
-
 # Connecting to the Postgres Database
-engine = create_engine(f'postgres://{username_heroku}:{password_heroku}@{host_heroku}:5432/{database_heroku}')
+engine = create_engine(f'postgres://wbqnbbqkykqdaj:63bf019edf08344171db6162cbfdd7dc8bb288a6068fdb6f029eeb18eb53271c@ec2-3-215-76-208.compute-1.amazonaws.com:5432/ddad815989gh9j')
 
 # reflect an existing database into a new model
 Base = automap_base()
