@@ -11,6 +11,9 @@
     <!-- Plotly -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
     <title>Premier League Statistics</title>
 </head>
 
@@ -29,19 +32,7 @@
     
     
     
-        <!-- FIRST GRAPH - Select Stat for All Players -->
 
-
-    <div class = "container" id = "statsFilterContainer">
-        <h2 class = "header_for_graph">Select Stat Below</h2>
-        <h4 class = "header_for_graph">Bar Graph generated in descending order</h4>
-        <select id = "statsList">
-            {% for a,b in zipped_columns %}
-                <option value='{{ a["name"]}}'>{{ b }}</option>
-            {% endfor %}
-        </select>
-        <div id = "statBarGraph"></div>
-    </div>
 
     <!-- <canvas id="statBarGraph" width="400" height="400"></canvas> -->
     
@@ -79,8 +70,8 @@
 
     <!-- Player Offensive Stats Chart -->
     <div class = "container" id = "playerFilterContainer">
-        <h2 class = "header_for_graph">Generate Table Filtered by Player Name!</h2>
-        <h4 class = "header_for_graph">Stats include: Total FPL Points, Goals, Expected Goals, Assists, Expected Assists</h4>
+        <h2 class = "header_for_graph">Generate Stats for Player!</h2>
+        <h4 class = "header_for_graph">Stats include: Total FPL Points, Goals, Expected Goals, Assists, Expected Assists and more</h4>
         <!-- Code for Filtering through all players in database -->
         <select id="playerName">
             {% for player in query_player %}
@@ -125,7 +116,22 @@
         <!-- <canvas id="comparePlayerGraph" width="1000" height="750"></canvas> -->
 
     </div>
-    
+    <!-- End of Container -->
+
+
+    <!-- Select Stat for All Players -->
+
+    <div class = "container" id = "statsFilterContainer">
+        <h2 class = "header_for_graph">Select Stat Below</h2>
+        <h4 class = "header_for_graph">Bar Graph generated in descending order</h4>
+        <select id = "statsList">
+            {% for a,b in zipped_columns %}
+                <option value='{{ a["name"]}}'>{{ b }}</option>
+            {% endfor %}
+        </select>
+        <div id = "statBarGraph"></div>
+    </div>
+
     <!-- JS Capabilities -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
@@ -144,6 +150,10 @@
 
     <!-- Chart JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+
+    <!-- Select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <!-- JS Plots File -->
     <script src="../static/js/plot_test.js"></script>
