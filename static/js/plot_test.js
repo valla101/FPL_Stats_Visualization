@@ -558,3 +558,14 @@ function comparePlayers(){
 
 var playerComparedFinalButton = document.getElementById("comparePlayersButton");
 playerComparedFinalButton.addEventListener("change", comparePlayers());
+
+// Select 2 Function to add search filter to select button
+
+$(document).ready(function() {
+  // ID for Player Stats
+  $('#playerName').select2();
+
+  // ID for Player Comparison Stats
+  $('#comparePlayer1').select2();
+  $('#comparePlayer2').select2();
+});
