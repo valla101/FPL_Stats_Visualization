@@ -120,13 +120,20 @@ function filterByPrice(){
         {title: "FPL Value", field: "current_price"},
         {title: "FPL Points", field: "total_points"},
         {title: "FPL Points/FPL Value", field: "value_season"},
-        {title: "Goals", field: "goals"},
-        {title: "Assists", field: "assists"},
         {title: "Selected By (%)", field: "selected_by_percent"},
         {title: "Transferred In (This Week)", field: "transfers_in"},
         {title: "Minutes Played", field: "minutes"},
         {title: "Games Played", field: "games_played"},
         {title: "Games Started", field: "starts"},
+        {title: "Goals", field: "goals"},
+        {title: "Assists", field: "assists"},
+        {title: "Shots Attempted", field: "total_shots"},
+        {title: "Shots on Target", field: "shots_on_target"},
+        {title: "Shots on Target Percentage", field: "shots_on_target_percentage"},
+        {title: "Total Shots per 90", field: "total_shots_per_90"},
+        {title: "Shots on Target per 90", field: "shots_on_target_per_90"},
+        {title: "Average Shot Distance (Yards)", field: "average_shot_distance"},
+        {title: "Free Kicks Attempted", field: "free_kick_shots"},
         {title: "PKs Scored", field: "penalty_kicks_scored"},
         {title: "PKs Attempted", field: "penalty_kicks_attempted"},
         {title: "Expected Goals", field: "expected_goals"},
@@ -180,13 +187,20 @@ positionFilterButton.addEventListener("click", function(){
         {title: "FPL Value", field: "current_price"},
         {title: "FPL Points", field: "total_points"},
         {title: "FPL Points/FPL Value", field: "value_season"},
-        {title: "Goals", field: "goals"},
-        {title: "Assists", field: "assists"},
         {title: "Selected By (%)", field: "selected_by_percent"},
         {title: "Transferred In (This Week)", field: "transfers_in"},
         {title: "Minutes Played", field: "minutes"},
         {title: "Games Played", field: "games_played"},
         {title: "Games Started", field: "starts"},
+        {title: "Goals", field: "goals"},
+        {title: "Assists", field: "assists"},
+        {title: "Shots Attempted", field: "total_shots"},
+        {title: "Shots on Target", field: "shots_on_target"},
+        {title: "Shots on Target Percentage", field: "shots_on_target_percentage"},
+        {title: "Total Shots per 90", field: "total_shots_per_90"},
+        {title: "Shots on Target per 90", field: "shots_on_target_per_90"},
+        {title: "Average Shot Distance (Yards)", field: "average_shot_distance"},
+        {title: "Free Kicks Attempted", field: "free_kick_shots"},
         {title: "PKs Scored", field: "penalty_kicks_scored"},
         {title: "PKs Attempted", field: "penalty_kicks_attempted"},
         {title: "Expected Goals", field: "expected_goals"},
@@ -233,6 +247,16 @@ function filterByPlayer(){
       var xAssists = data.map(Player => Player["expected_assists"]);
       var playerPosition1 = data.map(Player => Player["player_position"]);
 
+      // Player 1 Shooting Stats
+      var shotsAttempted = data.map(Player => Player["total_shots"]);
+      var shotsOnTarget = data.map(Player => Player["shots_on_target"]);
+      var shotsOnTargetPercentage = data.map(Player => Player["shots_on_target_percentage"]);
+      var shotsPer90 = data.map(Player => Player["total_shots_per_90"]);
+      var shotsonTargetPer90 = data.map(Player => Player["shots_on_target_per_90"]);
+      var averageShotDistance = data.map(Player => Player["average_shot_distance"]);
+      var FKAttempted = data.map(Player => Player["free_kick_shots"]);
+      
+
       // Player 1 GK Stats
       var cleanSheet = data.map(Player => Player["clean_sheets"]);
       var cleanSheetPercentage = data.map(Player => Player["clean_sheet_percentage"]);
@@ -264,7 +288,7 @@ function filterByPlayer(){
           text: totalGoals.map(String),
           textposition: 'auto'
         };
-  
+
         var trace3 = {
           x: PlayerName,
           y: xGoals,
@@ -291,8 +315,71 @@ function filterByPlayer(){
           text: xAssists.map(String),
           textposition: 'auto'
         };
+        // 
+        var trace6 = {
+          x: PlayerName,
+          y: shotsAttempted,
+          name: "Shots Attempted",
+          type: "bar",
+          text: shotsAttempted.map(String),
+          textposition: 'auto'
+        };
+
+        var trace7 = {
+          x: PlayerName,
+          y: shotsOnTarget,
+          name: "Shots on Target",
+          type: "bar",
+          text: shotsOnTarget.map(String),
+          textposition: 'auto'
+        };
+
+        var trace8 = {
+          x: PlayerName,
+          y: shotsOnTargetPercentage,
+          name: "Shots on Target %",
+          type: "bar",
+          text: shotsOnTargetPercentage.map(String),
+          textposition: 'auto'
+        };
+
+        var trace9 = {
+          x: PlayerName,
+          y: shotsPer90,
+          name: "Shots per 90",
+          type: "bar",
+          text: shotsPer90.map(String),
+          textposition: 'auto'
+        };
+
+        var trace10 = {
+          x: PlayerName,
+          y: shotsonTargetPer90,
+          name: "Shots on Target per 90",
+          type: "bar",
+          text: shotsonTargetPer90.map(String),
+          textposition: 'auto'
+        };
+
+        var trace11 = {
+          x: PlayerName,
+          y: averageShotDistance,
+          name: "Average Shot Distance (Yards)",
+          type: "bar",
+          text: averageShotDistance.map(String),
+          textposition: 'auto'
+        };
+
+        var trace12 = {
+          x: PlayerName,
+          y: FKAttempted,
+          name: "Free Kicks Attempted",
+          type: "bar",
+          text: FKAttempted.map(String),
+          textposition: 'auto'
+        };
   
-        var data = [trace1, trace2, trace3, trace4, trace5];
+        var data = [trace1, trace2, trace3, trace4, trace5, trace6, trace7, trace8, trace9, trace10, trace11, trace12];
       }
 
       else{
@@ -455,6 +542,14 @@ function comparePlayers(){
       var xGoals1 = data[0].map(Player => Player["expected_goals"]);
       var xAssists1 = data[0].map(Player => Player["expected_assists"]);
       var playerPosition1 = data[0].map(Player => Player["player_position"]);
+      // Player 1 Shooting Stats
+      var shotsAttempted1 = data[0].map(Player => Player["total_shots"]);
+      var shotsOnTarget1 = data[0].map(Player => Player["shots_on_target"]);
+      var shotsOnTargetPercentage1 = data[0].map(Player => Player["shots_on_target_percentage"]);
+      var shotsPer901 = data[0].map(Player => Player["total_shots_per_90"]);
+      var shotsonTargetPer901 = data[0].map(Player => Player["shots_on_target_per_90"]);
+      var averageShotDistance1 = data[0].map(Player => Player["average_shot_distance"]);
+      var FKAttempted1 = data[0].map(Player => Player["free_kick_shots"]);
       // Player 1 GK Stats
       var cleanSheet1 = data[0].map(Player => Player["clean_sheets"]);
       var cleanSheetPercentage1 = data[0].map(Player => Player["clean_sheet_percentage"]);
@@ -479,6 +574,14 @@ function comparePlayers(){
       var xGoals2 = data[1].map(Player => Player["expected_goals"]);
       var xAssists2 = data[1].map(Player => Player["expected_assists"]);
       var playerPosition2 = data[1].map(Player => Player["player_position"]);
+      // Player 2 Shooting Stats
+      var shotsAttempted2 = data[1].map(Player => Player["total_shots"]);
+      var shotsOnTarget2 = data[1].map(Player => Player["shots_on_target"]);
+      var shotsOnTargetPercentage2 = data[1].map(Player => Player["shots_on_target_percentage"]);
+      var shotsPer902 = data[1].map(Player => Player["total_shots_per_90"]);
+      var shotsonTargetPer902 = data[1].map(Player => Player["shots_on_target_per_90"]);
+      var averageShotDistance2 = data[1].map(Player => Player["average_shot_distance"]);
+      var FKAttempted2 = data[1].map(Player => Player["free_kick_shots"]);
       // Player 2 GK Stats
       var cleanSheet2 = data[1].map(Player => Player["clean_sheets"]);
       var cleanSheetPercentage2 = data[0].map(Player => Player["clean_sheet_percentage"]);
@@ -493,9 +596,9 @@ function comparePlayers(){
       var gkShotsOnTargetAgainst2 = data[1].map(Player => Player["shots_on_target_against"]);
 
       if(playerPosition1 != "Goalkeeper"){
-        var yStats = [parseInt(totalPoints1), parseInt(totalGoals1), parseInt(totalAssists1), parseFloat(totalG_plus_A_per90_1), parseFloat(xGoals1), parseFloat(xAssists1) ]
+        var yStats = [parseInt(totalPoints1), parseInt(totalGoals1), parseInt(totalAssists1), parseFloat(totalG_plus_A_per90_1), parseFloat(xGoals1), parseFloat(xAssists1), parseInt(shotsAttempted1), parseInt(shotsOnTarget1), parseFloat(shotsOnTargetPercentage1), parseFloat(shotsPer901), parseFloat(shotsonTargetPer901), parseFloat(averageShotDistance1), parseInt(FKAttempted1)]
         var trace1 = {
-          x: ["Points", "Goals", "Assists", "Goals + Assists per 90", "xGoals", "xAssists"],
+          x: ["Points", "Goals", "Assists", "Goals + Assists per 90", "xGoals", "xAssists", "Shots Attempted", "Shots on Target", "Shots on Target %", "Shots per 90", "Shots on Target per 90", "Average Shot Distance (Yards)", "Free Kicks Attempted"],
           y: yStats,
           name: `${PlayerName1}`,
           type: "bar",
@@ -516,9 +619,9 @@ function comparePlayers(){
       }
 
       if(playerPosition2 != "Goalkeeper"){
-        var yStats = [parseInt(totalPoints2), parseInt(totalGoals2), parseInt(totalAssists2), parseFloat(totalG_plus_A_per90_2), parseFloat(xGoals2), parseFloat(xAssists2)]
+        var yStats = [parseInt(totalPoints2), parseInt(totalGoals2), parseInt(totalAssists2), parseFloat(totalG_plus_A_per90_2), parseFloat(xGoals2), parseFloat(xAssists2), parseInt(shotsAttempted2), parseInt(shotsOnTarget2), parseFloat(shotsOnTargetPercentage2), parseFloat(shotsPer902), parseFloat(shotsonTargetPer902), parseFloat(averageShotDistance2), parseInt(FKAttempted2)]
         var trace2 = {
-          x: ["Points", "Goals", "Assists", "Goals + Assists per 90", "xGoals", "xAssists"],
+          x: ["Points", "Goals", "Assists", "Goals + Assists per 90", "xGoals", "xAssists", "Shots Attempted", "Shots on Target", "Shots on Target %", "Shots per 90", "Shots on Target per 90", "Average Shot Distance (Yards)", "Free Kicks Attempted"],
           y: yStats,
           name: `${PlayerName2}`,
           type: "bar",
