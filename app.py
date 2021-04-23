@@ -17,7 +17,7 @@ Base.prepare(engine, reflect=True)
 # Base Class
 # stats_pl_2019 = Base.classes.pl_2019
 
-combined_fpl_2020 = Base.classes.combined_fpl_table_test_gk2
+combined_fpl_2020 = Base.classes.combined_table
 
 
 # Creating Flask Application
@@ -28,7 +28,7 @@ app = Flask(__name__)
 def home_route_function():
     inspector = inspect(engine)
 
-    stats_list = inspector.get_columns('combined_fpl_table_test_gk2')[4:42]
+    stats_list = inspector.get_columns('combined_table')[4:50]
 
     clean_stats_list = [
     "Age",
@@ -42,6 +42,13 @@ def home_route_function():
     "FPL Points/FPL Value",
     "Goals Scored",
     "Assists",
+    "Total Shots",
+    "Shots on Target",
+    "Shots on Target Percentage",
+    "Total Shots Per 90",
+    "Shots On Target Per 90",
+    "Average Shot Distance",
+    "Free Kick Shots",
     "Penalty Kicks Scored",
     "Penalty Kicks Attempted",
     "Yellow Cards",
@@ -80,7 +87,7 @@ def home_route_function():
     query_player = session.query(combined_fpl_2020.player).order_by(combined_fpl_2020.player.asc()).all()
 
     connection = engine.connect()
-    query_fpl_positions = connection.execute("select distinct player_position from combined_fpl_table_test_gk2")
+    query_fpl_positions = connection.execute("select distinct player_position from combined_table")
 
     return render_template('index.html', query_player = query_player, query_fpl_positions = query_fpl_positions, zipped_columns = zipped_columns)
 # TESTING ROUTES FROM HERE TO BOTTOM
@@ -93,7 +100,7 @@ def player_route(player):
 
     session = Session(engine)
 
-    query_fpl_view = connection.execute(f"select * from combined_fpl_table_test_gk2 where combined_fpl_table_test_gk2.player='{player}'", player=player)
+    query_fpl_view = connection.execute(f"select * from combined_table where combined_table.player='{player}'", player=player)
 
     session.close()
 
@@ -104,7 +111,7 @@ def player_route(player):
 def stat_testing(stat):
     connection = engine.connect()
 
-    result = connection.execute(f"select player, {stat} from combined_fpl_table_test_gk2 order by {stat} desc")
+    result = connection.execute(f"select player, {stat} from combined_table order by {stat} desc")
     # for record in result:
     #     print(record)
     return jsonify([dict(row) for row in result])
@@ -114,7 +121,7 @@ def stat_testing(stat):
 def filter_by_price(price):
     connection = engine.connect()
 
-    query_player_price_limit = connection.execute(f"select * from combined_fpl_table_test_gk2 where current_price <='{price}' order by current_price desc, total_points desc", price = price)
+    query_player_price_limit = connection.execute(f"select * from combined_table where current_price <='{price}' order by current_price desc, total_points desc", price = price)
 
     return jsonify([dict(row) for row in query_player_price_limit])
 
@@ -125,9 +132,9 @@ def compare_players_route(player1, player2):
 
     session = Session(engine)
 
-    query_fpl_view1 = connection.execute(f"select * from combined_fpl_table_test_gk2 where combined_fpl_table_test_gk2.player='{player1}'", player=player1)
+    query_fpl_view1 = connection.execute(f"select * from combined_table where combined_table.player='{player1}'", player=player1)
 
-    query_fpl_view2 = connection.execute(f"select * from combined_fpl_table_test_gk2 where combined_fpl_table_test_gk2.player='{player2}'", player=player2)
+    query_fpl_view2 = connection.execute(f"select * from combined_table where combined_table.player='{player2}'", player=player2)
 
     session.close()
 
@@ -138,7 +145,7 @@ def compare_players_route(player1, player2):
 def filter_by_position(position):
     connection = engine.connect()
 
-    query_player_position = connection.execute(f"select * from combined_fpl_table_test_gk2 where player_position = '{position}' order by total_points desc", position = position)
+    query_player_position = connection.execute(f"select * from combined_table where player_position = '{position}' order by total_points desc", position = position)
 
     return jsonify([dict(row) for row in query_player_position])
 
