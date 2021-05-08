@@ -153,6 +153,17 @@ def filter_by_position(position):
 
     return jsonify([dict(row) for row in query_player_position])
 
+# Querying player & requested stat in order by descending. Used for interactive bar graph
+@app.route("/<stat>/<limit>")
+def top_10(stat, limit):
+    connection = engine.connect()
+
+    top_10_result = connection.execute(f"select player, {stat} from combined_table where {stat} is not null order by {stat} desc limit({limit})")
+    # for record in result:
+    #     print(record)
+    return jsonify([dict(row) for row in top_10_result])
+
+
 # Define main behavior
 if __name__ == "__main__":
     app.run(debug=True)
