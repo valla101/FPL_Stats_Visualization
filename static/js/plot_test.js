@@ -52,37 +52,43 @@ darkMode.addEventListener("click", function(){
 // FUNCTIONAL bar graph that will create a bar graph, filtering stats in descending order
 // Produces the Bar Graph based on Stat Selected
 function interactivePlot(stat){
-var statsDropdown = d3.select(statsList);
-var stat = statsDropdown.property("value");
-var url2 = `${stat}`
-d3.json(url2).then(function(data) {
-
-    console.log(data);
-
-    var PlayerName = data.map(Player => Player["player"]);
-    var statQueried = data.map(Player => Player[stat]);    
-
-    var trace1 = {
-        x: PlayerName,
-        y: statQueried,
-        type: "bar"
-      };
-      
-      var data = [trace1];
-      
-      var layout = {
-        title: "2020/2021 Premier League Top Performers",
-        margin: {b:185},
-        yaxis: {automargin: true, fixedrange: true},
-        xaxis: {type: 'category', fixedrange: true}
-      };
-      
-      var config = {responsive: true};
-
-      Plotly.newPlot("statBarGraph", data, layout, config);
-  });
+  var statsDropdown = d3.select(statsList);
+  var stat = statsDropdown.property("value");
+  var url2 = `${stat}/${10}`
+  d3.json(url2).then(function(data) {
+  
+      console.log(data);
+  
+      var PlayerName = data.map(Player => Player["player"]);
+      var statQueried = data.map(Player => Player[stat]);    
+  
+      var trace1 = {
+          x: statQueried,
+          y: PlayerName,
+          type: "bar",
+          orientation: "h",
+          ticks: `${PlayerName}: ${statQueried}`,
+          showticklabels: true
+        };
+        
+        var data = [trace1];
+        
+        var layout = {
+          title: "2020/2021 Premier League Top Performers",
+          margin: {b:50, l: 100},
+          yaxis: {automargin: true},
+          xaxis: {type: '-'},
+          type: 'sort',
+          target: 'x',
+          order: 'descending',
+        };
+        
+        var config = {responsive: true};
+  
+        Plotly.newPlot("statBarGraph", data, layout, config);
+    });
 };
-
+  
 
 stats = d3.select("#statsList")
 
