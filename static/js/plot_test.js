@@ -678,3 +678,51 @@ $(document).ready(function() {
   $('#comparePlayer1').select2();
   $('#comparePlayer2').select2();
 });
+
+
+          //------------------------- 
+          //-------------------------
+// New Function to Create Scatter Plot
+function player_scatter(){
+  var statsDropdown = d3.select(statsList2);
+  var stat = statsDropdown.property("value");
+  var url = `query_all_player_stat/${stat}`;
+  // var button = document.getElementById("priceFilterButton");
+
+  d3.json(url).then(function(data){
+    // console.table(data);
+    // console.log(data[0]["minutes"]);
+    // console.log([data][0][stat])
+    
+    var minutes = data.map(Player => Player["minutes"]);
+    var statQueried = data.map(Player => Player[stat]);
+    var playerName = data.map(Player => Player["player"]);
+    // data.forEach(element => {
+    //   var minutes = element["minutes"];
+    //   var desired_stat = element[`${stat}`];
+
+    //   // console.log(minutes, desired_stat);
+    // });
+
+    var trace1 = {
+      x: minutes,
+      y: statQueried,
+      mode: 'markers',
+      type: 'scatter',
+      text: playerName
+    };
+
+    var plot_data = [trace1];
+
+    var layout = {
+      hovermode: 'closest'
+    }
+
+    Plotly.newPlot('scatter_plot', plot_data, layout); 
+  })
+
+};
+
+scatter_plot = d3.select("#statsList2")
+
+scatter_plot.on("change", player_scatter)

@@ -132,6 +132,17 @@
         <div id = "statBarGraph"></div>
     </div>
 
+    <!-- Testing Scatter Plot for all players -->
+    <div class = "container" id = "statScatter">
+        <h2 class = "header_for_graph">Select Stat Below to Build Scatter Plot</h2>
+        <select id = "statsList2">
+            {% for a,b in zipped_columns2 %}
+                <option value='{{ a["name"]}}'>{{ b }}</option>
+            {% endfor %}
+        </select>
+        <div id = "scatter_plot"></div>
+    </div>
+
     <!-- JS Capabilities -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
