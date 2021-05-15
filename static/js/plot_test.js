@@ -682,27 +682,75 @@ $(document).ready(function() {
 
           //------------------------- 
           //-------------------------
+// // New Function to Create Scatter Plot
+// function player_scatter(){
+//   var statsDropdown = d3.select(statsList2);
+//   var stat = statsDropdown.property("value");
+//   var url = `query_all_player_stat/${stat}`;
+//   // var button = document.getElementById("priceFilterButton");
+
+//   d3.json(url).then(function(data){
+//     // console.table(data);
+//     // console.log(data[0]["minutes"]);
+//     // console.log([data][0][stat])
+    
+//     var minutes = data.map(Player => Player["minutes"]);
+//     var statQueried = data.map(Player => Player[stat]);
+//     var playerName = data.map(Player => Player["player"]);
+//     // data.forEach(element => {
+//     //   var minutes = element["minutes"];
+//     //   var desired_stat = element[`${stat}`];
+
+//     //   // console.log(minutes, desired_stat);
+//     // });
+
+//     var trace1 = {
+//       x: minutes,
+//       y: statQueried,
+//       mode: 'markers',
+//       type: 'scatter',
+//       text: playerName
+//     };
+
+//     var plot_data = [trace1];
+
+//     var layout = {
+//       hovermode: 'closest'
+//     }
+
+//     Plotly.newPlot('scatter_plot', plot_data, layout); 
+//   })
+
+// };
+
+// scatter_plot = d3.select("#statsList2")
+
+// scatter_plot.on("change", player_scatter)
+
+
+        // Testing Route
+        // Testing Route
 // New Function to Create Scatter Plot
 function player_scatter(){
+  var scatterPlotButton = document.getElementById("scatterButton");
+  scatterPlotButton.addEventListener("click", function scatter(){
+    
   var statsDropdown = d3.select(statsList2);
   var stat = statsDropdown.property("value");
-  var url = `query_all_player_stat/${stat}`;
-  // var button = document.getElementById("priceFilterButton");
+;
 
+  url = `query_all_player_stat/${stat}`;
   d3.json(url).then(function(data){
-    // console.table(data);
-    // console.log(data[0]["minutes"]);
-    // console.log([data][0][stat])
-    
+      // console.log(data);
     var minutes = data.map(Player => Player["minutes"]);
     var statQueried = data.map(Player => Player[stat]);
     var playerName = data.map(Player => Player["player"]);
-    // data.forEach(element => {
-    //   var minutes = element["minutes"];
-    //   var desired_stat = element[`${stat}`];
+      data.forEach(element => {
+        var minutes = element["minutes"];
+        var desired_stat = element[`${stat}`];
 
-    //   // console.log(minutes, desired_stat);
-    // });
+        // console.log(minutes, desired_stat);
+      });
 
     var trace1 = {
       x: minutes,
@@ -715,14 +763,68 @@ function player_scatter(){
     var plot_data = [trace1];
 
     var layout = {
+      title: `2020/2021 Premier League Players: ${stat} vs Minutes`,
       hovermode: 'closest'
     }
 
     Plotly.newPlot('scatter_plot', plot_data, layout); 
-  })
 
+  });
+  });
+  };
+
+
+
+
+function player_scatter_team(){
+
+  var scatterPlotButton2 = document.getElementById("scatterButton2");
+  scatterPlotButton2.addEventListener("click", function testing2(){
+  var teamsDropdown = d3.select(teamsList);
+  var team = teamsDropdown.property("value");
+
+  var statsDropdown = d3.select(statsList2);
+  var stat = statsDropdown.property("value");
+
+  url = `query_all_player_stat/${stat}/${team}`;
+
+  
+  d3.json(url).then(function(data){
+    console.log(data);
+    var minutes = data.map(Player => Player["minutes"]);
+    var statQueried = data.map(Player => Player[stat]);
+    var playerName = data.map(Player => Player["player"]);
+    data.forEach(element => {
+      var minutes = element["minutes"];
+      var desired_stat = element[`${stat}`];
+
+      // console.log(minutes, desired_stat);
+    });
+
+    var trace1 = {
+      x: minutes,
+      y: statQueried,
+      mode: 'markers',
+      type: 'scatter',
+      text: playerName
+    };
+
+    var plot_data = [trace1];
+
+    var layout = {
+      title: `2020/2021 Premier League - ${team} Players: ${stat} vs Minutes`,
+      hovermode: 'closest'
+    }
+
+    Plotly.newPlot('scatter_plot2', plot_data, layout); 
+  });
+});
 };
+  
+  
 
-scatter_plot = d3.select("#statsList2")
+var scatterPlotButton = document.getElementById("scatterButton");
+scatterPlotButton.addEventListener("change", player_scatter());
 
-scatter_plot.on("change", player_scatter)
+var scatterPlotButton2 = document.getElementById("scatterButton2");
+scatterPlotButton2.addEventListener("click", player_scatter_team());

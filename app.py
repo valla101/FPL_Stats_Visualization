@@ -89,12 +89,15 @@ def home_route_function():
     # Working Query Using SQLAlchemy Classes
     session = Session(engine)
 
+    # Query used to call all players in the table
     query_player = session.query(combined_fpl_2020.player).order_by(combined_fpl_2020.player.asc()).all()
 
+    # Query used to call all teams in the table
+    teams = session.query(combined_fpl_2020.team_id).order_by(combined_fpl_2020.team_id.asc()).distinct()
     connection = engine.connect()
     query_fpl_positions = connection.execute("select distinct player_position from combined_table")
 
-    return render_template('index.html', query_player = query_player, query_fpl_positions = query_fpl_positions, zipped_columns = zipped_columns, zipped_columns2= zipped_columns2)
+    return render_template('index.html', query_player = query_player, query_fpl_positions = query_fpl_positions, zipped_columns = zipped_columns, zipped_columns2= zipped_columns2, teams = teams)
 # TESTING ROUTES FROM HERE TO BOTTOM
 
 # Testing Route
@@ -167,7 +170,7 @@ def player_stat(player, stat):
     #     print(record)
     return jsonify([dict(row) for row in stat_query_result])
 
-# Creating a route to extract all players' stat
+# Creating a route to extract all players' stat. Used for Scatter Plot
 @app.route("/query_all_player_stat/<stat>")
 def all_stat(stat):
     connection = engine.connect()
@@ -178,17 +181,11 @@ def all_stat(stat):
     return jsonify([dict(row) for row in all_players_stat])
 
 # # Testing Route
-# @app.route("/query_all_player_stat/<stat>/<order>")
-# def test_bar_graph(stat, order):
-#     connection = engine.connect()
-
-#     if order == "desc":
-#         all_players_stat = connection.execute(f"select player, {stat}, minutes from combined_table where {stat} is not null order by {stat} {order}")
-#     if order == "asc":
-#         all_players_stat = connection.execute(f"select player, {stat}, minutes from combined_table where {stat} is not null order by {stat} {order}")
-#     # for record in result:
-#     #     print(record)
-#     return jsonify([dict(row) for row in all_players_stat])
+@app.route("/query_all_player_stat/<stat>/<team>")
+def test_bar_graph(stat, team):
+    connection = engine.connect()
+    all_players_stat2 = connection.execute(f"select player, team_id, {stat}, minutes from combined_table where {stat} is not null and team_id = '{team}'", team=team)
+    return jsonify([dict(row) for row in all_players_stat2])
 
 # Define main behavior
 if __name__ == "__main__":
