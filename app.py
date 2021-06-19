@@ -19,7 +19,6 @@ Base = automap_base()
 Base.prepare(engine, reflect=True)
 
 # Base Class
-# stats_pl_2019 = Base.classes.pl_2019
 
 combined_fpl_2020 = Base.classes.combined_table
 
@@ -98,9 +97,7 @@ def home_route_function():
     query_fpl_positions = connection.execute("select distinct player_position from combined_table")
 
     return render_template('index.html', query_player = query_player, query_fpl_positions = query_fpl_positions, zipped_columns = zipped_columns, zipped_columns2= zipped_columns2, teams = teams)
-# TESTING ROUTES FROM HERE TO BOTTOM
 
-# Testing Route
 
 @app.route("/query_all_players/<player>")
 def player_route(player):
@@ -153,12 +150,9 @@ def top_10(stat, limit):
     connection = engine.connect()
 
     top_10_result = connection.execute(f"select player, {stat} from combined_table where {stat} is not null order by {stat} desc limit({limit})")
-    # for record in result:
-    #     print(record)
+
     return jsonify([dict(row) for row in top_10_result])
 
-                    # --------------
-                    # Testing Routes
 
 # Creating a route to extract an individual player's stat
 @app.route("/query_player_stat/<player>/<stat>/")
@@ -166,8 +160,7 @@ def player_stat(player, stat):
     connection = engine.connect()
 
     stat_query_result = connection.execute(f"select player, {stat} from combined_table where combined_table.player = '{player}'", player=player)
-    # for record in result:
-    #     print(record)
+
     return jsonify([dict(row) for row in stat_query_result])
 
 # Creating a route to extract all players' stat. Used for Scatter Plot
@@ -176,11 +169,10 @@ def all_stat(stat):
     connection = engine.connect()
 
     all_players_stat = connection.execute(f"select player, {stat}, minutes from combined_table where {stat} is not null")
-    # for record in result:
-    #     print(record)
+
     return jsonify([dict(row) for row in all_players_stat])
 
-# # Testing Route
+# Creating a route to query team's players based on a queried stat. Used for Scatter Plot
 @app.route("/query_all_player_stat/<stat>/<team>")
 def test_bar_graph(stat, team):
     connection = engine.connect()
