@@ -737,20 +737,21 @@ function player_scatter(){
     
   var statsDropdown = d3.select(statsList2);
   var stat = statsDropdown.property("value");
+  
+  
 ;
 
   url = `query_all_player_stat/${stat}`;
   d3.json(url).then(function(data){
-      // console.log(data);
+
     var minutes = data.map(Player => Player["minutes"]);
     var statQueried = data.map(Player => Player[stat]);
     var playerName = data.map(Player => Player["player"]);
-      data.forEach(element => {
-        var minutes = element["minutes"];
-        var desired_stat = element[`${stat}`];
 
-        // console.log(minutes, desired_stat);
-      });
+    var cleanStat = document.getElementById("statsList2");
+    // This variable is to obtain the text from dropdown menu statsList2
+    var cleanStatText = cleanStat.options[cleanStat.selectedIndex].text;
+
 
     var trace1 = {
       x: minutes,
@@ -763,7 +764,7 @@ function player_scatter(){
     var plot_data = [trace1];
 
     var layout = {
-      title: `2020/2021 Premier League Players: ${stat} vs Minutes`,
+      title: `2020/2021 Premier League Players: ${cleanStatText} vs Minutes`,
       hovermode: 'closest'
     }
 
@@ -794,13 +795,11 @@ function player_scatter_team(){
     var minutes = data.map(Player => Player["minutes"]);
     var statQueried = data.map(Player => Player[stat]);
     var playerName = data.map(Player => Player["player"]);
-    data.forEach(element => {
-      var minutes = element["minutes"];
-      var desired_stat = element[`${stat}`];
 
-      // console.log(minutes, desired_stat);
-    });
-
+    var cleanStat = document.getElementById("statsList2");
+    // This variable is to obtain the text from dropdown menu statsList2
+    var cleanStatText = cleanStat.options[cleanStat.selectedIndex].text;
+ 
     var trace1 = {
       x: minutes,
       y: statQueried,
@@ -812,7 +811,7 @@ function player_scatter_team(){
     var plot_data = [trace1];
 
     var layout = {
-      title: `2020/2021 Premier League - ${team} Players: ${stat} vs Minutes`,
+      title: `2020/2021 Premier League Season - ${team} Players: ${cleanStatText} vs Minutes`,
       hovermode: 'closest'
     }
 
