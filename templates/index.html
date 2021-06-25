@@ -19,19 +19,30 @@
 
 <body id = "body">
     <header id = "header">
-        <!-- <a class = header_pic><img src= 'https://a.espncdn.com/photo/2020/0319/r681030_1296x729_16-9.jpg' width = 100% height = '600'> </a> -->
-        <!-- <a class = header_pic><img src= 'https://img.bleacherreport.net/img/images/photos/003/851/316/hi-res-308feac2023b89ce1c8e7d61afad5f04_crop_north.jpg?1581016817&w=3072&h=2048' width = 100% height = '750px' style = "margin-left: auto; margin-right: auto; display: block;"></a> -->
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" data-interval="4000">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img class="d-block w-100" src="https://cms.qz.com/wp-content/uploads/2015/02/premierleague-rights-bonanza1.jpg?quality=75&strip=all&w=1600&h=901" alt="Second slide">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block w-100" src=" https://imgresizer.eurosport.com/unsafe/1200x0/filters:format(jpeg):focal(1377x376:1379x374)/origin-imgresizer.eurosport.com/2020/11/29/2946237-60480708-2560-1440.jpg" alt="Third slide">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block w-100" src=" https://cloudfront-us-east-1.images.arcpublishing.com/pmn/NZE7FQXEA5EV7HXV66L6KVTR4I.jpg" alt="Fourth slide">
+              </div>
+            </div>
+        </div>
         <a><img id = header_pic src= 'https://www.fifplay.com/img/public/premier-league-3-logo.png'></a>
         <button class="btn btn-primary" id = "dark_mode"> Dark Mode </button>
-        <!-- <button class="btn btn-primary" id = "reset"> Reset </button> -->
     </header>
-    
+   
 
                         <!--  NEW TABLE (Containing Stats)-->    
      
     <!-- Price Filter Input -->
-    <div class = "container" id = "table_container_full">
-        <div class = "container" id = "priceFilterContainer">
+    <h1 class = "containerHeadertext">Explore Stats - Generate Table</h1>
+    <div class = "container">
+        <div id = "priceFilterContainer">
             <h2 class = "header_for_graph">Generate Table Filtered by Player Value!</h2>
             <input id = "priceFilter" placeholder="For Example: 4.5 ">
             <br>
@@ -39,7 +50,7 @@
         </div>
 
         <!-- Player Position Input -->
-        <div class = "container" id = "positionFilterContainer">
+        <div id = "positionFilterContainer">
             <h2 class = "header_for_graph">Or Generate Table Filtered by Player Position</h2>
             <select id = "queryPosition">
                 {% for position in query_fpl_positions %}
@@ -51,7 +62,7 @@
         </div>
 
         <!-- Tabulator Table -->
-        <div class = "container">
+        <div>
             <div id="playerDataTable"></div>
         </div>
     </div>
@@ -59,8 +70,8 @@
                                 <!--  NEW CHART-->
 
     <!-- Player Offensive Stats Chart -->
-    <div class = "container" id = "playerFilterContainer">
-        <h2 class = "header_for_graph">Generate Stats for Player!</h2>
+    <h1 class = "containerHeadertext">Explore Offensive Stats for Individual Player</h1>
+    <div class = "container">
         <h4 class = "header_for_graph">Stats include: Total FPL Points, Goals, Expected Goals, Assists, Expected Assists and more</h4>
         <!-- Code for Filtering through all players in database -->
         <select id="playerName">
@@ -76,9 +87,9 @@
                                 <!--  NEW CHART-->
 
     <!-- Player Comparison Test Chart -->
-    <div class = "container" id = "playerComparisonContainer">
+    <h1 class = "containerHeadertext">Compare Offensive Stats of Two Players</h1>
+    <div class = "container">
         <div id="compare_player_div">
-            <h2 class="header_for_graph">Generate bar graph to compare statistics of two players</h2>
             <h4 class = "header_for_graph">Stats include: Total FPL Points, Goals, Expected Goals, Assists, Expected Assists</h4>
             <!-- Code for Filtering through all players in database -->
             <h3 class = "header_for_graph">Select a player!</h3>
@@ -109,7 +120,8 @@
 
     <!-- Select Stat for All Players -->
 
-    <div class = "container" id = "statsFilterContainer">
+    <h1 class = "containerHeadertext">Top Performers Filtered by Category</h1>
+    <div class = "container">
         <h2 class = "header_for_graph">Select Stat Below</h2>
         <h4 class = "header_for_graph">Bar Graph generated in descending order</h4>
         <select id = "statsList">
@@ -121,7 +133,8 @@
     </div>
 
     <!-- Testing Scatter Plot for all players -->
-    <div class = "container" id = "statScatter">
+    <h1 class = "containerHeadertext">Generate Scatter Plot of All Players</h1>
+    <div class = "container">
         <h2 class = "header_for_graph">Select Stat Below to Build Scatter Plot</h2>
         <select id = "statsList2">
             {% for a,b in zipped_columns2 %}
