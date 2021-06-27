@@ -46,13 +46,20 @@ text-align:center;}
 
 /* Player Filter */
 
-#playerBoxPlot{margin-top: 20px;}
+#playerBarChart{background-color: white;
+    /* Display None to Hide Canvas Tag */
+    display: none;
+    margin-top: 20px;}
 
 /* Compare Player Graph */
 
 #compare_player_div{text-align: center;}
 
-#comparePlayerGraph{margin-top: 20px;}
+#comparePlayerGraph{background-color: white;
+margin-top: 20px;
+/* Display None to Hide Canvas Tag */
+display: none;
+}
 
 .btn.btn-primary.filterbutton{margin-top: 10px;}
 
@@ -60,8 +67,7 @@ text-align:center;}
 /* Samsung Mobile Styling */
 
 @media only screen and (max-width: 990px) {
-    #statBarGraph{width: 100%;}
-    
+    #comparePlayerGraph{height: 550px !important;}
 }
 
 /* ALL CONTAINERS */
