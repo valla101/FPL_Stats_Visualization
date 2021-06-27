@@ -81,7 +81,10 @@
         </select>
         <br>
         <button class= "btn btn-primary filterbutton" id = "getPlayerStatsButton"> Get Player Stats! </button>
-        <div id = "playerBoxPlot"></div>
+        <br>
+        <!-- ChartJS Plot Generated Here -->
+        <canvas id="playerBarChart" width="400" height="275"></canvas>
+        
     </div>
 
                                 <!--  NEW CHART-->
@@ -108,10 +111,11 @@
             </select>
             <br>
             <button class= "btn btn-primary filterbutton" id = "comparePlayersButton"> Compare Players! </button>
+            <br>
+            <!-- ChartJS Plot Generated Here -->
+            <canvas id="comparePlayerGraph" width="400" height="275"></canvas>
         </div>
-        
-        <!-- Plot is generated in this div -->
-        <div id = "comparePlayerGraph"></div>
+
 
 
     </div>
