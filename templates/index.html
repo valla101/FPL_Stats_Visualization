@@ -133,7 +133,7 @@
                 <option value='{{ a["name"]}}'>{{ b }}</option>
             {% endfor %}
         </select>
-        <div id = "statBarGraph"></div>
+        <canvas id = "statBarGraph" width="450" height="375"></canvas>
     </div>
 
     <!-- Testing Scatter Plot for all players -->
@@ -146,15 +146,18 @@
             {% endfor %}
         </select>
         <button class= "btn btn-primary filterbutton" id = "scatterButton"> Filter Scatter Plot by Category</button>
+        <br>
+        <br>
         <select id = "teamsList">
             {% for a in teams %}
                 <option value='{{ a["team_id"]}}'>{{ a["team_id"]}}</option>
             {% endfor %}
         </select>
         <button class= "btn btn-primary filterbutton" id = "scatterButton2"> Add Team Filter Scatter Plot </button>
-        <div id = "scatter_plot"></div>
+        <!-- <div id = "scatter_plot"></div> -->
+        <canvas id="scatter_plot" width="450" height="375"></canvas>
         <br>
-        <div id = "scatter_plot2"></div>
+        <canvas id = "scatter_plot2" width="450" height="375"></canvas>
     </div>
 
     <!-- JS Capabilities -->
