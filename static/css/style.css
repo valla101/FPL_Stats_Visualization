@@ -63,11 +63,44 @@ display: none;
 
 .btn.btn-primary.filterbutton{margin-top: 10px;}
 
+#scatter_plot{
+background-color: white;
+margin-top: 20px;
+/* Display None to Hide Canvas Tag */
+display: none;
+}
 
+#scatter_plot2{
+    background-color: white;
+    margin-top: 20px;
+    /* Display None to Hide Canvas Tag */
+    display: none;
+    }
+
+#statBarGraph{
+    background-color: white;
+    margin-top: 20px;
+    /* Display None to Hide Canvas Tag */
+    display: none;
+    }
 /* Samsung Mobile Styling */
 
 @media only screen and (max-width: 990px) {
     #comparePlayerGraph{height: 550px !important;}
+    #priceFilter{width: 500px;
+        font-size: 30px;}
+    .btn.btn-primary.filterbutton{width: 375px !important;
+        font-size: 27px;}
+    select{width: 50%;
+        font-size: 26px;
+        text-align: center;}
+    .select2.select2-container.select2-container--default{width: 50%;
+        font-size: 26px;
+        /* height: 35px !important; */
+    }
+    .select2-selection.select2-selection--single{height: 35px !important;}
+    .btn.btn-primary{width: 15%;
+        font-size: 24px;}
 }
 
 /* ALL CONTAINERS */

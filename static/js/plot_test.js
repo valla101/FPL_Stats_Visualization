@@ -52,40 +52,103 @@ darkMode.addEventListener("click", function(){
 // FUNCTIONAL bar graph that will create a bar graph, filtering stats in descending order
 // Produces the Bar Graph based on Stat Selected
 function interactivePlot(stat){
+  var ctx = document.getElementById('statBarGraph').getContext('2d');
+
   var statsDropdown = d3.select(statsList);
   var stat = statsDropdown.property("value");
   var url2 = `${stat}/${10}`
   d3.json(url2).then(function(data) {
+
+    var cleanStat = document.getElementById("statsList");
+    // This variable is to obtain the text from dropdown menu statsList2
+    var cleanStatText = cleanStat.options[cleanStat.selectedIndex].text;
   
       console.log(data);
   
       var PlayerName = data.map(Player => Player["player"]);
-      var statQueried = data.map(Player => Player[stat]);    
+      var statQueried = data.map(Player => Player[stat]);
+      
+      var dataCleanFormat = []
+      for(var i=0;i<data.length;i++)
+      {
+      // var obj = {y:statQueried[i]};
+      dataCleanFormat.push(statQueried[i]);
+      }
   
-      var trace1 = {
-          x: statQueried,
-          y: PlayerName,
-          type: "bar",
-          orientation: "h",
-          ticks: `${PlayerName}: ${statQueried}`,
-          showticklabels: true
-        };
-        
-        var data = [trace1];
-        
-        var layout = {
-          title: "2020/2021 Premier League Top Performers",
-          margin: {b:50, l: 100},
-          yaxis: {automargin: true},
-          xaxis: {type: '-'},
-          type: 'sort',
-          target: 'x',
-          order: 'descending',
-        };
-        
-        var config = {responsive: true};
+      console.log(dataCleanFormat);
+
+      var playerNameCleanFormat = []
+      for(var i=0;i<data.length;i++)
+      {
+      // var obj = {label: PlayerName[i]};
+      playerNameCleanFormat.push(PlayerName[i]);
+      }
+
+      console.log(playerNameCleanFormat);
+
   
-        Plotly.newPlot("statBarGraph", data, layout, config);
+      var chartData = {
+        labels: playerNameCleanFormat,
+        datasets: [{
+          axis: 'y', 
+          label: cleanStatText,
+          data: dataCleanFormat,
+          backgroundColor: 'red'
+        }]
+      }
+  
+      var myChart = new Chart(ctx, {
+        type: 'bar',
+        labels: playerNameCleanFormat,
+        data: chartData,
+        options: {
+          // indexAxis: 'y',
+          scales: {
+            y: {
+              beginAtZero: true,
+            }
+          },
+          title: {
+            display: true,
+            text: `2020/2021 Premier League Top Performers: ${cleanStatText}`,
+            fontSize: 20,
+            fontColor: 'black',
+          }
+        },
+        
+      });
+
+          // Function gets rid of ChartJS bug when floating over chart
+      var scatterPlotButton = document.getElementById("statsList");;
+      scatterPlotButton.addEventListener("click", function () {
+      // This action destroys the previous chart requested by player
+      myChart.destroy();
+      });
+      
+      // var trace1 = {
+      //     x: statQueried,
+      //     y: PlayerName,
+      //     type: "bar",
+      //     orientation: "h",
+      //     ticks: `${PlayerName}: ${statQueried}`,
+      //     showticklabels: true
+      //   };
+        
+      //   var data = [trace1];
+        
+      //   var layout = {
+      //     title: "2020/2021 Premier League Top Performers",
+      //     margin: {b:50, l: 100},
+      //     yaxis: {automargin: true},
+      //     xaxis: {type: '-'},
+      //     type: 'sort',
+      //     target: 'x',
+      //     order: 'descending',
+      //   };
+        
+      //   var config = {responsive: true};
+  
+      //   Plotly.newPlot("statBarGraph", data, layout, config);
     });
 };
   
@@ -492,52 +555,59 @@ function comparePlayers(){
       var gkSavePercentage2 = data[1].map(Player => Player["save_percentage"]);
       var gkShotsOnTargetAgainst2 = data[1].map(Player => Player["shots_on_target_against"]);
 
-      if(playerPosition1 != "Goalkeeper" && playerPosition2 != "Goalkeeper"){
+      if (playerPosition1 != "Goalkeeper" && playerPosition2 != "Goalkeeper") {
         var myChart = new Chart(ctx, {
           type: 'bar',
           data: {
-              labels: ['Total Points', 'Total Goals Scored', 'Expected Goals', 'Total Assists', 'Expected Assists', 'Shots Attempted', "Shots on Target", "Shots on Target %", "Shots per 90", "Shots on Target per 90", "Average Shot Distance (Yards)", "Free Kicks Attempted"],
-              datasets: [{
-                  label: PlayerName1,
-                  data: [parseInt(totalPoints1), parseInt(totalGoals1), parseFloat(xGoals1), parseInt(totalAssists1), parseFloat(xAssists1), parseInt(shotsAttempted1), parseInt(shotsOnTarget1), parseFloat(shotsOnTargetPercentage1), parseFloat(shotsPer901), parseFloat(shotsonTargetPer901), parseFloat(averageShotDistance1), parseInt(FKAttempted1)],
-                  backgroundColor: 'red',
-                  borderColor: 'red',
-                  borderWidth: 1
+            labels: ['Total Points', 'Total Goals Scored', 'Expected Goals', 'Total Assists', 'Expected Assists', 'Shots Attempted', "Shots on Target", "Shots on Target %", "Shots per 90", "Shots on Target per 90", "Average Shot Distance (Yards)", "Free Kicks Attempted"],
+            datasets: [{
+                label: PlayerName1,
+                data: [parseInt(totalPoints1), parseInt(totalGoals1), parseFloat(xGoals1), parseInt(totalAssists1), parseFloat(xAssists1), parseInt(shotsAttempted1), parseInt(shotsOnTarget1), parseFloat(shotsOnTargetPercentage1), parseFloat(shotsPer901), parseFloat(shotsonTargetPer901), parseFloat(averageShotDistance1), parseInt(FKAttempted1)],
+                backgroundColor: 'red',
+                borderColor: 'red',
+                borderWidth: 1
               },
-            // Player Name 2
-            {
-                  label: PlayerName2,
-                  data: [parseInt(totalPoints2), parseInt(totalGoals2), parseFloat(xGoals2), parseInt(totalAssists2), parseFloat(xAssists2), parseInt(shotsAttempted2), parseInt(shotsOnTarget2), parseFloat(shotsOnTargetPercentage2), parseFloat(shotsPer902), parseFloat(shotsonTargetPer902), parseFloat(averageShotDistance2), parseInt(FKAttempted2)],
-                  borderColor: 'blue',
-                  backgroundColor: 'blue',
-                  borderWidth: 1
-              }]
+              // Player Name 2
+              {
+                label: PlayerName2,
+                data: [parseInt(totalPoints2), parseInt(totalGoals2), parseFloat(xGoals2), parseInt(totalAssists2), parseFloat(xAssists2), parseInt(shotsAttempted2), parseInt(shotsOnTarget2), parseFloat(shotsOnTargetPercentage2), parseFloat(shotsPer902), parseFloat(shotsonTargetPer902), parseFloat(averageShotDistance2), parseInt(FKAttempted2)],
+                borderColor: 'blue',
+                backgroundColor: 'blue',
+                borderWidth: 1
+              }
+            ]
           },
           options: {
-              scales: {
-                  y: {
-                      beginAtZero: true
-                  }
-              },
-              
-              plugins: {
-                legend: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            },
 
-                  labels:{
-                    font: 
-                    {size: 10}
+            plugins: {
+              legend: {
+
+                labels: {
+                  font: {
+                    size: 10
                   }
-                }},
-              
-              title: {display: true,
-                text: `2020/2021 Premier League Stats: ${PlayerName1} vs ${PlayerName2}`}
+                }
+              }
+            },
+
+            title: {
+              display: true,
+              text: `2020/2021 Premier League Stats: ${PlayerName1} vs ${PlayerName2}`,
+              fontSize: 20,
+              fontColor: 'black',
+            }
           }
         });
-         // Function gets rid of ChartJS bug when floating over chart
+        // Function gets rid of ChartJS bug when floating over chart
         var playerComparedFinalButton = document.getElementById("comparePlayersButton");
-        playerComparedFinalButton.addEventListener("click", function(){
-        // This action destroys the previous chart requested by player
-        myChart.destroy();
+        playerComparedFinalButton.addEventListener("click", function () {
+          // This action destroys the previous chart requested by player
+          myChart.destroy();
         });
       }
 
@@ -580,7 +650,9 @@ function comparePlayers(){
                 }},
               
               title: {display: true,
-                text: `2020/2021 Premier League Stats: ${PlayerName1} vs ${PlayerName2}`}
+                text: `2020/2021 Premier League Stats: ${PlayerName1} vs ${PlayerName2}`,
+                fontSize: 20,
+                fontColor: 'black',}
           }
         });
          // Function gets rid of ChartJS bug when floating over chart
@@ -616,8 +688,11 @@ $(document).ready(function() {
   $('#comparePlayer2').select2();
 });
 
+// ------------------------------------
 // New Function to Create Scatter Plot
 function player_scatter(){
+  var ctx = document.getElementById('scatter_plot').getContext('2d');
+
   var scatterPlotButton = document.getElementById("scatterButton");
   scatterPlotButton.addEventListener("click", function scatter(){
     
@@ -638,32 +713,113 @@ function player_scatter(){
     // This variable is to obtain the text from dropdown menu statsList2
     var cleanStatText = cleanStat.options[cleanStat.selectedIndex].text;
 
-
-    var trace1 = {
-      x: minutes,
-      y: statQueried,
-      mode: 'markers',
-      type: 'scatter',
-      text: playerName
-    };
-
-    var plot_data = [trace1];
-
-    var layout = {
-      title: `2020/2021 Premier League Players: ${cleanStatText} vs Minutes`,
-      hovermode: 'closest'
+    var dataCleanFormat = []
+    for(var i=0;i<data.length;i++)
+    {
+    var obj = {x:minutes[i],y:statQueried[i], label: playerName[i]};
+    dataCleanFormat.push(obj);
     }
 
-    Plotly.newPlot('scatter_plot', plot_data, layout); 
+    console.log(dataCleanFormat);
 
-  });
-  });
-  };
+    var chartData = {
+      datasets: [{
+        label: [],
+        data: [],
+        backgroundColor: 'red'
+      }]
+    }
+
+    for (var i = 0; i < dataCleanFormat.length; i++) {
+      chartData.datasets[0].data.push(
+        {
+          x: dataCleanFormat[i].x,
+          y: dataCleanFormat[i].y,
+        }    
+      )
+      chartData.datasets[0].label.push(
+      {label: dataCleanFormat[i].label})
+    }
+
+    var myChart = new Chart(ctx, {
+      type: 'scatter',
+      data: chartData,
+      options: {
+        scales: {
+          yAxes: [{
+            display: true,
+            scaleLabel: {
+              display: true,
+              labelString: cleanStatText,
+              fontSize: 15,
+              fontColor: 'black',
+              padding: {
+                bottom: 25
+              }
+            }
+          }],
+          xAxes: [{
+            display: true,
+            scaleLabel: {
+              display: true,
+              labelString: "Minutes",
+              fontSize: 15,
+              fontColor: 'black',
+              padding: {
+                top: 25
+              }
+            }
+          }],
+
+        },
+
+        tooltips: {
+          callbacks: {
+            title: function (tooltipItem, datasets) {
+              // console.log(tooltipItem);
+              // console.log(tooltipItem[0].index);
+              // console.log(datasets);
+
+              // This variable returns the index of the player from the dataset, this is used to map the tooltipItem index with datasets index
+              var scatter = tooltipItem[0].index;
+
+              // console.log(datasets.datasets[0].label[scatter])
+
+              return datasets.datasets[0].label[scatter].label;
+
+            }
+
+          },
+        },
+        legend: {
+          display: false
+        },
+        title: {
+          display: true,
+          text: `2020/2021 Premier League Players: ${cleanStatText} vs Minutes`,
+          fontSize: 20,
+          fontColor: 'black',
+        }
+      }
+    });
+
+    // Function gets rid of ChartJS bug when floating over chart
+    var scatterPlotButton = document.getElementById("scatterButton");;
+    scatterPlotButton.addEventListener("click", function () {
+    // This action destroys the previous chart requested by player
+    myChart.destroy();
+    });
+
+
+    });
+    });
+    };
 
 
 
 
 function player_scatter_team(){
+  var ctx = document.getElementById('scatter_plot2').getContext('2d');
 
   var scatterPlotButton2 = document.getElementById("scatterButton2");
   scatterPlotButton2.addEventListener("click", function testing2(){
@@ -686,22 +842,97 @@ function player_scatter_team(){
     // This variable is to obtain the text from dropdown menu statsList2
     var cleanStatText = cleanStat.options[cleanStat.selectedIndex].text;
  
-    var trace1 = {
-      x: minutes,
-      y: statQueried,
-      mode: 'markers',
-      type: 'scatter',
-      text: playerName
-    };
-
-    var plot_data = [trace1];
-
-    var layout = {
-      title: `2020/2021 Premier League Season - ${team} Players: ${cleanStatText} vs Minutes`,
-      hovermode: 'closest'
+    var dataCleanFormat = []
+    for(var i=0;i<data.length;i++)
+    {
+    var obj = {x:minutes[i],y:statQueried[i], label: playerName[i]};
+    dataCleanFormat.push(obj);
     }
 
-    Plotly.newPlot('scatter_plot2', plot_data, layout); 
+    console.log(dataCleanFormat);
+
+    var chartData = {
+      datasets: [{
+        label: [],
+        data: [],
+        backgroundColor: 'red'
+      }]
+    }
+
+    for (var i = 0; i < dataCleanFormat.length; i++) {
+      chartData.datasets[0].data.push(
+        {
+          x: dataCleanFormat[i].x,
+          y: dataCleanFormat[i].y,
+        }    
+      )
+      chartData.datasets[0].label.push(
+      {label: dataCleanFormat[i].label})
+    }
+
+    var myChart = new Chart(ctx, {
+      type: 'scatter',
+      data: chartData,
+      options: {
+        scales: {
+          yAxes: [{
+            display: true,
+            scaleLabel: {
+              display: true,
+              labelString: cleanStatText,
+              fontSize: 15,
+              fontColor: 'black',
+              padding: {
+                bottom: 25
+              }
+            }
+          }],
+          xAxes: [{
+            display: true,
+            scaleLabel: {
+              display: true,
+              labelString: "Minutes",
+              fontSize: 15,
+              fontColor: 'black',
+              padding: {
+                top: 25
+              }
+            }
+          }],
+
+        },
+
+        tooltips: {
+          callbacks: {
+            title: function (tooltipItem, datasets) {
+
+              // This variable returns the index of the player from the dataset, this is used to map the tooltipItem index with datasets index
+              var scatter = tooltipItem[0].index;
+
+              return datasets.datasets[0].label[scatter].label;
+
+            }
+
+          },
+        },
+        legend: {
+          display: false
+        },
+        title: {
+          display: true,
+          text: `2020/2021 Premier League Players: ${cleanStatText} vs Minutes`,
+          fontSize: 20,
+          fontColor: 'black',
+        }
+      }
+    });
+
+    // Function gets rid of ChartJS bug when floating over chart
+    var scatterPlotButton = document.getElementById("scatterButton");;
+    scatterPlotButton.addEventListener("click", function () {
+    // This action destroys the previous chart requested by player
+    myChart.destroy();
+    });
   });
 });
 };
