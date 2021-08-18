@@ -1,53 +1,60 @@
 // Dark Mode Button
 
-var darkMode = document.getElementById("dark_mode");
+// var darkMode = document.getElementById("dark_mode");
 
-darkMode.addEventListener("click", function(){
-  var body = document.getElementById("body");
-  body.style.backgroundColor = "black";
+// darkMode.addEventListener("click", function(){
+//   var body = document.getElementById("body");
+//   body.style.backgroundColor = "black";
 
-  var headerPicture = document.getElementById("header_pic");
-  headerPicture.style.backgroundColor="#eae9de85";
+//   var headerPicture = document.getElementById("header_pic");
+//   headerPicture.style.backgroundColor="#eae9de85";
 
-  var index;
-  var headerText = document.getElementsByClassName("header_for_graph");
-  for (index = 0; index < headerText.length; ++index) {
-    headerText[index].style.color ="#eae9de85";
-}
-  // If Reset Dark Mode Doesn't Exist, it will be created.
-  // Else, no new buttons will be created
-  if($('#reset_dark_mode').length == 0){
-    var resetDarkMode = document.createElement("button");
-  }
-  else{console.log("dark mode already clicked");
+//   var index;
+//   var headerText = document.getElementsByClassName("header_for_graph");
+//   for (index = 0; index < headerText.length; ++index) {
+//     headerText[index].style.color ="#eae9de85";
+// }
+//   // If Reset Dark Mode Doesn't Exist, it will be created.
+//   // Else, no new buttons will be created
+//   if($('#reset_dark_mode').length == 0){
+//     var resetDarkMode = document.createElement("button");
+//   }
+//   else{console.log("dark mode already clicked");
 
-  };
+//   };
 
-  resetDarkMode.className = "btn btn-primary";
-  resetDarkMode.textContent = "Reset Color Scheme";
-  resetDarkMode.setAttribute("id", "reset_dark_mode");
+//   resetDarkMode.className = "btn btn-primary";
+//   resetDarkMode.textContent = "Reset Color Scheme";
+//   resetDarkMode.setAttribute("id", "reset_dark_mode");
   
-  var headerElement = document.getElementById("header");
+//   var headerElement = document.getElementById("header");
 
-  headerElement.insertAdjacentElement('beforeend', resetDarkMode);
+//   headerElement.insertAdjacentElement('beforeend', resetDarkMode);
 
-  resetDarkMode.addEventListener("click", function(){
-    console.log("reset color");
-    var body = document.getElementById("body");
-    body.style.backgroundColor = "#4bb370";
+//   resetDarkMode.addEventListener("click", function(){
+//     console.log("reset color");
+//     var body = document.getElementById("body");
+//     body.style.backgroundColor = "#4bb370";
 
-    var headerPicture = document.getElementById("header_pic");
-    headerPicture.style.backgroundColor="#4bb370";
+//     var headerPicture = document.getElementById("header_pic");
+//     headerPicture.style.backgroundColor="#4bb370";
 
-    var index;
-    var headerText = document.getElementsByClassName("header_for_graph");
-    for (index = 0; index < headerText.length; ++index) {
-      headerText[index].style.color ="black";
-    }
-  });
+//     var index;
+//     var headerText = document.getElementsByClassName("header_for_graph");
+//     for (index = 0; index < headerText.length; ++index) {
+//       headerText[index].style.color ="black";
+//     }
+//   });
 
-});
+// });
 
+// remove fragment as much as it can go without adding an entry in browser history:
+window.location.replace("#");
+
+// slice off the remaining '#' in HTML5:    
+if (typeof window.history.replaceState == 'function') {
+  history.replaceState({}, '', window.location.href.slice(0, -1));
+}
 
 // FUNCTIONAL bar graph that will create a bar graph, filtering stats in descending order
 // Produces the Bar Graph based on Stat Selected
@@ -124,31 +131,6 @@ function interactivePlot(stat){
       // This action destroys the previous chart requested by player
       myChart.destroy();
       });
-      
-      // var trace1 = {
-      //     x: statQueried,
-      //     y: PlayerName,
-      //     type: "bar",
-      //     orientation: "h",
-      //     ticks: `${PlayerName}: ${statQueried}`,
-      //     showticklabels: true
-      //   };
-        
-      //   var data = [trace1];
-        
-      //   var layout = {
-      //     title: "2020/2021 Premier League Top Performers",
-      //     margin: {b:50, l: 100},
-      //     yaxis: {automargin: true},
-      //     xaxis: {type: '-'},
-      //     type: 'sort',
-      //     target: 'x',
-      //     order: 'descending',
-      //   };
-        
-      //   var config = {responsive: true};
-  
-      //   Plotly.newPlot("statBarGraph", data, layout, config);
     });
 };
   
@@ -397,7 +379,9 @@ function filterByPlayer(){
                 }},
               
               title: {display: true,
-                text: `2020/2021 Premier League Stats: ${PlayerName}`}
+                text: `2020/2021 Premier League Stats: ${PlayerName}`,
+                fontSize: 20,
+                fontColor: 'black',}
           }
         });
          // Function gets rid of ChartJS bug when floating over chart
@@ -455,7 +439,9 @@ function filterByPlayer(){
                 }
             },
             title: {display: true,
-              text: `2020/2021 Premier League Stats: ${PlayerName}`}
+              text: `2020/2021 Premier League Stats: ${PlayerName}`,
+              fontSize: 20,
+              fontColor: 'black',}
         }
       });
        // Function gets rid of ChartJS bug when floating over chart

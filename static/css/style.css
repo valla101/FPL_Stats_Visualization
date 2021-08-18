@@ -1,31 +1,53 @@
-body {background-color: rgba(72, 142, 223, 0.849);}
+html {
+    scroll-behavior: smooth;}
+
+/* Background color for body */
+body {
+    background-color: rgba(72, 142, 223, 0.849);}
 
 /* Carousel Styling */
-#carouselExampleSlidesOnly{text-align: center;}
+#carouselSlides{text-align: center;}
 
-.d-block.w-100{margin-left: auto;
-margin-right: auto;
-padding-bottom: 50px;}
+.d-block.w-100{
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 50px;}
 
 /*  */
 #title_frontpage{text-align: center;}
 
-#header_pic{margin-left: auto; margin-right: auto; display: block; height: 150px;}
+#header_pic{
+    margin-left: auto; 
+    margin-right: auto; 
+    display: block; 
+    height: 150px;}
 
-#dark_mode{margin-left: 10px; background-color: #212529cf;}
-#reset_dark_mode{margin-left: 5px;}
+/* #dark_mode{
+    margin-left: 10px; 
+    background-color: #212529cf;}
 
-#header{margin-bottom: 25px;}
+#reset_dark_mode{
+    margin-left: 5px;} */
 
+#header{
+    margin-bottom: 25px;}
+
+/* Styling for Shortcuts Button */
+#dropdownMenuButton{
+    background-color: rgb(245, 117, 43);
+}
 
 /* Class for all Text Headers */
 .header_for_graph{text-align: center;}
 
 /* Plotly Stats Filter Table */
 
-#statBarGraph{margin-top: 20px;}
+#statBarGraph{
+    margin-top: 20px;}
 
-#statsList option{margin-left: auto; margin-right: auto;}
+#statsList option{
+    margin-left: auto; 
+    margin-right: auto;}
 
 /* Tabulator Table */
 
@@ -34,19 +56,23 @@ padding-bottom: 50px;}
     padding-bottom: 50px;
 }
 
-#priceFilterContainer{margin-top: 25px;
-margin-bottom: 25px;
-padding-top: 10px;
-padding-bottom: 10px;
-text-align:center;}
+#priceFilterContainer{
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align:center;}
 
-#priceFilter{width: 300px;}
+#priceFilter{
+    width: 300px;}
 
-#priceFilterButton{width: 150px;}
+#priceFilterButton{
+    width: 150px;}
 
 /* Player Filter */
 
-#playerBarChart{background-color: white;
+#playerBarChart{
+    background-color: white;
     /* Display None to Hide Canvas Tag */
     display: none;
     margin-top: 20px;}
@@ -55,19 +81,21 @@ text-align:center;}
 
 #compare_player_div{text-align: center;}
 
-#comparePlayerGraph{background-color: white;
-margin-top: 20px;
+#comparePlayerGraph{
+    background-color: white;
+    margin-top: 20px;
 /* Display None to Hide Canvas Tag */
-display: none;
+    display: none;
 }
 
-.btn.btn-primary.filterbutton{margin-top: 10px;}
+.btn.btn-primary.filterbutton{
+    margin-top: 10px;}
 
 #scatter_plot{
-background-color: white;
-margin-top: 20px;
-/* Display None to Hide Canvas Tag */
-display: none;
+    background-color: white;
+    margin-top: 20px;
+    /* Display None to Hide Canvas Tag */
+    display: none;
 }
 
 #scatter_plot2{
@@ -86,34 +114,78 @@ display: none;
 /* Samsung Mobile Styling */
 
 @media only screen and (max-width: 990px) {
-    #comparePlayerGraph{height: 550px !important;}
+    /* #comparePlayerGraph{height: 550px !important;} */
+
     #priceFilter{width: 500px;
         font-size: 30px;}
+    
     .btn.btn-primary.filterbutton{width: 375px !important;
         font-size: 27px;}
+    
     select{width: 50%;
         font-size: 26px;
         text-align: center;}
+    
     .select2.select2-container.select2-container--default{width: 50%;
         font-size: 26px;
         /* height: 35px !important; */
     }
+    
     .select2-selection.select2-selection--single{height: 35px !important;}
+    
     .btn.btn-primary{width: 15%;
         font-size: 24px;}
+    
+    #dropdownMenuButton{width: 100%;}
+
+    .dropdown-menu.show a{
+        font-size: 25px;
+        padding-bottom: 10px;
+        border-bottom: solid black 2px;
+    }
+
+    canvas{
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        margin: auto;
+        height: 650px !important;
+        width: 750px !important;
+    }
+
+    .container{
+        width: 100%;
+    }
+}
+
+/* Footer */
+footer li {list-style-type: none;}
+
+/* Back to top Button Styling */
+footer li #back_to_top {bottom: 0px; position: fixed; margin-left: 15px; margin-bottom: 5px; background-color: rgb(214, 241, 57);}
+
+footer li #back_to_top a {color: black;}
+
+@media only screen and (max-width: 990px){
+    #back_to_top {margin-left: 0px !important;}
 }
 
 /* ALL CONTAINERS */
 .container{
     /* border: solid rgba(209, 217, 226, 0.89) 2px; */
     /* border-radius: 20px; */
-    margin-bottom: 75px;
     padding-top: 20px;
     padding-bottom: 10px;
     text-align:center;}
 
-.containerHeadertext{text-align: center;
-color: white;
-size: 30px;
-margin-bottom: 30px;
-font-family: "Segoe UI";}
+.container-fluid{
+    margin-bottom: 100px;
+}
+
+.containerHeadertext{
+    text-align: center;
+    color: white;
+    size: 30px;
+    margin-bottom: 30px;
+    font-family: "Segoe UI";}
