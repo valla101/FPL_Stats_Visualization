@@ -1,53 +1,3 @@
-// Dark Mode Button
-
-// var darkMode = document.getElementById("dark_mode");
-
-// darkMode.addEventListener("click", function(){
-//   var body = document.getElementById("body");
-//   body.style.backgroundColor = "black";
-
-//   var headerPicture = document.getElementById("header_pic");
-//   headerPicture.style.backgroundColor="#eae9de85";
-
-//   var index;
-//   var headerText = document.getElementsByClassName("header_for_graph");
-//   for (index = 0; index < headerText.length; ++index) {
-//     headerText[index].style.color ="#eae9de85";
-// }
-//   // If Reset Dark Mode Doesn't Exist, it will be created.
-//   // Else, no new buttons will be created
-//   if($('#reset_dark_mode').length == 0){
-//     var resetDarkMode = document.createElement("button");
-//   }
-//   else{console.log("dark mode already clicked");
-
-//   };
-
-//   resetDarkMode.className = "btn btn-primary";
-//   resetDarkMode.textContent = "Reset Color Scheme";
-//   resetDarkMode.setAttribute("id", "reset_dark_mode");
-  
-//   var headerElement = document.getElementById("header");
-
-//   headerElement.insertAdjacentElement('beforeend', resetDarkMode);
-
-//   resetDarkMode.addEventListener("click", function(){
-//     console.log("reset color");
-//     var body = document.getElementById("body");
-//     body.style.backgroundColor = "#4bb370";
-
-//     var headerPicture = document.getElementById("header_pic");
-//     headerPicture.style.backgroundColor="#4bb370";
-
-//     var index;
-//     var headerText = document.getElementsByClassName("header_for_graph");
-//     for (index = 0; index < headerText.length; ++index) {
-//       headerText[index].style.color ="black";
-//     }
-//   });
-
-// });
-
 // remove fragment as much as it can go without adding an entry in browser history:
 window.location.replace("#");
 
@@ -111,13 +61,23 @@ function interactivePlot(stat){
         options: {
           // indexAxis: 'y',
           scales: {
-            y: {
-              beginAtZero: true,
-            }
-          },
+            yAxes: [{
+              ticks: {
+                fontSize: 15,
+                fontStyle: "bold",
+                beginAtZero: true,
+              }
+            }],
+            xAxes: [{
+              ticks: {
+                fontSize: 20,
+                fontStyle: "bold",
+              }
+            }]
+        },
           title: {
             display: true,
-            text: `2020/2021 Premier League Top Performers: ${cleanStatText}`,
+            text: `2021/2022 Premier League Top Performers: ${cleanStatText}`,
             fontSize: 20,
             fontColor: 'black',
           }
@@ -364,22 +324,30 @@ function filterByPlayer(){
           },
           options: {
               scales: {
-                  y: {
-                      beginAtZero: true
-                  }
+                  yAxes: [{
+                    ticks: {
+                      fontSize: 15,
+                      fontStyle: "bold"
+                    }
+                  }],
+                  xAxes: [{
+                    ticks: {
+                      fontSize: 20,
+                      fontStyle: "bold"
+                    }
+                  }]
               },
               
               plugins: {
                 legend: {
 
                   labels:{
-                    font: 
-                    {size: 10}
+                    fontSize: 20,
                   }
                 }},
               
               title: {display: true,
-                text: `2020/2021 Premier League Stats: ${PlayerName}`,
+                text: `2021/2022 Premier League Stats: ${PlayerName}`,
                 fontSize: 20,
                 fontColor: 'black',}
           }
@@ -432,14 +400,24 @@ function filterByPlayer(){
                 borderWidth: 1
             }]
         },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+        options: 
+        {
+          scales: {
+              yAxes: [{
+                ticks: {
+                  fontSize: 15,
+                  fontStyle: "bold"
                 }
-            },
+              }],
+              xAxes: [{
+                ticks: {
+                  fontSize: 20,
+                  fontStyle: "bold"
+                }
+              }]
+          },
             title: {display: true,
-              text: `2020/2021 Premier League Stats: ${PlayerName}`,
+              text: `2021/2022 Premier League Stats: ${PlayerName}`,
               fontSize: 20,
               fontColor: 'black',}
         }
@@ -565,25 +543,32 @@ function comparePlayers(){
           },
           options: {
             scales: {
-              y: {
-                beginAtZero: true
-              }
+                yAxes: [{
+                  ticks: {
+                    fontSize: 15,
+                    fontStyle: "bold"
+                  }
+                }],
+                xAxes: [{
+                  ticks: {
+                    fontSize: 20,
+                    fontStyle: "bold"
+                  }
+                }]
             },
 
             plugins: {
               legend: {
 
                 labels: {
-                  font: {
-                    size: 10
-                  }
+                  fontSize: 20,
                 }
               }
             },
 
             title: {
               display: true,
-              text: `2020/2021 Premier League Stats: ${PlayerName1} vs ${PlayerName2}`,
+              text: `2021/2022 Premier League Stats: ${PlayerName1} vs ${PlayerName2}`,
               fontSize: 20,
               fontColor: 'black',
             }
@@ -620,23 +605,31 @@ function comparePlayers(){
               }]
           },
           options: {
-              scales: {
-                  y: {
-                      beginAtZero: true
-                  }
-              },
+                scales: {
+                    yAxes: [{
+                      ticks: {
+                        fontSize: 15,
+                        fontStyle: "bold"
+                      }
+                    }],
+                    xAxes: [{
+                      ticks: {
+                        fontSize: 20,
+                        fontStyle: "bold"
+                      }
+                    }]
+                },
               
               plugins: {
                 legend: {
 
                   labels:{
-                    font: 
-                    {size: 10}
+                    fontSize: 20,
                   }
                 }},
               
               title: {display: true,
-                text: `2020/2021 Premier League Stats: ${PlayerName1} vs ${PlayerName2}`,
+                text: `2021/2022 Premier League Stats: ${PlayerName1} vs ${PlayerName2}`,
                 fontSize: 20,
                 fontColor: 'black',}
           }
@@ -672,6 +665,7 @@ $(document).ready(function() {
   // ID for Player Comparison Stats
   $('#comparePlayer1').select2();
   $('#comparePlayer2').select2();
+  $('#playerNameScatter').select2();
 });
 
 // ------------------------------------
@@ -738,6 +732,7 @@ function player_scatter(){
               display: true,
               labelString: cleanStatText,
               fontSize: 15,
+              fontStyle: "bold",
               fontColor: 'black',
               padding: {
                 bottom: 25
@@ -750,6 +745,7 @@ function player_scatter(){
               display: true,
               labelString: "Minutes",
               fontSize: 15,
+              fontStyle: "bold",
               fontColor: 'black',
               padding: {
                 top: 25
@@ -782,7 +778,7 @@ function player_scatter(){
         },
         title: {
           display: true,
-          text: `2020/2021 Premier League Players: ${cleanStatText} vs Minutes`,
+          text: `2021/2022 Premier League Players: ${cleanStatText} vs Minutes`,
           fontSize: 20,
           fontColor: 'black',
         }
@@ -868,6 +864,7 @@ function player_scatter_team(){
               labelString: cleanStatText,
               fontSize: 15,
               fontColor: 'black',
+              fontStyle: "bold",
               padding: {
                 bottom: 25
               }
@@ -880,6 +877,7 @@ function player_scatter_team(){
               labelString: "Minutes",
               fontSize: 15,
               fontColor: 'black',
+              fontStyle: "bold",
               padding: {
                 top: 25
               }
@@ -906,7 +904,7 @@ function player_scatter_team(){
         },
         title: {
           display: true,
-          text: `2020/2021 Premier League Players: ${cleanStatText} vs Minutes`,
+          text: `2021/2022 Premier League Players: ${cleanStatText} vs Minutes`,
           fontSize: 20,
           fontColor: 'black',
         }
@@ -930,3 +928,238 @@ scatterPlotButton.addEventListener("change", player_scatter());
 
 var scatterPlotButton2 = document.getElementById("scatterButton2");
 scatterPlotButton2.addEventListener("click", player_scatter_team());
+
+
+// New Function to Create Scatter Plot and filtering out position & price range
+function player_scatter_position_price(){
+  var ctx = document.getElementById('scatterPlotbyPosition_Price').getContext('2d');
+
+  var scatterPlotButton = document.getElementById("getPlayerStatScatterButton");
+  scatterPlotButton.addEventListener("click", function scatter(){
+    
+  var playerDropdown = d3.select(playerNameScatter);
+  var player = playerDropdown.property("value");
+  
+  
+;
+
+  url = `/query_all_player_position/${player}`;
+  d3.json(url).then(function(data){
+
+    console.log(data);
+    console.log(data[0]);
+
+    // stats for player picked from dropdown menu
+    var goalsCurrent = data[0].map(Player => Player["goals"]);
+    var totalShotscurrent = data[0].map(Player => Player["total_shots"]);
+    var playerNamecurrent = data[0].map(Player => Player["player"]);
+    
+    // last season's stats
+    var totalShots = data[1].map(Player => Player["total_shots"]);
+    var goals = data[1].map(Player => Player["goals"]);
+    var playerName = data[1].map(Player => Player["player"]);
+    var playerPosition = data[1].map(Player => Player["player_position"]);
+    var playerPrice = data[1].map(Player => Player["current_price"]);
+    // var season = data[1].map(Player => Player["season"]);
+
+    if (playerPosition[0] == "Forward" && playerPrice[0] >= 8.0){
+      var priceTier = "Expensive (8.0 and above)";
+    };
+
+    if (playerPosition[0] == "Forward" && playerPrice[0] < 8.0 && playerPrice[0] >= 6.0){
+      var priceTier = "Moderately Priced (6.0 - 7.9)"
+    };
+
+    if (playerPosition[0] == "Forward" && playerPrice[0] < 6.0){
+      var priceTier = "Cheap (5.9 and below)"
+    };
+
+    // Midfielders
+    if (playerPosition[0] == "Midfielder" && playerPrice[0] >= 8.0){
+      var priceTier = "Expensive (8.0 and above)"
+    };
+
+    if (playerPosition[0] == "Midfielder" && playerPrice[0] < 8.0 && playerPrice[0] >= 6.0){
+      var priceTier = "Moderately Priced (6.0 - 7.9)"
+    };
+
+    if (playerPosition[0] == "Midfielder" && playerPrice[0] < 6.0){
+      var priceTier = "Cheap (5.9 and below)"
+    };
+
+    // Defenders
+    if (playerPosition[0] == "Defender" && playerPrice[0] >= 5.5){
+      var priceTier = "Expensive (5.5 and above)"
+    };
+
+    if (playerPosition[0] == "Defender" && playerPrice[0] < 5.5 && playerPrice[0] >= 4.5){
+      var priceTier = "Moderately Priced (4.5 - 5.4)"
+    };
+
+    if (playerPosition[0] == "Defender" && playerPrice[0] < 4.5){
+      var priceTier = "Cheap (4.4 and below)"
+    };
+
+    // if(playerPosition1 != "Goalkeeper" && playerPosition2 == "Goalkeeper")
+    console.log(playerPosition);
+    console.log(priceTier);
+
+  // appends last season's stats based on price and position into a new list
+    var dataCleanFormat = []
+    for(var i=0;i<data[1].length;i++)
+    {
+    var obj = {x:totalShots[i],y:goals[i], label: playerName[i]};
+    dataCleanFormat.push(obj);
+    }
+
+    // appends current season stats for player picked from dropdown menu, into a separate list
+    var dataCleanFormat2 = []
+    for(var i=0;i<data[0].length;i++)
+    {
+    var obj = {x:totalShotscurrent[i],y:goalsCurrent[i], label: playerNamecurrent[i]};
+    dataCleanFormat2.push(obj);
+    }
+
+    console.log(dataCleanFormat);
+    console.log(dataCleanFormat2);
+
+    var chartData = {
+      // dataset[0] is last season's data
+      datasets: [{
+        label: [],
+        data: [],
+        backgroundColor: 'red',
+        trendlineLinear: {
+          style: "#3e95cd",
+          lineStyle: "line",
+          width: 1
+      }
+      },
+      // dataset[1] is this season's player data
+      {
+        label: [],
+        data: [],
+        backgroundColor: 'green'
+      }]
+    }
+
+    // console.log(chartData)
+    // pushing last season's formatted data into the chartData dataset[0]
+    for (var i = 0; i < dataCleanFormat.length; i++) {
+      chartData.datasets[0].data.push(
+        {
+          x: dataCleanFormat[i].x,
+          y: dataCleanFormat[i].y,
+        }    
+      )
+      chartData.datasets[0].label.push(
+      {label: dataCleanFormat[i].label})
+    }
+
+    // pushing this season's formatted data into the chartData dataset[0]
+    for (var i = 0; i < dataCleanFormat2.length; i++) {
+      chartData.datasets[1].data.push(
+        {
+          x: dataCleanFormat2[i].x,
+          y: dataCleanFormat2[i].y,
+        }    
+      )
+      chartData.datasets[1].label.push(
+      {label: dataCleanFormat2[i].label})
+    }
+    console.log(chartData)
+
+    var myChart = new Chart(ctx, {
+      type: 'scatter',
+      data: chartData,
+      options: {
+        scales: {
+          yAxes: [{
+            display: true,
+            scaleLabel: {
+              display: true,
+              labelString: "Goals",
+              fontSize: 15,
+              fontStyle: "bold",
+              fontColor: 'black',
+              padding: {
+                bottom: 25
+              }
+            }
+          }],
+          xAxes: [{
+            display: true,
+            scaleLabel: {
+              display: true,
+              labelString: "Total Shots",
+              fontSize: 15,
+              fontStyle: "bold",
+              fontColor: 'black',
+              padding: {
+                top: 25
+              }
+            }
+          }],
+
+        },
+
+        tooltips: {
+          callbacks: {
+            title: function (tooltipItem, datasets) {
+              // console.log(tooltipItem);
+              // console.log(tooltipItem[0].index);
+              // console.log(datasets);
+
+              // This variable returns the index of the player from the dataset, this is used to map the tooltipItem index with datasets index
+              var scatter = tooltipItem[0].index;
+
+              // returns tooltip item from dataset[0], last season's data
+              if (tooltipItem[0].datasetIndex == 0){
+                return datasets.datasets[0].label[scatter].label;
+              }
+              
+              // returns tooltip item from dataset[1], current season's data
+              if (tooltipItem[0].datasetIndex == 1)
+              {
+                return datasets.datasets[1].label[scatter].label;
+
+              }
+
+            }
+
+          },
+        },
+        legend: {
+          display: false
+        },
+        title: {
+          display: true,
+          text: `2021/2022 ${priceTier} ${playerPosition[0]}s: Total Shots vs Goals`,
+          fontSize: 20,
+          fontColor: 'black',
+        }
+      }
+    });
+
+    // Function gets rid of ChartJS bug when floating over chart
+    var scatterPlotButton = document.getElementById("getPlayerStatScatterButton");;
+    scatterPlotButton.addEventListener("click", function () {
+    // This action destroys the previous chart requested by player
+    myChart.destroy();
+    });
+
+
+    });
+    });
+    };
+
+var scatterPlotButton3 = document.getElementById("getPlayerStatScatterButton");
+scatterPlotButton3.addEventListener("click", player_scatter_position_price());
+
+
+// url = `/query_all_player_position2/Harry Kane`;
+// d3.json(url).then(function(data){
+
+// console.log(data[0]);
+// console.log(data[1]);}
+//   );
