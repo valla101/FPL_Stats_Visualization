@@ -172,6 +172,9 @@
                     <option value='{{ a["name"]}}'>{{ b }}</option>
                 {% endfor %}
             </select>
+        </div>
+
+        <div class = "container-fluid">
             <canvas id = "statBarGraph" width="450" height="375"></canvas>
         </div>
         
@@ -204,6 +207,31 @@
         
     </div>
 
+    <div class = "container-fluid" id = "scatter_plot_positions">
+        <h1 class = "containerHeadertext">Generate a Shots vs Goals Scatter Plot, Based on Player Position & Price of Current Season (Green)</h1>
+        <h3 class = "container-text">Trendline Calculated from Last Season's Stats (Red)</h3>
+        <div class = "container">
+            <!-- <h4 class = "header_for_graph">Stats include: Total FPL Points, Goals, Expected Goals, Assists, Expected Assists and more</h4> -->
+            <!-- Code for Filtering through all players in database -->
+            <select id="playerNameScatter">
+                {% for player in query_player %}
+                <option>{{ player ["player"]}}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <button class= "btn btn-primary filterbutton" id = "getPlayerStatScatterButton"> Get Player Stats! </button>
+            <br>
+        </div>
+
+        <div class = "container-fluid">
+            <!-- ChartJS Plot Generated Here -->
+            <div>
+                <canvas id="scatterPlotbyPosition_Price" width="400" height="275"></canvas>
+            </div>
+        </div>    
+        
+    </div>
+
     <!-- JS Capabilities -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
@@ -222,6 +250,9 @@
 
     <!-- Chart JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+
+    <!-- Regression Chart JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-trendline"></script>
 
     <!-- Select2 -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />

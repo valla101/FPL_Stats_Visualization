@@ -179,6 +179,128 @@ def test_bar_graph(stat, team):
     all_players_stat2 = connection.execute(f"select player, team_id, {stat}, minutes from combined_table where {stat} is not null and team_id = '{team}'", team=team)
     return jsonify([dict(row) for row in all_players_stat2])
 
+# Creating a route to query all players in 1 position based on player input
+@app.route("/query_all_player_position/<player1>")
+def test_position_query(player1):
+    connection = engine.connect()
+    query_fpl_view1 = connection.execute(f"select * from combined_table where combined_table.player='{player1}'", player=player1)
+
+    for row in query_fpl_view1:
+        # Query for Expensive Forwards above 8.0 price range
+        if row.player_position == "Forward" and row.current_price >= 8.0:
+            session = Session(engine)
+            # performs query on current season's stats for specific player
+            player_chosen = connection.execute(f"select * from combined_table where combined_table.player='{player1}'", player=player1)
+            # performs query on last season's stats based on specific player's price range and FPL position
+            forwards_old = connection.execute(f"select * from combined_table_20_21 where combined_table_20_21.player_position='Forward' and combined_table_20_21.current_price >= 8.0")
+
+
+            session.close()
+            return jsonify([dict(row) for row in player_chosen],[dict(row) for row in forwards_old])
+        
+        # Query for Mid Range Forwards from 6.0 - 8.0 price range
+        if row.player_position == "Forward" and (6.0 <= row.current_price < 8.0):
+            session = Session(engine)
+            # performs query on current season's stats for specific player
+            player_chosen = connection.execute(f"select * from combined_table where combined_table.player='{player1}'", player=player1)
+            # performs query on last season's stats based on specific player's price range and FPL position
+            forwards_old = connection.execute(f"select * from combined_table_20_21 where combined_table_20_21.player_position='Forward' and combined_table_20_21.current_price >= 6.0 and combined_table_20_21.current_price < 8.0")
+
+
+            session.close()
+            return jsonify([dict(row) for row in player_chosen],[dict(row) for row in forwards_old])
+
+        # Query for Cheap Forwards from 4.0 - 5.9 price range
+        if row.player_position == "Forward" and (4.0 <= row.current_price < 6.0):
+            session = Session(engine)
+
+            # performs query on current season's stats for specific player
+            player_chosen = connection.execute(f"select * from combined_table where combined_table.player='{player1}'", player=player1)
+            # performs query on last season's stats based on specific player's price range and FPL position
+            forwards_old = connection.execute(f"select * from combined_table_20_21 where combined_table_20_21.player_position='Forward' and combined_table_20_21.current_price >= 4.0 and combined_table_20_21.current_price < 6.0")
+
+
+            session.close()
+            return jsonify([dict(row) for row in player_chosen],[dict(row) for row in forwards_old])
+        
+        # Query for Expensive Midfielders above 8.0 price range
+        if row.player_position == "Midfielder" and row.current_price >= 8.0:
+            session = Session(engine)
+
+            # performs query on current season's stats for specific player
+            player_chosen = connection.execute(f"select * from combined_table where combined_table.player='{player1}'", player=player1)
+            # performs query on last season's stats based on specific player's price range and FPL position
+            mids_old = connection.execute(f"select * from combined_table_20_21 where combined_table_20_21.player_position='Midfielder' and combined_table_20_21.current_price >= 8.0")
+
+
+            session.close()
+            return jsonify([dict(row) for row in player_chosen],[dict(row) for row in mids_old])
+
+        # Query for Mid Range Midfielders from 6.0 - 8.0 price range
+        if row.player_position == "Midfielder" and (6.0 <= row.current_price < 8.0):
+            session = Session(engine)
+
+            # performs query on current season's stats for specific player
+            player_chosen = connection.execute(f"select * from combined_table where combined_table.player='{player1}'", player=player1)
+            # performs query on last season's stats based on specific player's price range and FPL position
+            mids_old = connection.execute(f"select * from combined_table_20_21 where combined_table_20_21.player_position='Midfielder' and combined_table_20_21.current_price >= 6.0 and combined_table_20_21.current_price < 8.0")
+
+
+            session.close()
+            return jsonify([dict(row) for row in player_chosen],[dict(row) for row in mids_old])
+
+        # Query for Mid Range Midfielders from 4.0 - 5.9 price range
+        if row.player_position == "Midfielder" and (4.0 <= row.current_price < 6.0):
+            session = Session(engine)
+
+            # performs query on current season's stats for specific player
+            player_chosen = connection.execute(f"select * from combined_table where combined_table.player='{player1}'", player=player1)
+            # performs query on last season's stats based on specific player's price range and FPL position
+            mids_old = connection.execute(f"select * from combined_table_20_21 where combined_table_20_21.player_position='Midfielder' and combined_table_20_21.current_price >= 4.0 and combined_table_20_21.current_price < 6.0")
+
+
+            session.close()
+            return jsonify([dict(row) for row in player_chosen],[dict(row) for row in mids_old])    
+        
+        # Query for Expensive Defenders from and above 5.5 price range
+        if row.player_position == "Defender" and row.current_price >= 5.5:
+            session = Session(engine)
+
+            # performs query on current season's stats for specific player
+            player_chosen = connection.execute(f"select * from combined_table where combined_table.player='{player1}'", player=player1)
+            # performs query on last season's stats based on specific player's price range and FPL position
+            defenders_old = connection.execute(f"select * from combined_table_20_21 where combined_table_20_21.player_position='Defender' and combined_table_20_21.current_price >= 5.5")
+
+
+            session.close()
+            return jsonify([dict(row) for row in player_chosen],[dict(row) for row in defenders_old])
+
+        # Query for Expensive Defenders from 4.5 - 5.4 price range
+        if row.player_position == "Defender" and (4.5 <= row.current_price < 5.5):
+            session = Session(engine)
+
+            # performs query on current season's stats for specific player
+            player_chosen = connection.execute(f"select * from combined_table where combined_table.player='{player1}'", player=player1)
+            # performs query on last season's stats based on specific player's price range and FPL position
+            defenders_old = connection.execute(f"select * from combined_table_20_21 where combined_table_20_21.player_position='Defender' and combined_table_20_21.current_price >= 4.5 and combined_table_20_21.current_price < 5.5")
+
+
+            session.close()
+            return jsonify([dict(row) for row in player_chosen],[dict(row) for row in defenders_old])
+
+        # Query for Expensive Defenders from 4.5 - 5.4 price range
+        if row.player_position == "Defender" and row.current_price < 4.5:
+            session = Session(engine)
+
+            # performs query on current season's stats for specific player
+            player_chosen = connection.execute(f"select * from combined_table where combined_table.player='{player1}'", player=player1)
+            # performs query on last season's stats based on specific player's price range and FPL position
+            defenders_old = connection.execute(f"select * from combined_table_20_21 where combined_table_20_21.player_position='Defender' and combined_table_20_21.current_price < 4.5")
+
+
+            session.close()
+            return jsonify([dict(row) for row in player_chosen],[dict(row) for row in defenders_old])
+
 # Define main behavior
 if __name__ == "__main__":
     app.run(debug=True)
