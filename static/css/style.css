@@ -181,6 +181,8 @@ body {
         right: 0;
         left: 0;
         margin: auto;
+        height: revert;
+        width: revert;
     }
 
     .container{
@@ -233,7 +235,7 @@ footer li #back_to_top a {color: black;}
 
 canvas{
     display: block;
-    /* height: 950px !important;
-    width: 1200px !important; */
+    height: 750px;
+    width: 1100px;
     margin: auto;
 }
