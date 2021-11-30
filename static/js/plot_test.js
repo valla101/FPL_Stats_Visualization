@@ -1,4 +1,5 @@
 // remove fragment as much as it can go without adding an entry in browser history:
+// ALLOWS FUNCTIONALITY OF "BACK TO TOP" BUTTON
 window.location.replace("#");
 
 // slice off the remaining '#' in HTML5:    
@@ -6,7 +7,7 @@ if (typeof window.history.replaceState == 'function') {
   history.replaceState({}, '', window.location.href.slice(0, -1));
 }
 
-// FUNCTIONAL bar graph that will create a bar graph, filtering stats in descending order
+// FUNCTIONAL BAR GRAPH Filtering stats in descending order
 // Produces the Bar Graph based on Stat Selected
 function interactivePlot(stat){
   var ctx = document.getElementById('statBarGraph').getContext('2d');
@@ -59,7 +60,8 @@ function interactivePlot(stat){
         labels: playerNameCleanFormat,
         data: chartData,
         options: {
-          // indexAxis: 'y',
+          // retains ratio of chart. otherwise it will be too big for a computer screen
+          maintainAspectRatio: false,
           scales: {
             yAxes: [{
               ticks: {
@@ -236,6 +238,7 @@ positionFilterButton.addEventListener("click", function(){
 );
 
               // NEW CHART
+        // PLAYER STATS BAR GRAPH
 // Route for Player Offensive Stats. Generates a Bar Graph
 function filterByPlayer(){
 
@@ -323,33 +326,34 @@ function filterByPlayer(){
               }]
           },
           options: {
-              scales: {
-                  yAxes: [{
-                    ticks: {
-                      fontSize: 15,
-                      fontStyle: "bold"
-                    }
-                  }],
-                  xAxes: [{
-                    ticks: {
-                      fontSize: 20,
-                      fontStyle: "bold"
-                    }
-                  }]
-              },
-              
-              plugins: {
-                legend: {
-
-                  labels:{
-                    fontSize: 20,
+            maintainAspectRatio: false,
+            scales: {
+                yAxes: [{
+                  ticks: {
+                    fontSize: 15,
+                    fontStyle: "bold"
                   }
-                }},
-              
-              title: {display: true,
-                text: `2021/2022 Premier League Stats: ${PlayerName}`,
-                fontSize: 20,
-                fontColor: 'black',}
+                }],
+                xAxes: [{
+                  ticks: {
+                    fontSize: 20,
+                    fontStyle: "bold"
+                  }
+                }]
+            },
+            
+            plugins: {
+              legend: {
+
+                labels:{
+                  fontSize: 20,
+                }
+              }},
+            
+            title: {display: true,
+              text: `2021/2022 Premier League Stats: ${PlayerName}`,
+              fontSize: 20,
+              fontColor: 'black',}
           }
         });
          // Function gets rid of ChartJS bug when floating over chart
@@ -364,7 +368,7 @@ function filterByPlayer(){
       else{var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Total Points', 'Total Saves', 'Save Percentage', 'Shots on Target Against', 'Clean Sheets', 'Clean Sheet Percentage', "Goals Conceded", "Goals Conceded Per 90", "Penalty Kicks Attempted Against", "Saved Penalty Kicks", "Penalty Kicks Scored Against", "Penalty Kicks Missed Against"],
+            labels: ['Total Points', 'Total Saves', 'Save Percentage', 'Shots on Target Against', 'Clean Sheets', "Goals Conceded", "Goals Conceded Per 90", "Penalty Kicks Attempted Against", "Saved Penalty Kicks", "Penalty Kicks Scored Against", "Penalty Kicks Missed Against"],
             datasets: [{
                 label: PlayerName,
                 data: [parseInt(totalPoints), parseInt(gkSaves), parseFloat(gkSavePercentage), parseInt(gkShotsOnTargetAgainst), parseInt(cleanSheet), parseInt(goalsConceded), parseFloat(goalsConcededPerMatch), parseInt(pkAttemptAgainst), parseInt(pkSaved), parseInt(pkScoredOn), parseInt(pkMissedAgainst)],
@@ -401,25 +405,25 @@ function filterByPlayer(){
             }]
         },
         options: 
-        {
-          scales: {
-              yAxes: [{
-                ticks: {
-                  fontSize: 15,
-                  fontStyle: "bold"
-                }
-              }],
-              xAxes: [{
-                ticks: {
-                  fontSize: 20,
-                  fontStyle: "bold"
-                }
-              }]
-          },
-            title: {display: true,
-              text: `2021/2022 Premier League Stats: ${PlayerName}`,
-              fontSize: 20,
-              fontColor: 'black',}
+        {maintainAspectRatio: false,
+        scales: {
+            yAxes: [{
+              ticks: {
+                fontSize: 15,
+                fontStyle: "bold"
+              }
+            }],
+            xAxes: [{
+              ticks: {
+                fontSize: 20,
+                fontStyle: "bold"
+              }
+            }]
+        },
+          title: {display: true,
+            text: `2021/2022 Premier League Stats: ${PlayerName}`,
+            fontSize: 20,
+            fontColor: 'black',}
         }
       });
        // Function gets rid of ChartJS bug when floating over chart
@@ -460,6 +464,7 @@ function comparePlayers(){
       // Compare Player 1
       var PlayerName1 = data[0].map(Player => Player["player"]);
       var totalPoints1 = data[0].map(Player => Player["total_points"]);
+      var total_minutes_1 = data[0].map(Player => Player["minutes"]);
       var totalGoals1 = data[0].map(Player => Player["goals"]);
       var totalAssists1 = data[0].map(Player => Player["assists"]);
       var totalG_plus_A_per90_1 = data[0].map(Player => Player["goals_plus_assists_per_90"]);
@@ -492,6 +497,7 @@ function comparePlayers(){
       // Compare Player 2
       var PlayerName2 = data[1].map(Player => Player["player"]);
       var totalPoints2 = data[1].map(Player => Player["total_points"]);
+      var total_minutes_2 = data[0].map(Player => Player["minutes"]);
       var totalGoals2 = data[1].map(Player => Player["goals"]);
       var totalAssists2 = data[1].map(Player => Player["assists"]);
       var totalG_plus_A_per90_2 = data[1].map(Player => Player["goals_plus_assists_per_90"]);
@@ -542,6 +548,7 @@ function comparePlayers(){
             ]
           },
           options: {
+            maintainAspectRatio: false,
             scales: {
                 yAxes: [{
                   ticks: {
@@ -582,12 +589,14 @@ function comparePlayers(){
         });
       }
 
+      // Conditional Statement when comparing 1 defender (*MUST ADD CLEAN SHEET TO STATS IN THE DATABASE. ONLY GOALKEEPERS HAVE IT NOW*)=
+
       // Conditional Statement to compare 2 Goalkeepers
       if(playerPosition1 == "Goalkeeper" && playerPosition2 == "Goalkeeper"){
         var myChart = new Chart(ctx, {
           type: 'bar',
           data: {
-            labels: ['Total Points', 'Total Saves', 'Save Percentage', 'Shots on Target Against', 'Clean Sheets', 'Clean Sheet Percentage', "Goals Conceded", "Goals Conceded Per 90", "Penalty Kicks Attempted Against", "Saved Penalty Kicks", "Penalty Kicks Scored Against", "Penalty Kicks Missed Against"],
+            labels: ['Total Points', 'Total Saves', 'Save Percentage', 'Shots on Target Against', 'Clean Sheets', "Goals Conceded", "Goals Conceded Per 90", "Penalty Kicks Attempted Against", "Saved Penalty Kicks", "Penalty Kicks Scored Against", "Penalty Kicks Missed Against"],
             datasets: [{
                   label: PlayerName1,
                   data: [parseInt(totalPoints1), parseInt(gkSaves1), parseFloat(gkSavePercentage1), parseInt(gkShotsOnTargetAgainst1), parseInt(cleanSheet1), parseInt(goalsConceded1), parseFloat(goalsConcededPerMatch1), parseInt(pkAttemptAgainst1), parseInt(pkSaved1), parseInt(pkScoredOn1), parseInt(pkMissedAgainst1)],
@@ -605,34 +614,35 @@ function comparePlayers(){
               }]
           },
           options: {
-                scales: {
-                    yAxes: [{
-                      ticks: {
-                        fontSize: 15,
-                        fontStyle: "bold"
-                      }
-                    }],
-                    xAxes: [{
-                      ticks: {
-                        fontSize: 20,
-                        fontStyle: "bold"
-                      }
-                    }]
-                },
-              
-              plugins: {
-                legend: {
-
-                  labels:{
-                    fontSize: 20,
+            maintainAspectRatio: false,
+            scales: {
+                yAxes: [{
+                  ticks: {
+                    fontSize: 15,
+                    fontStyle: "bold"
                   }
-                }},
-              
-              title: {display: true,
-                text: `2021/2022 Premier League Stats: ${PlayerName1} vs ${PlayerName2}`,
+                }],
+                xAxes: [{
+                  ticks: {
+                    fontSize: 20,
+                    fontStyle: "bold"
+                  }
+                }]
+            },
+          
+          plugins: {
+            legend: {
+
+              labels:{
                 fontSize: 20,
-                fontColor: 'black',}
-          }
+              }
+            }},
+          
+          title: {display: true,
+            text: `2021/2022 Premier League Stats: ${PlayerName1} vs ${PlayerName2}`,
+            fontSize: 20,
+            fontColor: 'black',}
+      }
         });
          // Function gets rid of ChartJS bug when floating over chart
         var playerComparedFinalButton = document.getElementById("comparePlayersButton");
@@ -725,6 +735,7 @@ function player_scatter(){
       type: 'scatter',
       data: chartData,
       options: {
+        // maintainAspectRatio: false,
         scales: {
           yAxes: [{
             display: true,
@@ -856,6 +867,7 @@ function player_scatter_team(){
       type: 'scatter',
       data: chartData,
       options: {
+        // maintainAspectRatio: false,
         scales: {
           yAxes: [{
             display: true,
@@ -1073,6 +1085,7 @@ function player_scatter_position_price(){
       type: 'scatter',
       data: chartData,
       options: {
+        maintainAspectRatio: false,
         scales: {
           yAxes: [{
             display: true,
