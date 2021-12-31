@@ -7,21 +7,38 @@ if (typeof window.history.replaceState == 'function') {
   history.replaceState({}, '', window.location.href.slice(0, -1));
 }
 
+
+// styling for chartjs container. get elements by class name returns an arrray of items
+var getChartjsContainer = document.getElementsByClassName("container-chart");
+
+// getChartjsContainer returns an HTMLDocument array. you are unable to use a foreach function. must convert that list into an array
+Array.from(getChartjsContainer).forEach(
+  function(item){
+    // sets container height to auto. when first loading page, the height needs to be resized to look cleaner
+    item.style["height"] = "auto";
+  }
+);
+
 // FUNCTIONAL BAR GRAPH Filtering stats in descending order
 // Produces the Bar Graph based on Stat Selected
 function interactivePlot(stat){
   var ctx = document.getElementById('statBarGraph').getContext('2d');
 
+  // using d3 to extract property "value" and insert into url for api call
   var statsDropdown = d3.select(statsList);
   var stat = statsDropdown.property("value");
+
+  // use this string to query the database through flask route
   var url2 = `${stat}/${10}`
+
+  // function that reads, maps data from api call
   d3.json(url2).then(function(data) {
 
     var cleanStat = document.getElementById("statsList");
     // This variable is to obtain the text from dropdown menu statsList2
     var cleanStatText = cleanStat.options[cleanStat.selectedIndex].text;
   
-      console.log(data);
+      // console.log(data);
   
       var PlayerName = data.map(Player => Player["player"]);
       var statQueried = data.map(Player => Player[stat]);
@@ -94,6 +111,26 @@ function interactivePlot(stat){
       myChart.destroy();
       });
     });
+
+
+// // START of Resize Container (aesthetic purposes) Function Scope
+  var resizeFunc = function() {
+  // console.log("this")
+
+  var getTopPerformersButton = document.getElementById("statsList");
+   
+  getTopPerformersButton.addEventListener("click", function(){
+    // console.log("this again")
+
+    var getTopPerformersContainer = document.getElementById("stats-top-performers-chartjs-container");
+    
+    // sets container height to 75vh only after get stats button is clicked. resizes the container for a larger chart
+    getTopPerformersContainer.style["height"] = "75vh";});
+  // END OF testFunc Scope
+  };
+// calling testFunc
+resizeFunc()
+
 };
   
 
@@ -185,7 +222,7 @@ positionFilterButton.addEventListener("click", function(){
 
   var url2 = `/query_by_position/${positionValue}`
   d3.json(url2).then(function(data){
-    console.log(data)
+    // console.log(data)
     var table = new Tabulator("#playerDataTable", {
       data:data, //assign data to table
       // autoColumns:true, //create columns from data field names
@@ -243,15 +280,17 @@ positionFilterButton.addEventListener("click", function(){
 function filterByPlayer(){
 
   var ctx = document.getElementById('playerBarChart').getContext('2d');
-
+// get button from Player Stats Table
   var getPlayerStatsButton = document.getElementById("getPlayerStatsButton");
+
+  // Initialize function on click (button)
   getPlayerStatsButton.addEventListener("click", function playerSelected() {
 
     // var playerDropdown = d3.select("#playerName");
     var player = document.getElementById("playerName").value;
     var test_url = `/query_all_players/${player}`;
     d3.json(test_url).then(function(data){
-      console.log(data);
+      // console.log(data);
 
       var PlayerName = data.map(Player => Player["player"]);
       var totalPoints = data.map(Player => Player["total_points"]);
@@ -326,6 +365,8 @@ function filterByPlayer(){
               }]
           },
           options: {
+            responsive: true,
+            // allows for resizing of container manually
             maintainAspectRatio: false,
             scales: {
                 yAxes: [{
@@ -361,11 +402,14 @@ function filterByPlayer(){
         getPlayerStatsButton.addEventListener("click", function(){
         // This action destroys the previous chart requested by player
         myChart.destroy();
+
+
         });
       }
 
       // Populate Stats for all Players that ARE Goalkeepers
-      else{var myChart = new Chart(ctx, {
+      else{
+        var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: ['Total Points', 'Total Saves', 'Save Percentage', 'Shots on Target Against', 'Clean Sheets', "Goals Conceded", "Goals Conceded Per 90", "Penalty Kicks Attempted Against", "Saved Penalty Kicks", "Penalty Kicks Scored Against", "Penalty Kicks Missed Against"],
@@ -404,8 +448,9 @@ function filterByPlayer(){
                 borderWidth: 1
             }]
         },
-        options: 
-        {maintainAspectRatio: false,
+        options: {
+        // allows for resizing of container manually 
+        maintainAspectRatio: false,
         scales: {
             yAxes: [{
               ticks: {
@@ -425,18 +470,46 @@ function filterByPlayer(){
             fontSize: 20,
             fontColor: 'black',}
         }
-      });
-       // Function gets rid of ChartJS bug when floating over chart
-      var getPlayerStatsButton = document.getElementById("getPlayerStatsButton");
-      getPlayerStatsButton.addEventListener("click", function(){
-      // This action destroys the previous chart requested by player
-      myChart.destroy();
-      });}
+        });
 
-     
+       // Function gets rid of ChartJS bug when floating over chart
+        var getPlayerStatsButton = document.getElementById("getPlayerStatsButton");
+        getPlayerStatsButton.addEventListener("click", function(){
+        // This action destroys the previous chart requested by player
+        myChart.destroy();
+        });
+      }
+
+  // END OF JSON Call Function Scope
   });
-});
+
+ 
+
+})
+
+// START of Resize Container (aesthetic purposes) Function Scope
+      var resizeFunc = function() {
+        // console.log("this")
+    
+        var getPlayerStatsButton = document.getElementById("getPlayerStatsButton");
+         
+        getPlayerStatsButton.addEventListener("click", function(){
+          // console.log("this again")
+
+          var getPlayerStatsContainer = document.getElementById("player_stat_chartjs_container");
+          
+          // sets container height to 75vh only after get stats button is clicked. resizes the container for a larger chart
+          getPlayerStatsContainer.style["height"] = "75vh";
+    
+        });
+        // END OF testFunc Scope
+      };
+      // calling testFunc
+      resizeFunc()
+
+// ABOVE END OF GET PLAYER STATS FUNCTION SCOPE
 };
+
 
 var getPlayerStatsButton = document.getElementById("getPlayerStatsButton");
 getPlayerStatsButton.addEventListener("change", filterByPlayer())
@@ -548,6 +621,7 @@ function comparePlayers(){
             ]
           },
           options: {
+            // allows for resizing of container manually
             maintainAspectRatio: false,
             scales: {
                 yAxes: [{
@@ -614,6 +688,7 @@ function comparePlayers(){
               }]
           },
           options: {
+            // allows for resizing of container manually
             maintainAspectRatio: false,
             scales: {
                 yAxes: [{
@@ -660,7 +735,29 @@ function comparePlayers(){
         window.alert("Cannot Compare Outfield Players to Goalkeepers");
       }
   });
+// END OF JSON CALL FUNCTION
 });
+
+// START of Resize Container (aesthetic purposes) Function Scope
+      var resizeFunc = function() {
+        // console.log("this")
+    
+        var getPlayerStatsButton = document.getElementById("comparePlayersButton");
+         
+        getPlayerStatsButton.addEventListener("click", function(){
+          // console.log("this again")
+
+          var getPlayerStatsContainer = document.getElementById("compare_player_chartjs_container");
+          
+          // sets container height to 75vh only after get stats button is clicked. resizes the container for a larger chart
+          getPlayerStatsContainer.style["height"] = "75vh";
+    
+        });
+        // END OF testFunc Scope
+      };
+      // calling testFunc
+      resizeFunc()
+// END OF COMPARE PLAYERS FUNCTION
 };
 
 var playerComparedFinalButton = document.getElementById("comparePlayersButton");
@@ -678,7 +775,7 @@ $(document).ready(function() {
   $('#playerNameScatter').select2();
 });
 
-// ------------------------------------
+// -----------------new Function------------------------
 // New Function to Create Scatter Plot
 function player_scatter(){
   var ctx = document.getElementById('scatter_plot').getContext('2d');
@@ -688,9 +785,6 @@ function player_scatter(){
     
   var statsDropdown = d3.select(statsList2);
   var stat = statsDropdown.property("value");
-  
-  
-;
 
   url = `query_all_player_stat/${stat}`;
   d3.json(url).then(function(data){
@@ -703,15 +797,21 @@ function player_scatter(){
     // This variable is to obtain the text from dropdown menu statsList2
     var cleanStatText = cleanStat.options[cleanStat.selectedIndex].text;
 
+    // appends last season's stats based on price and position into a new list
     var dataCleanFormat = []
+
+    // for loop the data that is collected using the api call & url
     for(var i=0;i<data.length;i++)
     {
+    // obj is the object that will contain x, y categories and label
     var obj = {x:minutes[i],y:statQueried[i], label: playerName[i]};
+
     dataCleanFormat.push(obj);
     }
 
-    console.log(dataCleanFormat);
+    // console.log(dataCleanFormat);
 
+    // this variable will be used to push the contents of dataCleanFormat into the Chartjs format
     var chartData = {
       datasets: [{
         label: [],
@@ -720,13 +820,17 @@ function player_scatter(){
       }]
     }
 
+    // loops through dataCleanFormat
     for (var i = 0; i < dataCleanFormat.length; i++) {
+      // pushes to chartData rows/instances (minutes, category) into datasets[0]. See line 806
       chartData.datasets[0].data.push(
         {
           x: dataCleanFormat[i].x,
           y: dataCleanFormat[i].y,
         }    
       )
+
+      // pushes to chartData rows/instances (label) into datasets[0]. See line 965
       chartData.datasets[0].label.push(
       {label: dataCleanFormat[i].label})
     }
@@ -735,7 +839,8 @@ function player_scatter(){
       type: 'scatter',
       data: chartData,
       options: {
-        // maintainAspectRatio: false,
+        // allows for resizing of container manually
+        maintainAspectRatio: false,
         scales: {
           yAxes: [{
             display: true,
@@ -806,27 +911,58 @@ function player_scatter(){
 
     });
     });
-    };
+    // START of Resize Container (aesthetic purposes) Function Scope
+  var resizeFunc = function() {
+    // console.log("this")
 
+    var getTeamScatterButton = document.getElementById("scatterButton");
+      
+    getTeamScatterButton.addEventListener("click", function(){
+      // console.log("this again")
 
+      var getTeamScatterButtonContainer = document.getElementById("scatter-plot-category-chartjs-container");
+      
+      // sets container height to 75vh only after get stats button is clicked. resizes the container for a larger chart
+      getTeamScatterButtonContainer.style["height"] = "75vh";
 
+    });
+    // END OF testFunc Scope
+  };
+  // calling testFunc
+  resizeFunc()
+};
 
+                        // new Function
+// function for scatter plot filtered by team
 function player_scatter_team(){
+
+  // declare variable for chartjs canvas tag
   var ctx = document.getElementById('scatter_plot2').getContext('2d');
 
   var scatterPlotButton2 = document.getElementById("scatterButton2");
+  
+  // function on scatter button click
   scatterPlotButton2.addEventListener("click", function testing2(){
+
+  // using d3, get teamsList element (select)
   var teamsDropdown = d3.select(teamsList);
+  
+  // read value of teamsList
   var team = teamsDropdown.property("value");
 
+  // using d3, get statsList2 element (select)
   var statsDropdown = d3.select(statsList2);
+  // read value of statsList2
   var stat = statsDropdown.property("value");
 
+  // use this string to query the database through flask route
   url = `query_all_player_stat/${stat}/${team}`;
 
-  
+  // function that reads, maps data from api call
   d3.json(url).then(function(data){
-    console.log(data);
+
+    // maps data to declared variables. Player[category] is where the data is stored
+    // stats for player picked from dropdown menu
     var minutes = data.map(Player => Player["minutes"]);
     var statQueried = data.map(Player => Player[stat]);
     var playerName = data.map(Player => Player["player"]);
@@ -835,15 +971,21 @@ function player_scatter_team(){
     // This variable is to obtain the text from dropdown menu statsList2
     var cleanStatText = cleanStat.options[cleanStat.selectedIndex].text;
  
+    // declares empty list to eventually store data in
     var dataCleanFormat = []
+    
+    // for loop the data that is collected using the api call & url
     for(var i=0;i<data.length;i++)
     {
+    // obj is the object that will contain x, y categories and label
     var obj = {x:minutes[i],y:statQueried[i], label: playerName[i]};
+    // pushes the object into empty array dataCleanFormat
     dataCleanFormat.push(obj);
     }
 
     console.log(dataCleanFormat);
 
+    // this variable will be used to push the contents of dataCleanFormat into the Chartjs format
     var chartData = {
       datasets: [{
         label: [],
@@ -852,22 +994,27 @@ function player_scatter_team(){
       }]
     }
 
+    // loops through dataCleanFormat
     for (var i = 0; i < dataCleanFormat.length; i++) {
+      // pushes to chartData rows/instances (minutes, category) into datasets[0]. See line 965
       chartData.datasets[0].data.push(
         {
           x: dataCleanFormat[i].x,
           y: dataCleanFormat[i].y,
         }    
       )
+      // pushes to chartData rows/instances (label) into datasets[0]. See line 965
       chartData.datasets[0].label.push(
       {label: dataCleanFormat[i].label})
     }
 
+    // starts the chartjs scatter plot chart
     var myChart = new Chart(ctx, {
       type: 'scatter',
       data: chartData,
       options: {
-        // maintainAspectRatio: false,
+        // allows for resizing of container manually
+        maintainAspectRatio: false,
         scales: {
           yAxes: [{
             display: true,
@@ -931,6 +1078,28 @@ function player_scatter_team(){
     });
   });
 });
+
+  // START of Resize Container (aesthetic purposes) Function Scope
+  var resizeFunc = function() {
+    console.log("this")
+
+    var getTeamScatterButton = document.getElementById("scatterButton2");
+      
+    getTeamScatterButton.addEventListener("click", function(){
+      console.log("this again")
+
+      var getTeamScatterButtonContainer = document.getElementById("scatter-plot-category-chartjs-container2");
+      
+      // sets container height to 75vh only after get stats button is clicked. resizes the container for a larger chart
+      getTeamScatterButtonContainer.style["height"] = "75vh";
+
+    });
+    // END OF testFunc Scope
+  };
+  // calling testFunc
+  resizeFunc()
+
+// end of Team Scatter Plot Function Scope
 };
   
   
@@ -941,26 +1110,30 @@ scatterPlotButton.addEventListener("change", player_scatter());
 var scatterPlotButton2 = document.getElementById("scatterButton2");
 scatterPlotButton2.addEventListener("click", player_scatter_team());
 
-
+                    // new Function
 // New Function to Create Scatter Plot and filtering out position & price range
 function player_scatter_position_price(){
+
+  // declare variable for chartJs chart
   var ctx = document.getElementById('scatterPlotbyPosition_Price').getContext('2d');
 
   var scatterPlotButton = document.getElementById("getPlayerStatScatterButton");
+
+  // start of 1st Nested function scope
   scatterPlotButton.addEventListener("click", function scatter(){
-    
+  
+  // use d3 to read select element that contains player Name  
   var playerDropdown = d3.select(playerNameScatter);
   var player = playerDropdown.property("value");
-  
-  
-;
 
+  // use this string to query the database through flask route
   url = `/query_all_player_position/${player}`;
   d3.json(url).then(function(data){
 
-    console.log(data);
-    console.log(data[0]);
+    // console.log(data);
+    // console.log(data[0]);
 
+    // maps data to declared variables. Player[category] is where the data is stored
     // stats for player picked from dropdown menu
     var goalsCurrent = data[0].map(Player => Player["goals"]);
     var totalShotscurrent = data[0].map(Player => Player["total_shots"]);
@@ -1016,11 +1189,15 @@ function player_scatter_position_price(){
     console.log(playerPosition);
     console.log(priceTier);
 
-  // appends last season's stats based on price and position into a new list
+    // appends last season's stats based on price and position into a new list
     var dataCleanFormat = []
+
+    // for loop the data that is collected using the api call & url
     for(var i=0;i<data[1].length;i++)
-    {
+    {    
+    // obj is the object that will contain x, y categories and label
     var obj = {x:totalShots[i],y:goals[i], label: playerName[i]};
+    // pushes the object into empty array dataCleanFormat
     dataCleanFormat.push(obj);
     }
 
@@ -1032,8 +1209,8 @@ function player_scatter_position_price(){
     dataCleanFormat2.push(obj);
     }
 
-    console.log(dataCleanFormat);
-    console.log(dataCleanFormat2);
+    // console.log(dataCleanFormat);
+    // console.log(dataCleanFormat2);
 
     var chartData = {
       // dataset[0] is last season's data
@@ -1079,12 +1256,13 @@ function player_scatter_position_price(){
       chartData.datasets[1].label.push(
       {label: dataCleanFormat2[i].label})
     }
-    console.log(chartData)
+    // console.log(chartData)
 
     var myChart = new Chart(ctx, {
       type: 'scatter',
       data: chartData,
       options: {
+        // allows for resizing of container manually
         maintainAspectRatio: false,
         scales: {
           yAxes: [{
@@ -1164,15 +1342,31 @@ function player_scatter_position_price(){
 
     });
     });
-    };
+
+  // START of Resize Container (aesthetic purposes) Function Scope
+  var resizeFunc = function() {
+    console.log("this")
+
+    var getPlayerStatsScatterButton = document.getElementById("getPlayerStatScatterButton");
+      
+    getPlayerStatsScatterButton.addEventListener("click", function(){
+      console.log("this again")
+
+      var getTrendlineScatterContainer = document.getElementById("scatter-trendline-chartjs-container");
+      
+      // sets container height to 75vh only after get stats button is clicked. resizes the container for a larger chart
+      getTrendlineScatterContainer.style["height"] = "75vh";
+
+    });
+    // END OF testFunc Scope
+  };
+  // calling testFunc
+  resizeFunc()
+
+// END OF COMPARE PLAYERS FUNCTION    
+};
 
 var scatterPlotButton3 = document.getElementById("getPlayerStatScatterButton");
+
+// starts function scope of trendline scatter plot
 scatterPlotButton3.addEventListener("click", player_scatter_position_price());
-
-
-// url = `/query_all_player_position2/Harry Kane`;
-// d3.json(url).then(function(data){
-
-// console.log(data[0]);
-// console.log(data[1]);}
-//   );

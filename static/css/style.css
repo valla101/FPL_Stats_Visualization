@@ -132,7 +132,66 @@ body {
     /* Display None to Hide Canvas Tag */
     display: none;
     }
-/* Samsung Mobile Styling */
+
+
+/* Footer */
+footer li {list-style-type: none;}
+
+/* Back to top Button Styling */
+footer li #back_to_top {bottom: 0px; position: fixed; margin-left: 15px; margin-bottom: 5px; background-color: rgb(214, 241, 57);}
+
+footer li #back_to_top a {color: black;}
+
+@media only screen and (max-width: 990px){
+    #back_to_top {margin-left: 0px !important;}
+}
+
+/* ALL CONTAINERS */
+.container{
+    /* border: solid rgba(209, 217, 226, 0.89) 2px; */
+    /* border-radius: 20px; */
+    padding-top: 20px;
+    padding-bottom: 10px;
+    text-align:center;}
+
+.container-fluid{
+    margin-bottom: 100px;
+    margin-top: 100px;
+    width: 90%;
+    background-color: rgba(72, 142, 223, 0.99);
+}
+
+.containerHeadertext{
+    text-align: center;
+    color: white;
+    size: 30px;
+    margin-bottom: 30px;
+    font-family: "Segoe UI";}
+
+.container-text{
+    text-align: center;
+    size: 20px;
+    font-family: "Segoe UI";
+    margin-bottom: 15px;
+    color: rgb(0, 0, 0);
+}
+
+canvas{
+    display: block;
+    /* height: 750px;
+    width: 1100px; */
+    margin: auto;
+}
+
+/* Adjusts size of chart accordingly */
+.container-chart {
+    position: relative;
+    margin: auto;
+    height: 100vh;
+    width: 75vw;
+  }
+  
+  /* Samsung Mobile Styling */
 
 @media only screen and (max-width: 990px) {
     /* #comparePlayerGraph{height: 550px !important;} */
@@ -181,61 +240,16 @@ body {
         right: 0;
         left: 0;
         margin: auto;
-        height: revert;
-        width: revert;
     }
+
+    .container-chart {
+        position: relative;
+        margin: auto;
+        height: 40vh;
+        width: 75vw;}
 
     .container{
         width: 100%;
     }
 
-}
-
-/* Footer */
-footer li {list-style-type: none;}
-
-/* Back to top Button Styling */
-footer li #back_to_top {bottom: 0px; position: fixed; margin-left: 15px; margin-bottom: 5px; background-color: rgb(214, 241, 57);}
-
-footer li #back_to_top a {color: black;}
-
-@media only screen and (max-width: 990px){
-    #back_to_top {margin-left: 0px !important;}
-}
-
-/* ALL CONTAINERS */
-.container{
-    /* border: solid rgba(209, 217, 226, 0.89) 2px; */
-    /* border-radius: 20px; */
-    padding-top: 20px;
-    padding-bottom: 10px;
-    text-align:center;}
-
-.container-fluid{
-    margin-bottom: 100px;
-    margin-top: 100px;
-    width: 90%;
-    background-color: rgba(72, 142, 223, 0.99);
-}
-
-.containerHeadertext{
-    text-align: center;
-    color: white;
-    size: 30px;
-    margin-bottom: 30px;
-    font-family: "Segoe UI";}
-
-.container-text{
-    text-align: center;
-    size: 20px;
-    font-family: "Segoe UI";
-    margin-bottom: 15px;
-    color: rgb(0, 0, 0);
-}
-
-canvas{
-    display: block;
-    height: 750px;
-    width: 1100px;
-    margin: auto;
 }
