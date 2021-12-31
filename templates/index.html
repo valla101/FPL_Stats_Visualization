@@ -74,11 +74,9 @@
             <br>
         </div>
 
-        <div class = "container-fluid">
+        <div class = "container-chart" id = "player_stat_chartjs_container">
             <!-- ChartJS Plot Generated Here -->
-            <div>
-                <canvas id="playerBarChart" width="400" height="275"></canvas>
-            </div>
+            <canvas id="playerBarChart" width="400" height="275"></canvas>
         </div>    
         
     </div>
@@ -117,7 +115,7 @@
             </div>
         </div>
 
-        <div class = "container-fluid">
+        <div class = "container-chart" id = "compare_player_chartjs_container">
             <!-- ChartJS Plot Generated Here -->
             <canvas id="comparePlayerGraph" width="400" height="275"></canvas>
         </div>
@@ -174,7 +172,7 @@
             </select>
         </div>
 
-        <div class = "container-fluid">
+        <div class = "container-chart" id="stats-top-performers-chartjs-container">
             <canvas id = "statBarGraph" width="450" height="375"></canvas>
         </div>
         
@@ -200,9 +198,13 @@
                 {% endfor %}
             </select>
             <button class= "btn btn-primary filterbutton" id = "scatterButton2"> Add Team Filter Scatter Plot </button>
-            <canvas id="scatter_plot" width="450" height="375"></canvas>
+            <div class = "container-chart" id = "scatter-plot-category-chartjs-container">
+                <canvas id="scatter_plot" width="450" height="375"></canvas>
+            </div>
             <br>
-            <canvas id = "scatter_plot2" width="450" height="375"></canvas>
+            <div class = "container-chart" id = "scatter-plot-category-chartjs-container2">
+                <canvas id = "scatter_plot2" width="450" height="375"></canvas>
+            </div>
         </div>
         
     </div>
@@ -223,11 +225,9 @@
             <br>
         </div>
 
-        <div class = "container-fluid">
+        <div class = "container-chart" id = "scatter-trendline-chartjs-container">
             <!-- ChartJS Plot Generated Here -->
-            <div>
-                <canvas id="scatterPlotbyPosition_Price" width="400" height="275"></canvas>
-            </div>
+            <canvas id="scatterPlotbyPosition_Price" width="400" height="275"></canvas>
         </div>    
         
     </div>
