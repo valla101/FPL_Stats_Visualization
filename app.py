@@ -22,6 +22,8 @@ Base.prepare(engine, reflect=True)
 
 combined_fpl_2020 = Base.classes.combined_table
 
+match_stats = Base.classes.match_logs
+
 
 # Creating Flask Application
 app = Flask(__name__)
@@ -91,13 +93,31 @@ def home_route_function():
     # Query used to call all players in the table
     query_player = session.query(combined_fpl_2020.player).order_by(combined_fpl_2020.player.asc()).all()
 
+    # Query Matchweek 
+    query_matchweek = session.query(match_stats.gameweek).order_by(match_stats.gameweek.asc()).distinct()
+
     # Query used to call all teams in the table
     teams = session.query(combined_fpl_2020.team_id).order_by(combined_fpl_2020.team_id.asc()).distinct()
     connection = engine.connect()
     query_fpl_positions = connection.execute("select distinct player_position from combined_table")
 
-    return render_template('index.html', query_player = query_player, query_fpl_positions = query_fpl_positions, zipped_columns = zipped_columns, zipped_columns2= zipped_columns2, teams = teams)
+    return render_template('index.html', query_player = query_player, query_fpl_positions = query_fpl_positions, zipped_columns = zipped_columns, zipped_columns2= zipped_columns2, teams = teams, query_matchweek=query_matchweek)
 
+# Route for Player Match Form Comparison
+@app.route("/query_match_stats_players/<player1>/<player2>/<gameweek_start>/<gameweek_end>")
+def match_stat_player(player1, player2, gameweek_start, gameweek_end):
+    
+    connection = engine.connect()
+
+    session = Session(engine)
+
+    query_fpl_view = connection.execute(f"select * from match_logs where match_logs.player='{player1}' and match_logs.gameweek>={gameweek_start} and match_logs.gameweek<={gameweek_end}", player=player1, gameweek = gameweek_start)
+
+    query_fpl_view2 = connection.execute(f"select * from match_logs where match_logs.player='{player2}' and match_logs.gameweek>={gameweek_start} and match_logs.gameweek<={gameweek_end}", player=player2, gameweek = gameweek_start)
+
+    session.close()
+
+    return jsonify([dict(row) for row in query_fpl_view], [dict(row) for row in query_fpl_view2])
 
 @app.route("/query_all_players/<player>")
 def player_route(player):
