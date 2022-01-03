@@ -81,6 +81,68 @@
         
     </div>
 
+    <!-- Player Form Comparison -->
+
+    <div class = "grid-container">
+        <h1 class = "containerHeadertext">Compare Form of Players</h1>
+        <div class = "grid-item grid-item-1">
+            <select id = "player_select1">
+                {% for player in query_player %}
+                    <option value='{{ player["player"] }}'>{{ player["player"] }}</option>
+                {% endfor %}
+            </select>
+            <select id = "player_select2">
+                {% for player in query_player %}
+                    <option value='{{ player["player"] }}'>{{ player["player"] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class = "grid-item grid-item-2">
+            <h3 style = "padding: 10px;">Select Range of Gameweeks</h3>
+            <p>Gameweek
+                <select id = "matchweek_start">
+                    {% for player in query_matchweek %}
+                        <option value='{{ player["gameweek"] }}'>{{ player["gameweek"] }}</option>
+                    {% endfor %}
+                </select>
+            </p>
+            <p>Gameweek
+                <select id = "matchweek_end">
+                    {% for player in query_matchweek %}
+                        <option value='{{ player["gameweek"] }}'>{{ player["gameweek"] }}</option>
+                    {% endfor %}
+                </select>
+            </p>
+        </div>
+        <div class = "grid-item grid-item-3">
+            <button class= "btn btn-primary filterbutton" id = "player_match_stats"> Generate Stats </button>
+        </div>
+    </div>
+
+    <!-- Container that displays stats for player form comparison -->
+    <div class = "grid-container" id = "holds_player_match_stats">
+        <div class = "grid-item grid-item-4" id = "match_stats_player_name"></div>
+        <div class = "grid-item grid-item-5" id = "match_stats_player_name2"></div>
+        <div class = "grid-item grid-item-6" id = "games_played_player1"></div>
+        <div class = "grid-item grid-item-7" id = "games_played_player2"></div>
+        <div class = "grid-item grid-item-8" id = "goals"></div>
+        <div class = "grid-item grid-item-9" id = "goals2"></div>
+        <div class = "grid-item grid-item-10" id = "test_avg_goals"></div>
+        <div class = "grid-item grid-item-11" id = "test_avg_goals2"></div>
+        <div class = "grid-item grid-item-12" id = "assists"></div>
+        <div class = "grid-item grid-item-13" id = "assists2"></div>
+        <div class = "grid-item grid-item-14" id = "test_avg_assists"></div>
+        <div class = "grid-item grid-item-15" id = "test_avg_assists2"></div>
+        <div class = "grid-item grid-item-16" id = "avg_xG"></div>
+        <div class = "grid-item grid-item-17" id = "avg_xG2"></div>
+        <div class = "grid-item grid-item-18" id = "avg_xA"></div>
+        <div class = "grid-item grid-item-19" id = "avg_xA2"></div>
+        <div class = "grid-item grid-item-20" id = "shots_on_target1"></div>
+        <div class = "grid-item grid-item-21" id = "shots_on_target2"></div>
+        <div class = "grid-item grid-item-20" id = "avg_shots_on_target1"></div>
+        <div class = "grid-item grid-item-21" id = "avg_shots_on_target2"></div>
+    </div>
+
                                 <!--  NEW CHART-->
 
     <!-- Player Comparison Test Chart -->
