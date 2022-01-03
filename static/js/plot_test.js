@@ -773,6 +773,11 @@ $(document).ready(function() {
   $('#comparePlayer1').select2();
   $('#comparePlayer2').select2();
   $('#playerNameScatter').select2();
+
+  // ID for Player Form Comparison Stats
+  $('#player_select1').select2();
+  $('#player_select2').select2();
+  
 });
 
 // -----------------new Function------------------------
@@ -1370,3 +1375,307 @@ var scatterPlotButton3 = document.getElementById("getPlayerStatScatterButton");
 
 // starts function scope of trendline scatter plot
 scatterPlotButton3.addEventListener("click", player_scatter_position_price());
+
+// Compare Players with an added gameweek filter to track form over desired period of time
+// function
+function PlayerFormComparison() {
+  var button = document.getElementById("player_match_stats");
+
+    button.addEventListener("click", function PlayerFormQuery(){
+      
+      var playerDropdown = d3.select(player_select1);
+      var player = playerDropdown.property("value");
+
+      var playerDropdown2 = d3.select(player_select2);
+      var player2 = playerDropdown2.property("value");
+
+      var matchweekDropdown = d3.select(matchweek_start);
+      var matchweek = matchweekDropdown.property("value")
+
+      var matchweekDropdown2 = d3.select(matchweek_end);
+      var matchweek2 = matchweekDropdown2.property("value")
+
+      var url2 = `/query_match_stats_players/${player}/${player2}/${matchweek}/${matchweek2}`
+      d3.json(url2).then(function(data){
+        // console.log(data)
+        // console.log(data[0])
+        // console.log(data[0][0].goals)
+
+        // Initiate collection of goals throughout gameweeks queried (and which player participated in)
+        var player1MatchStats = data[0]
+        var player2MatchStats = data[1]
+        // console.log(player1MatchStats)
+        // console.log(player2MatchStats)
+
+        // empty list for goals scored for player 1
+        var goalsList = []
+        var assistsList = []
+        var xGList = []
+        var nonPKxGList = []
+        var xAList = []
+        var shotsList = []
+        var shotsOnTargetList = []
+        var shotCreatingActionsList = []
+        var goalCreatingActionsList =[]
+        var progressivePassesList = []
+        var successfulDribblesList = []
+        var attemptedDribblesList = []
+        var touchesList = []
+        var pressesList = []
+        var interceptionList = []
+        var blocksList = []
+        var totalMatches = []
+
+        // var totalMatchCount = 0
+        // Looping through Player 1 Match Stats
+        for (var i = 0; i < player1MatchStats.length; i++){
+          goalsList.push(player1MatchStats[i].goals);
+          assistsList.push(player1MatchStats[i].assists);
+          xGList.push(player1MatchStats[i].expected_goals);
+          nonPKxGList.push(player1MatchStats[i].non_penalty_expected_goals);
+          xAList.push(player1MatchStats[i].expected_assists);
+          shotsList.push(player1MatchStats[i].shots);
+          shotsOnTargetList.push(player1MatchStats[i].shots_on_target);
+          shotCreatingActionsList.push(player1MatchStats[i].shot_creating_actions);
+          goalCreatingActionsList.push(player1MatchStats[i].goal_creating_actions);
+          progressivePassesList.push(player1MatchStats[i].progressive_passes);
+          successfulDribblesList.push(player1MatchStats[i].successful_dribbles);
+          attemptedDribblesList.push(player1MatchStats[i].attempted_dribbles);
+          touchesList.push(player1MatchStats[i].touches);
+          pressesList.push(player1MatchStats[i].presses);
+          interceptionList.push(player1MatchStats[i].interceptions);
+          blocksList.push(player1MatchStats[i].blocks);
+          totalMatches.push(1);
+        }
+        console.log(totalMatches.length);
+
+        // Express the average goals through the gameweeks queried
+        // total goals = 0 before looping to through list
+        var totalGoals = 0;
+
+        var totalAssists = 0;
+
+        var totalxG = 0;
+
+        var totalxA = 0;
+
+        var totalxA = 0;
+
+        var totalNonPKxG = 0;
+        
+        var totalShots = 0;
+
+        var totalShotsOnTarget = 0;
+
+        var totalShotCreatingActions = 0
+
+        var total = 0
+        // Loop through goals category in all games played
+        for (var i = 0; i < totalMatches.length; i++){
+          totalGoals += goalsList[i]
+          totalAssists += assistsList[i]
+          totalxG += xGList[i]
+          totalxA += xAList[i]
+          totalNonPKxG += nonPKxGList[i]
+          totalShots += shotsList[i]
+          totalShotsOnTarget += shotsOnTargetList[i]
+          totalShotCreatingActions += shotCreatingActionsList[i]
+          
+        } 
+
+        // Express average goals scored
+        var AvgGoals = (totalGoals/goalsList.length)
+        console.log(parseFloat(AvgGoals).toFixed(2))
+
+        // Express average assists
+        var AvgAssists = (totalAssists/assistsList.length)
+        console.log(parseFloat(AvgAssists).toFixed(2))
+
+        var AvgxG = (totalxG/xGList.length)
+        console.log(parseFloat(AvgxG).toFixed(2))
+
+        var AvgNonPKxG = (totalNonPKxG/nonPKxGList.length)
+        console.log(parseFloat(AvgNonPKxG).toFixed(2))
+
+        var AvgxA = (totalxA/xGList.length)
+        console.log(parseFloat(AvgxA).toFixed(2))
+
+        var AvgShots = (totalShots/shotsList.length)
+        console.log(parseFloat(AvgShots).toFixed(2))
+
+        var AvgShotsOnTarget = (totalShotsOnTarget/shotsList.length)
+        console.log(parseFloat(AvgShotsOnTarget).toFixed(2))
+
+        var AvgShotCreatingActions = (totalShotCreatingActions/shotCreatingActionsList.length)
+        console.log(parseFloat(AvgShotCreatingActions).toFixed(2))
+
+        var AvgGoalCreatingActions = (total/goalCreatingActionsList.length)
+        console.log(parseFloat(AvgGoalCreatingActions).toFixed(2))
+
+        var AvgProgressivePasses = (total/progressivePassesList.length)
+        console.log(parseFloat(AvgProgressivePasses).toFixed(2))
+
+        var AvgSuccessfulDribbles = (total/successfulDribblesList.length)
+        console.log(parseFloat(AvgSuccessfulDribbles).toFixed(2))
+
+        var AvgAttemptedDribbles = (total/attemptedDribblesList.length)
+        console.log(parseFloat(AvgAttemptedDribbles).toFixed(2))
+
+        var AvgTouches = (total/touchesList.length)
+        console.log(parseFloat(AvgTouches).toFixed(2))
+
+        var AvgPresses = (total/pressesList.length)
+        console.log(parseFloat(AvgPresses).toFixed(2))
+
+        var AvgInterception = (total/interceptionList.length)
+        console.log(parseFloat(AvgInterception).toFixed(2))
+
+        var AvgBlocks= (total/blocksList.length)
+        console.log(parseFloat(AvgBlocks).toFixed(2))
+
+        // empty list for goals scored for player 2
+        var goalsList2 = []
+        var assistsList2 = []
+        var xGList2 = []
+        var nonPKxGList2 = []
+        var xAList2 = []
+        var shotsList2 = []
+        var shotsOnTargetList2 = []
+        var shotCreatingActionsList2 = []
+        var goalCreatingActionsList2 =[]
+        var progressivePassesList2 = []
+        var successfulDribblesList2 = []
+        var attemptedDribblesList2 = []
+        var touchesList2 = []
+        var pressesList2 = []
+        var interceptionList2 = []
+        var blocksList2 = []
+        var totalMatches2 = []
+
+        // Looping through Player 2 Match Stats
+        for (var i = 0; i < player2MatchStats.length; i++){
+          goalsList2.push(player2MatchStats[i].goals);
+          totalMatches2.push(1)
+          assistsList2.push(player2MatchStats[i].assists)
+          xGList2.push(player2MatchStats[i].expected_goals)
+          nonPKxGList2.push(player2MatchStats[i].non_penalty_expected_goals)
+          xAList2.push(player2MatchStats[i].expected_assists)
+          shotsList2.push(player2MatchStats[i].shots)
+          shotsOnTargetList2.push(player2MatchStats[i].shots_on_target)
+          shotCreatingActionsList2.push(player2MatchStats[i].shot_creating_actions);
+          goalCreatingActionsList2.push(player2MatchStats[i].goal_creating_actions);
+          progressivePassesList2.push(player2MatchStats[i].progressive_passes);
+          successfulDribblesList2.push(player2MatchStats[i].successful_dribbles);
+          attemptedDribblesList2.push(player2MatchStats[i].attempted_dribbles);
+          touchesList2.push(player2MatchStats[i].touches);
+          pressesList2.push(player2MatchStats[i].presses);
+          interceptionList2.push(player2MatchStats[i].interceptions);
+          blocksList2.push(player2MatchStats[i].blocks);
+
+          // shotsOnTargetList2
+        }
+        // console.log(goalsList2)
+        // console.log(totalMatches2.length)
+
+        // total goals = 0 before looping to through list
+        var totalGoals2 = 0;
+
+        var totalAssists2 = 0;
+
+        var totalxG2 = 0;
+
+        var totalxA2 = 0;
+
+        var totalNonPKxG2 = 0;
+
+        var totalShots2 = 0;
+
+        var totalShotsOnTarget2 = 0;
+        
+        var totalShotCreatingActions2 = 0
+
+        // Loop through goals category in all games played
+        for (var i = 0; i < totalMatches2.length; i++){
+          totalGoals2 += goalsList2[i]
+          totalAssists2 += assistsList2[i]
+          totalxG2 += xGList2[i]
+          totalxA2 += xAList2[i]
+          totalNonPKxG2 += nonPKxGList2[i]
+          totalShots2 += shotsList2[i]
+          totalShotsOnTarget2 += shotsOnTargetList2[i]
+          totalShotCreatingActions2 += shotCreatingActionsList2[i]
+        }
+
+        // Express average goals scored
+        var AvgGoals2 = (totalGoals2/goalsList2.length)
+        console.log(parseFloat(AvgGoals2).toFixed(2))
+        // Express average assists
+        var AvgAssists2 = (totalAssists2/assistsList2.length)
+        console.log(parseFloat(AvgAssists2).toFixed(2))
+
+        var AvgxG2 = (totalxG2/xGList2.length)
+        console.log(parseFloat(AvgxG2).toFixed(2))
+
+        var AvgNonPKxG2 = (totalNonPKxG2/nonPKxGList2.length)
+        console.log(parseFloat(AvgNonPKxG2).toFixed(2))
+
+        var AvgxA2 = (totalxA2/xGList2.length)
+        console.log(parseFloat(AvgxA2).toFixed(2))
+
+        var AvgShots2 = (totalShots2/shotsList2.length)
+        console.log(parseFloat(AvgShots2).toFixed(2))
+
+        var AvgShotsOnTarget2 = (totalShotsOnTarget2/shotsList2.length)
+        console.log(parseFloat(AvgShotsOnTarget2).toFixed(2))
+
+        var AvgShotCreatingActions2 = (totalShotCreatingActions2/shotCreatingActionsList2.length)
+        console.log(parseFloat(AvgShotCreatingActions2).toFixed(2))
+
+        // Display Player Name
+        document.getElementById("match_stats_player_name").innerHTML = `${player}`;
+        document.getElementById("match_stats_player_name2").innerHTML = `${player2}`;
+
+        // send Average Goals to Element with said ID
+        document.getElementById("test_avg_goals").innerHTML = `Average Goals: ${parseFloat(AvgGoals).toFixed(2)}`;
+        document.getElementById("test_avg_goals2").innerHTML = `Average Goals: ${parseFloat(AvgGoals2).toFixed(2)}`;
+
+        // send Goals to Element with said ID
+        document.getElementById("goals").innerHTML = `Total Goals Scored: ${totalGoals}`;
+        document.getElementById("goals2").innerHTML = `Total Goals Scored: ${totalGoals2}`;
+
+        // send Games Played to Element with said ID
+        document.getElementById("games_played_player1").innerHTML = `Games Played: ${totalMatches.length}`;
+        document.getElementById("games_played_player2").innerHTML = `Games Played: ${totalMatches2.length}`;
+
+        // send Average Assists to Element with said ID
+        document.getElementById("test_avg_assists").innerHTML = `Average Assists: ${parseFloat(AvgAssists).toFixed(2)}`;
+        document.getElementById("test_avg_assists2").innerHTML = `Average Assists: ${parseFloat(AvgAssists2).toFixed(2)}`;
+
+        // send Total Assists to Element with said ID
+        document.getElementById("assists").innerHTML = `Total Assists: ${totalAssists}`;
+        document.getElementById("assists2").innerHTML = `Total Assists: ${totalAssists2}`;
+        
+        // send xG to Element with said ID
+        document.getElementById("avg_xG").innerHTML = `Average Expected Goals: ${parseFloat(AvgxG).toFixed(2)}`;
+        document.getElementById("avg_xG2").innerHTML = `Average Expected Goals: ${parseFloat(AvgxG2).toFixed(2)}`;
+
+        // send xA to Element with said ID
+        document.getElementById("avg_xA").innerHTML = `Average Expected Assists: ${parseFloat(AvgxA).toFixed(2)}`;
+        document.getElementById("avg_xA2").innerHTML = `Average Expected Asissts: ${parseFloat(AvgxA2).toFixed(2)}`;
+
+        // send xA to Element with said ID
+        document.getElementById("shots_on_target1").innerHTML = `Total Shots on Target: ${(totalShotsOnTarget)}`;
+        document.getElementById("shots_on_target2").innerHTML = `Total Shots on Target: ${(totalShotsOnTarget2)}`;
+
+        // send xA to Element with said ID
+        document.getElementById("avg_shots_on_target1").innerHTML = `Average Shots on Target: ${parseFloat(AvgShotsOnTarget).toFixed(2)}`;
+        document.getElementById("avg_shots_on_target2").innerHTML = `Average Shots on Target: ${parseFloat(AvgShotsOnTarget2).toFixed(2)}`;
+
+      })
+    }
+
+  )
+};
+
+var MatchCompareButton = document.getElementById("player_match_stats")
+MatchCompareButton.addEventListener("change", PlayerFormComparison())
