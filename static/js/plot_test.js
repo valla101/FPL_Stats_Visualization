@@ -1671,6 +1671,10 @@ function PlayerFormComparison() {
         document.getElementById("avg_shots_on_target1").innerHTML = `Average Shots on Target: ${parseFloat(AvgShotsOnTarget).toFixed(2)}`;
         document.getElementById("avg_shots_on_target2").innerHTML = `Average Shots on Target: ${parseFloat(AvgShotsOnTarget2).toFixed(2)}`;
 
+        // send xG to Element with said ID
+        document.getElementById("avg_non_pk_xG").innerHTML = `Average Non PK Expected Goals: ${parseFloat(AvgNonPKxG).toFixed(2)}`;
+        document.getElementById("avg_non_pk_xG2").innerHTML = `Average Non PK Expected Goals: ${parseFloat(AvgNonPKxG2).toFixed(2)}`;
+
       })
     }
 
