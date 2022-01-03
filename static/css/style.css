@@ -148,8 +148,6 @@ footer li #back_to_top a {color: black;}
 
 /* ALL CONTAINERS */
 .container{
-    /* border: solid rgba(209, 217, 226, 0.89) 2px; */
-    /* border-radius: 20px; */
     padding-top: 20px;
     padding-bottom: 10px;
     text-align:center;}
@@ -252,4 +250,47 @@ canvas{
         width: 100%;
     }
 
+}
+
+.grid-container{
+    background-color: rgba(72, 142, 223, 0.99);
+    display:grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 2 fr ;
+    /* grid-template-areas: "header header"; */
+}
+
+.grid-item-1{
+    /* grid-area: header; */
+    text-align: center;
+}
+
+.grid-item-2{
+    text-align: center;
+}
+
+#holds_player_match_stats{
+    display:grid;
+    grid-template-columns: 3fr 3fr;
+}
+
+.grid-item-3{
+    text-align: center;
+    
+}
+
+.grid-container div{
+    background-color: rgba(72, 142, 223, 0.99);
+    border-color: black;
+    text-align: center;
+    color: white;
+    
+}
+
+#match_stats_player_name{
+    font-size: 30px;
+}
+
+#match_stats_player_name2{
+    font-size: 30px;
 }
