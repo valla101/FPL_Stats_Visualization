@@ -1086,7 +1086,7 @@ function player_scatter_team(){
 
   // START of Resize Container (aesthetic purposes) Function Scope
   var resizeFunc = function() {
-    console.log("this")
+    // console.log("this")
 
     var getTeamScatterButton = document.getElementById("scatterButton2");
       
@@ -1350,12 +1350,12 @@ function player_scatter_position_price(){
 
   // START of Resize Container (aesthetic purposes) Function Scope
   var resizeFunc = function() {
-    console.log("this")
+    // console.log("this")
 
     var getPlayerStatsScatterButton = document.getElementById("getPlayerStatScatterButton");
       
     getPlayerStatsScatterButton.addEventListener("click", function(){
-      console.log("this again")
+      // console.log("this again")
 
       var getTrendlineScatterContainer = document.getElementById("scatter-trendline-chartjs-container");
       
@@ -1447,7 +1447,7 @@ function PlayerFormComparison() {
           blocksList.push(player1MatchStats[i].blocks);
           totalMatches.push(1);
         }
-        console.log(totalMatches.length);
+        // console.log(totalMatches.length);
 
         // Express the average goals through the gameweeks queried
         // total goals = 0 before looping to through list
@@ -1469,7 +1469,23 @@ function PlayerFormComparison() {
 
         var totalShotCreatingActions = 0
 
-        var total = 0
+        var totalGoalCreatingActions = 0
+
+        var totalprogressivePasses = 0
+
+        var totalsuccessfulDribbles = 0
+
+        var totalattemptedDribbles = 0
+
+        var totalTouches = 0
+
+        var totalPresses = 0
+
+        var totalInterceptions = 0
+
+        var totalBlocks = 0
+
+        // var total = 0
         // Loop through goals category in all games played
         for (var i = 0; i < totalMatches.length; i++){
           totalGoals += goalsList[i]
@@ -1480,58 +1496,65 @@ function PlayerFormComparison() {
           totalShots += shotsList[i]
           totalShotsOnTarget += shotsOnTargetList[i]
           totalShotCreatingActions += shotCreatingActionsList[i]
-          
+          totalGoalCreatingActions += goalCreatingActionsList[i]
+          totalprogressivePasses += progressivePassesList[i]
+          totalsuccessfulDribbles += successfulDribblesList[i]
+          totalattemptedDribbles += attemptedDribblesList[i]
+          totalTouches += touchesList[i]
+          totalPresses += pressesList[i]
+          totalInterceptions += interceptionList[i]
+          totalBlocks += blocksList[i]
         } 
 
         // Express average goals scored
         var AvgGoals = (totalGoals/goalsList.length)
-        console.log(parseFloat(AvgGoals).toFixed(2))
+        // console.log(parseFloat(AvgGoals).toFixed(2))
 
         // Express average assists
         var AvgAssists = (totalAssists/assistsList.length)
-        console.log(parseFloat(AvgAssists).toFixed(2))
+        // console.log(parseFloat(AvgAssists).toFixed(2))
 
         var AvgxG = (totalxG/xGList.length)
-        console.log(parseFloat(AvgxG).toFixed(2))
+        // console.log(parseFloat(AvgxG).toFixed(2))
 
         var AvgNonPKxG = (totalNonPKxG/nonPKxGList.length)
-        console.log(parseFloat(AvgNonPKxG).toFixed(2))
+        // console.log(parseFloat(AvgNonPKxG).toFixed(2))
 
         var AvgxA = (totalxA/xGList.length)
-        console.log(parseFloat(AvgxA).toFixed(2))
+        // console.log(parseFloat(AvgxA).toFixed(2))
 
         var AvgShots = (totalShots/shotsList.length)
-        console.log(parseFloat(AvgShots).toFixed(2))
+        // console.log(parseFloat(AvgShots).toFixed(2))
 
         var AvgShotsOnTarget = (totalShotsOnTarget/shotsList.length)
-        console.log(parseFloat(AvgShotsOnTarget).toFixed(2))
+        // console.log(parseFloat(AvgShotsOnTarget).toFixed(2))
 
         var AvgShotCreatingActions = (totalShotCreatingActions/shotCreatingActionsList.length)
-        console.log(parseFloat(AvgShotCreatingActions).toFixed(2))
+        // console.log(parseFloat(AvgShotCreatingActions).toFixed(2))
 
-        var AvgGoalCreatingActions = (total/goalCreatingActionsList.length)
-        console.log(parseFloat(AvgGoalCreatingActions).toFixed(2))
+        var AvgGoalCreatingActions = (totalGoalCreatingActions/goalCreatingActionsList.length)
+        // console.log(parseFloat(AvgGoalCreatingActions).toFixed(2))
 
-        var AvgProgressivePasses = (total/progressivePassesList.length)
-        console.log(parseFloat(AvgProgressivePasses).toFixed(2))
+        var AvgProgressivePasses = (totalprogressivePasses/progressivePassesList.length)
+        // console.log(parseFloat(AvgProgressivePasses).toFixed(2))
 
-        var AvgSuccessfulDribbles = (total/successfulDribblesList.length)
-        console.log(parseFloat(AvgSuccessfulDribbles).toFixed(2))
+        var AvgSuccessfulDribbles = (totalsuccessfulDribbles/successfulDribblesList.length)
+        // console.log(parseFloat(AvgSuccessfulDribbles).toFixed(2))
 
-        var AvgAttemptedDribbles = (total/attemptedDribblesList.length)
-        console.log(parseFloat(AvgAttemptedDribbles).toFixed(2))
+        var AvgAttemptedDribbles = (totalattemptedDribbles/attemptedDribblesList.length)
+        // console.log(parseFloat(AvgAttemptedDribbles).toFixed(2))
 
-        var AvgTouches = (total/touchesList.length)
-        console.log(parseFloat(AvgTouches).toFixed(2))
+        var AvgTouches = (totalTouches/touchesList.length)
+        // console.log(parseFloat(AvgTouches).toFixed(2))
 
-        var AvgPresses = (total/pressesList.length)
-        console.log(parseFloat(AvgPresses).toFixed(2))
+        var AvgPresses = (totalPresses/pressesList.length)
+        // console.log(parseFloat(AvgPresses).toFixed(2))
 
-        var AvgInterception = (total/interceptionList.length)
-        console.log(parseFloat(AvgInterception).toFixed(2))
+        var AvgInterceptions = (totalInterceptions/interceptionList.length)
+        // console.log(parseFloat(AvgInterception).toFixed(2))
 
-        var AvgBlocks= (total/blocksList.length)
-        console.log(parseFloat(AvgBlocks).toFixed(2))
+        var AvgBlocks= (totalBlocks/blocksList.length)
+        // console.log(parseFloat(AvgBlocks).toFixed(2))
 
         // empty list for goals scored for player 2
         var goalsList2 = []
@@ -1594,6 +1617,22 @@ function PlayerFormComparison() {
         
         var totalShotCreatingActions2 = 0
 
+        var totalGoalCreatingActions2 = 0
+
+        var totalprogressivePasses2 = 0
+
+        var totalsuccessfulDribbles2 = 0
+
+        var totalattemptedDribbles2 = 0
+
+        var totalTouches2 = 0
+
+        var totalPresses2 = 0
+
+        var totalInterceptions2 = 0
+
+        var totalBlocks2 = 0
+
         // Loop through goals category in all games played
         for (var i = 0; i < totalMatches2.length; i++){
           totalGoals2 += goalsList2[i]
@@ -1604,32 +1643,66 @@ function PlayerFormComparison() {
           totalShots2 += shotsList2[i]
           totalShotsOnTarget2 += shotsOnTargetList2[i]
           totalShotCreatingActions2 += shotCreatingActionsList2[i]
+          totalGoalCreatingActions2 += goalCreatingActionsList2[i]
+          totalprogressivePasses2 += progressivePassesList2[i]
+          totalsuccessfulDribbles2 += successfulDribblesList2[i]
+          totalattemptedDribbles2 += attemptedDribblesList2[i]
+          totalTouches2 += touchesList2[i]
+          totalPresses2 += pressesList2[i]
+          totalInterceptions2 += interceptionList2[i]
+          totalBlocks2 += blocksList2[i]
         }
 
         // Express average goals scored
         var AvgGoals2 = (totalGoals2/goalsList2.length)
-        console.log(parseFloat(AvgGoals2).toFixed(2))
+        // console.log(parseFloat(AvgGoals2).toFixed(2))
         // Express average assists
         var AvgAssists2 = (totalAssists2/assistsList2.length)
-        console.log(parseFloat(AvgAssists2).toFixed(2))
+        // console.log(parseFloat(AvgAssists2).toFixed(2))
 
         var AvgxG2 = (totalxG2/xGList2.length)
-        console.log(parseFloat(AvgxG2).toFixed(2))
+        // console.log(parseFloat(AvgxG2).toFixed(2))
 
         var AvgNonPKxG2 = (totalNonPKxG2/nonPKxGList2.length)
-        console.log(parseFloat(AvgNonPKxG2).toFixed(2))
+        // console.log(parseFloat(AvgNonPKxG2).toFixed(2))
 
         var AvgxA2 = (totalxA2/xGList2.length)
-        console.log(parseFloat(AvgxA2).toFixed(2))
+        // console.log(parseFloat(AvgxA2).toFixed(2))
 
         var AvgShots2 = (totalShots2/shotsList2.length)
-        console.log(parseFloat(AvgShots2).toFixed(2))
+        // console.log(parseFloat(AvgShots2).toFixed(2))
 
         var AvgShotsOnTarget2 = (totalShotsOnTarget2/shotsList2.length)
-        console.log(parseFloat(AvgShotsOnTarget2).toFixed(2))
+        // console.log(parseFloat(AvgShotsOnTarget2).toFixed(2))
 
         var AvgShotCreatingActions2 = (totalShotCreatingActions2/shotCreatingActionsList2.length)
-        console.log(parseFloat(AvgShotCreatingActions2).toFixed(2))
+        // console.log(parseFloat(AvgShotCreatingActions2).toFixed(2))
+
+        var AvgGoalCreatingActions2 = (totalGoalCreatingActions2/goalCreatingActionsList2.length)
+        // console.log(parseFloat(AvgGoalCreatingActions2).toFixed(2))
+
+        var AvgProgressivePasses2 = (totalprogressivePasses2/progressivePassesList2.length)
+        // console.log(parseFloat(AvgProgressivePasses2).toFixed(2))
+
+        // start
+        var AvgSuccessfulDribbles2 = (totalsuccessfulDribbles2/successfulDribblesList2.length)
+        // console.log(parseFloat(AvgProgressivePasses2).toFixed(2))
+
+        var AvgAttemptedDribbles2 = (totalattemptedDribbles2/attemptedDribblesList2.length)
+        // console.log(parseFloat(AvgProgressivePasses2).toFixed(2))
+
+        var AvgTouches2 = (totalTouches2/touchesList2.length)
+        // console.log(parseFloat(AvgProgressivePasses2).toFixed(2))
+
+        var AvgPresses2 = (totalPresses2/pressesList2.length)
+        // console.log(parseFloat(AvgProgressivePasses2).toFixed(2))
+
+        var AvgInterceptions2 = (totalInterceptions2/interceptionList2.length)
+        // console.log(parseFloat(AvgProgressivePasses2).toFixed(2))
+
+        var AvgBlocks2 = (totalBlocks2/blocksList2.length)
+        // console.log(parseFloat(AvgProgressivePasses2).toFixed(2))
+
 
         // Display Player Name
         document.getElementById("match_stats_player_name").innerHTML = `${player}`;
@@ -1674,7 +1747,263 @@ function PlayerFormComparison() {
         // send xG to Element with said ID
         document.getElementById("avg_non_pk_xG").innerHTML = `Average Non PK Expected Goals: ${parseFloat(AvgNonPKxG).toFixed(2)}`;
         document.getElementById("avg_non_pk_xG2").innerHTML = `Average Non PK Expected Goals: ${parseFloat(AvgNonPKxG2).toFixed(2)}`;
+        
+        document.getElementById("avg_shot_creating_actions").innerHTML = `Average Shot Creating Actions: ${parseFloat(AvgShotCreatingActions).toFixed(2)}`;
+        document.getElementById("avg_shot_creating_actions2").innerHTML = `Average Shot Creating Actions: ${parseFloat(AvgShotCreatingActions2).toFixed(2)}`;
 
+        document.getElementById("avg_goal_creating_actions").innerHTML = `Average Goal Creating Actions: ${parseFloat(AvgGoalCreatingActions).toFixed(2)}`;
+        document.getElementById("avg_goal_creating_actions2").innerHTML = `Average Goal Creating Actions: ${parseFloat(AvgGoalCreatingActions2).toFixed(2)}`;
+
+        document.getElementById("avg_progressive_passes").innerHTML = `Average Progressive Passes: ${parseFloat(AvgProgressivePasses).toFixed(2)}`;
+        document.getElementById("avg_progressive_passes2").innerHTML = `Average Progressive Passes: ${parseFloat(AvgProgressivePasses2).toFixed(2)}`;
+
+        document.getElementById("avg_successful_dribbles").innerHTML = `Average Successful Dribbles: ${parseFloat(AvgSuccessfulDribbles).toFixed(2)}`;
+        document.getElementById("avg_successful_dribbles2").innerHTML = `Average Successful Dribbles: ${parseFloat(AvgSuccessfulDribbles2).toFixed(2)}`;
+
+        document.getElementById("avg_attempted_dribbles").innerHTML = `Average Attempted Dribbles: ${parseFloat(AvgAttemptedDribbles).toFixed(2)}`;
+        document.getElementById("avg_attempted_dribbles2").innerHTML = `Average Attempted Dribbles: ${parseFloat(AvgAttemptedDribbles2).toFixed(2)}`;
+
+        document.getElementById("avg_touches").innerHTML = `Average Touches: ${parseFloat(AvgTouches).toFixed(2)}`;
+        document.getElementById("avg_touches2").innerHTML = `Average Touches: ${parseFloat(AvgTouches2).toFixed(2)}`;
+
+        document.getElementById("avg_presses").innerHTML = `Average Presses: ${parseFloat(AvgPresses).toFixed(2)}`;
+        document.getElementById("avg_presses2").innerHTML = `Average Presses: ${parseFloat(AvgPresses2).toFixed(2)}`;
+
+        document.getElementById("avg_interceptions").innerHTML = `Average Interceptions: ${parseFloat(AvgInterceptions).toFixed(2)}`;
+        document.getElementById("avg_interceptions2").innerHTML = `Average Interceptions: ${parseFloat(AvgInterceptions2).toFixed(2)}`;
+
+        document.getElementById("avg_blocks").innerHTML = `Average Blocks: ${parseFloat(AvgBlocks).toFixed(2)}`;
+        document.getElementById("avg_blocks2").innerHTML = `Average Blocks: ${parseFloat(AvgBlocks2).toFixed(2)}`;
+
+        // Compare Number of Goals Scored to Highlight which player has more
+        if (totalGoals > totalGoals2){
+          // console.log(`${player} ${totalGoals} is better`)
+          document.getElementById("goals").style.color = "yellow"
+          document.getElementById("goals2").style.color = "white"
+        } else if (totalGoals < totalGoals2){
+          document.getElementById("goals2").style.color = "yellow"
+          document.getElementById("goals").style.color = "white"
+        } else if (totalGoals == totalGoals2){
+          document.getElementById("goals").style.color = "yellow"
+          document.getElementById("goals2").style.color = "yellow"
+        }
+
+        // Compare Games Played Scored to Highlight which player has more
+        if (totalMatches.length > totalMatches2.length){
+          document.getElementById("games_played_player1").style.color = "yellow"
+          document.getElementById("games_played_player2").style.color = "white"
+        } else if (totalMatches.length < totalMatches2.length){
+          document.getElementById("games_played_player2").style.color = "yellow"
+          document.getElementById("games_played_player1").style.color = "white"
+        } else if (totalMatches.length == totalMatches2.length){
+          document.getElementById("games_played_player1").style.color = "yellow"
+          document.getElementById("games_played_player2").style.color = "yellow"
+        }
+
+        // Compare Average Goals Scored to Highlight which player has more
+        if (AvgGoals > AvgGoals2){
+          document.getElementById("test_avg_goals").style.color = "yellow"
+          document.getElementById("test_avg_goals2").style.color = "white"
+        } else if (AvgGoals < AvgGoals2){
+          document.getElementById("test_avg_goals2").style.color = "yellow"
+          document.getElementById("test_avg_goals").style.color = "white"
+        } else if (AvgGoals == AvgGoals2){
+          document.getElementById("test_avg_goals").style.color = "yellow"
+          document.getElementById("test_avg_goals2").style.color = "yellow"
+        }
+
+        // Compare Assists to Highlight which player has more
+        if (totalAssists > totalAssists2){
+          document.getElementById("assists").style.color = "yellow"
+          document.getElementById("assists2").style.color = "white"
+        } else if (totalAssists < totalAssists2){
+          document.getElementById("assists2").style.color = "yellow"
+          document.getElementById("assists").style.color = "white"
+        } else if (totalAssists == totalAssists2){
+          document.getElementById("assists").style.color = "yellow"
+          document.getElementById("assists2").style.color = "yellow"
+        }
+
+        // Compare Average Assists to Highlight which player has more
+        if (AvgAssists > AvgAssists2){
+          document.getElementById("test_avg_assists").style.color = "yellow"
+          document.getElementById("test_avg_assists2").style.color = "white"
+        } else if (AvgAssists < AvgAssists2){
+          document.getElementById("test_avg_assists2").style.color = "yellow"
+          document.getElementById("test_avg_assists").style.color = "white"
+        } else if (AvgAssists == AvgAssists2){
+          document.getElementById("test_avg_assists").style.color = "yellow"
+          document.getElementById("test_avg_assists2").style.color = "yellow"
+        }
+
+        // Compare Average Expected Goals to Highlight which player has more
+        if (AvgxG > AvgxG2){
+          document.getElementById("avg_xG").style.color = "yellow"
+          document.getElementById("avg_xG2").style.color = "white"
+        } else if (AvgxG < AvgxG2){
+          console.log(`${AvgxG} < ${AvgxG2}`)
+          document.getElementById("avg_xG2").style.color = "yellow"
+          document.getElementById("avg_xG").style.color = "white"
+        } else if (AvgxG == AvgxG2){
+          document.getElementById("avg_xG").style.color = "yellow"
+          document.getElementById("avg_xG2").style.color = "yellow"
+        }
+
+        // Compare Average Expected Assists to Highlight which player has more
+        if (AvgxA > AvgxA2){
+          document.getElementById("avg_xA").style.color = "yellow"
+          document.getElementById("avg_xA2").style.color = "white"
+        } else if (AvgxA < AvgxA2){
+          document.getElementById("avg_xA2").style.color = "yellow"
+          document.getElementById("avg_xA").style.color = "white"
+        } else if (AvgxA == AvgxA2){
+          document.getElementById("avg_xA").style.color = "yellow"
+          document.getElementById("avg_xA2").style.color = "yellow"
+        }
+
+        // Compare Total Shots on Target to Highlight which player has more
+        if (totalShotsOnTarget > totalShotsOnTarget2){
+          document.getElementById("shots_on_target1").style.color = "yellow"
+          document.getElementById("shots_on_target2").style.color = "white"
+        } else if (totalShotsOnTarget < totalShotsOnTarget2){
+          document.getElementById("shots_on_target2").style.color = "yellow"
+          document.getElementById("shots_on_target1").style.color = "white"
+        } else if (totalShotsOnTarget == totalShotsOnTarget2){
+          document.getElementById("shots_on_target1").style.color = "yellow"
+          document.getElementById("shots_on_target2").style.color = "yellow"
+        }
+
+        // Compare Average Shots on Target to Highlight which player has more
+        if (AvgShotsOnTarget > AvgShotsOnTarget2){
+          document.getElementById("avg_shots_on_target1").style.color = "yellow"
+          document.getElementById("avg_shots_on_target2").style.color = "white"
+        } else if (AvgShotsOnTarget < AvgShotsOnTarget2){
+          document.getElementById("avg_shots_on_target2").style.color = "yellow"
+          document.getElementById("avg_shots_on_target1").style.color = "white"
+        } else if (AvgShotsOnTarget == AvgShotsOnTarget2){
+          document.getElementById("avg_shots_on_target1").style.color = "yellow"
+          document.getElementById("avg_shots_on_target2").style.color = "yellow"
+        }
+
+        // Compare Average Non PK xG to Highlight which player has more
+        if (AvgNonPKxG > AvgNonPKxG2){
+          document.getElementById("avg_non_pk_xG").style.color = "yellow"
+          document.getElementById("avg_non_pk_xG2").style.color = "white"
+        } else if (AvgNonPKxG < AvgNonPKxG2){
+          document.getElementById("avg_non_pk_xG2").style.color = "yellow"
+          document.getElementById("avg_non_pk_xG").style.color = "white"
+        } else if (AvgNonPKxG == AvgNonPKxG2){
+          document.getElementById("avg_non_pk_xG").style.color = "yellow"
+          document.getElementById("avg_non_pk_xG2").style.color = "yellow"
+        }
+
+        // Compare Average Shot Creating Actions to Highlight which player has more
+        if (AvgShotCreatingActions > AvgShotCreatingActions2){
+          document.getElementById("avg_shot_creating_actions").style.color = "yellow"
+          document.getElementById("avg_shot_creating_actions2").style.color = "white"
+        } else if (AvgShotCreatingActions < AvgShotCreatingActions2){
+          document.getElementById("avg_shot_creating_actions2").style.color = "yellow"
+          document.getElementById("avg_shot_creating_actions").style.color = "white"
+        } else if (AvgShotCreatingActions == AvgShotCreatingActions2){
+          document.getElementById("avg_shot_creating_actions").style.color = "yellow"
+          document.getElementById("avg_shot_creating_actions2").style.color = "yellow"
+        }
+
+        // Compare Average Goal Creating Actions to Highlight which player has more
+        if (AvgGoalCreatingActions > AvgGoalCreatingActions2){
+          document.getElementById("avg_goal_creating_actions").style.color = "yellow"
+          document.getElementById("avg_goal_creating_actions2").style.color = "white"
+        } else if (AvgGoalCreatingActions < AvgGoalCreatingActions2){
+          document.getElementById("avg_goal_creating_actions2").style.color = "yellow"
+          document.getElementById("avg_goal_creating_actions").style.color = "white"
+        } else if (AvgGoalCreatingActions == AvgGoalCreatingActions2){
+          document.getElementById("avg_goal_creating_actions").style.color = "yellow"
+          document.getElementById("avg_goal_creating_actions2").style.color = "yellow"
+        }
+
+        // Compare Average Progressive Passes to Highlight which player has more
+        if (AvgProgressivePasses > AvgProgressivePasses2){
+          document.getElementById("avg_progressive_passes").style.color = "yellow"
+          document.getElementById("avg_progressive_passes2").style.color = "white"
+        } else if (AvgProgressivePasses < AvgProgressivePasses2){
+          document.getElementById("avg_progressive_passes2").style.color = "yellow"
+          document.getElementById("avg_progressive_passes").style.color = "white"
+        } else if (AvgProgressivePasses == AvgProgressivePasses2){
+          document.getElementById("avg_progressive_passes").style.color = "yellow"
+          document.getElementById("avg_progressive_passes2").style.color = "yellow"
+        }
+
+        // Compare Average Successful Dribbles to Highlight which player has more
+        if (AvgSuccessfulDribbles > AvgSuccessfulDribbles2){
+          document.getElementById("avg_successful_dribbles").style.color = "yellow"
+          document.getElementById("avg_successful_dribbles2").style.color = "white"
+        } else if (AvgSuccessfulDribbles < AvgSuccessfulDribbles2){
+          document.getElementById("avg_successful_dribbles2").style.color = "yellow"
+          document.getElementById("avg_successful_dribbles").style.color = "white"
+        } else if (AvgSuccessfulDribbles == AvgSuccessfulDribbles2){
+          document.getElementById("avg_successful_dribbles").style.color = "yellow"
+          document.getElementById("avg_successful_dribbles2").style.color = "yellow"
+        }
+
+        // Compare Average Attempted Dribbles to Highlight which player has more
+        if (AvgAttemptedDribbles > AvgAttemptedDribbles2){
+          document.getElementById("avg_attempted_dribbles").style.color = "yellow"
+          document.getElementById("avg_attempted_dribbles2").style.color = "white"
+        } else if (AvgAttemptedDribbles < AvgAttemptedDribbles2){
+          document.getElementById("avg_attempted_dribbles2").style.color = "yellow"
+          document.getElementById("avg_attempted_dribbles").style.color = "white"
+        } else if (AvgAttemptedDribbles == AvgAttemptedDribbles2){
+          document.getElementById("avg_attempted_dribbles").style.color = "yellow"
+          document.getElementById("avg_attempted_dribbles2").style.color = "yellow"
+        }
+
+        // Compare Average Touches to Highlight which player has more
+        if (AvgTouches > AvgTouches2){
+          document.getElementById("avg_touches").style.color = "yellow"
+          document.getElementById("avg_touches2").style.color = "white"
+        } else if (AvgTouches < AvgTouches2){
+          document.getElementById("avg_touches2").style.color = "yellow"
+          document.getElementById("avg_touches").style.color = "white"
+        } else if (AvgTouches == AvgTouches2){
+          document.getElementById("avg_touches").style.color = "yellow"
+          document.getElementById("avg_touches2").style.color = "yellow"
+        }
+
+        // Compare Average Touches to Highlight which player has more
+        if (AvgPresses > AvgPresses2){
+          document.getElementById("avg_presses").style.color = "yellow"
+          document.getElementById("avg_presses2").style.color = "white"
+        } else if (AvgPresses < AvgPresses2){
+          document.getElementById("avg_presses2").style.color = "yellow"
+          document.getElementById("avg_presses").style.color = "white"
+        } else if (AvgPresses == AvgPresses2){
+          document.getElementById("avg_presses").style.color = "yellow"
+          document.getElementById("avg_presses2").style.color = "yellow"
+        }
+
+        // Compare Average Touches to Highlight which player has more
+        if (AvgInterceptions > AvgInterceptions2){
+          document.getElementById("avg_interceptions").style.color = "yellow"
+          document.getElementById("avg_interceptions2").style.color = "white"
+        } else if (AvgInterceptions < AvgInterceptions2){
+          document.getElementById("avg_interceptions2").style.color = "yellow"
+          document.getElementById("avg_interceptions").style.color = "white"
+        } else if (AvgInterceptions == AvgInterceptions2){
+          document.getElementById("avg_interceptions").style.color = "yellow"
+          document.getElementById("avg_interceptions2").style.color = "yellow"
+        }
+
+        // Compare Average Touches to Highlight which player has more
+        if (AvgBlocks > AvgBlocks2){
+          document.getElementById("avg_blocks").style.color = "yellow"
+          document.getElementById("avg_blocks2").style.color = "white"
+        } else if (AvgBlocks < AvgBlocks2){
+          document.getElementById("avg_blocks2").style.color = "yellow"
+          document.getElementById("avg_blocks").style.color = "white"
+        } else if (AvgBlocks == AvgBlocks2){
+          document.getElementById("avg_blocks").style.color = "yellow"
+          document.getElementById("avg_blocks2").style.color = "yellow"
+        }
       })
     }
 
