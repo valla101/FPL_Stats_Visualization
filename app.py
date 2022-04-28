@@ -11,8 +11,8 @@ from sqlalchemy.ext.declarative import declarative_base
 # FROM HERE DO NOT DELETE
 
 # Connecting to the Postgres Database
-engine = create_engine(f'postgres://wbqnbbqkykqdaj:63bf019edf08344171db6162cbfdd7dc8bb288a6068fdb6f029eeb18eb53271c@ec2-3-215-76-208.compute-1.amazonaws.com:5432/ddad815989gh9j')
-
+# engine = create_engine(f'postgres://wbqnbbqkykqdaj:63bf019edf08344171db6162cbfdd7dc8bb288a6068fdb6f029eeb18eb53271c@ec2-3-215-76-208.compute-1.amazonaws.com:5432/ddad815989gh9j')
+engine = create_engine(f'postgresql://dvzvronyyvituz:6f152758efebc7e53e564eed3bc41a72aaa2f00adbe5baa3d6be66b8f9975869@ec2-44-199-143-43.compute-1.amazonaws.com:5432/dc6ic3r5g7jv3s', pool_size = 20, max_overflow = 2)
 # reflect an existing database into a new model
 Base = automap_base()
 # reflect the tables
