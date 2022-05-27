@@ -18,26 +18,12 @@
 </head>
 
 <body id = "body">
-    <header id = "header">
-        <div id="carouselSlides" class="carousel slide" data-ride="carousel" data-interval="4000">
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img class="d-block w-100" src="https://cms.qz.com/wp-content/uploads/2015/02/premierleague-rights-bonanza1.jpg?quality=75&strip=all&w=1600&h=901" alt="Second slide">
-              </div>
-              <div class="carousel-item">
-                <img class="d-block w-100" src=" https://imgresizer.eurosport.com/unsafe/1200x0/filters:format(jpeg):focal(1377x376:1379x374)/origin-imgresizer.eurosport.com/2020/11/29/2946237-60480708-2560-1440.jpg" alt="Third slide">
-              </div>
-              <div class="carousel-item">
-                <img class="d-block w-100" src=" https://cloudfront-us-east-1.images.arcpublishing.com/pmn/NZE7FQXEA5EV7HXV66L6KVTR4I.jpg" alt="Fourth slide">
-              </div>
-            </div>
-        </div>
-        <a><img id = header_pic src= 'https://www.fifplay.com/img/public/premier-league-3-logo.png'></a>
+    <a><img id = header_pic src= 'https://www.fifplay.com/img/public/premier-league-3-logo.png'></a>
         <!-- <button class="btn btn-primary" id = "dark_mode"> Dark Mode </button> -->
-    </header>
+    <!-- </header> -->
 
     <nav class="navbar navbar-expand-lg navbar-expand-md navbar-expand-sm navbar-light">
-        <ul class = "nav">
+        <ul class = "nav" id = "shortcut_nav">
           <li class = "nav-item">
             <div class="dropdown">
               <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -55,264 +41,284 @@
         </ul>
       </nav>
 
+    <section id = "intro_text">
+      <div class = "container-fluid">
+          <h1 class = "containerHeadertext">Fantasy Premier League Tool</h1>
+          <h4 class = "containerHeadertext">If you are an avid FPL aficionado, then you are aware of the value of statistics in order to select the best players</h4>
+          <h4 class = "containerHeadertext">Can't decide between 2 players? Use our player comparison tools (season or by comparing gameweek stats) and verify who is the most on form player!</h4>
+      </div>
+    </section>
                                     <!--  NEW CHART-->
 
     <!-- Player Offensive Stats Chart -->
-    
-    <div class = "container-fluid" id = "player_stats">
-        <h1 class = "containerHeadertext">Explore Offensive Stats for Individual Player</h1>
-        <div class = "container">
-            <h4 class = "header_for_graph">Stats include: Total FPL Points, Goals, Expected Goals, Assists, Expected Assists and more</h4>
-            <!-- Code for Filtering through all players in database -->
-            <select id="playerName">
-                {% for player in query_player %}
-                <option>{{ player ["player"]}}</option>
-                {% endfor %}
-            </select>
-            <br>
-            <button class= "btn btn-primary filterbutton" id = "getPlayerStatsButton"> Get Player Stats! </button>
-            <br>
-        </div>
+    <section class = "chart_class" id = "player_stats_section">
+        <div class = "container-fluid" id = "player_stats">
+            <h1 class = "containerHeadertext">Explore Offensive Stats for Individual Player</h1>
+            <div class = "container">
+                <h4 class = "header_for_graph">Stats include: Total FPL Points, Goals, Expected Goals, Assists, Expected Assists and more</h4>
+                <!-- Code for Filtering through all players in database -->
+                <select id="playerName">
+                    {% for player in query_player %}
+                    <option>{{ player ["player"]}}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <button class= "btn btn-primary filterbutton" id = "getPlayerStatsButton"> Get Player Stats! </button>
+                <br>
+            </div>
 
-        <div class = "container-chart" id = "player_stat_chartjs_container">
-            <!-- ChartJS Plot Generated Here -->
-            <canvas id="playerBarChart" width="400" height="275"></canvas>
-        </div>    
-        
-    </div>
+            <div class = "container-chart" id = "player_stat_chartjs_container">
+                <!-- ChartJS Plot Generated Here -->
+                <canvas id="playerBarChart" width="400" height="275"></canvas>
+            </div>    
+            
+        </div>
+    </section>
+    <!-- End of Section -->
 
     <!-- Player Form Comparison -->
-
-    <div class = "grid-container">
-        <h1 class = "containerHeadertext">Compare Form of Players</h1>
-        <div class = "grid-item grid-item-1">
-            <select id = "player_select1">
-                {% for player in query_player %}
-                    <option value='{{ player["player"] }}'>{{ player["player"] }}</option>
-                {% endfor %}
-            </select>
-            <select id = "player_select2">
-                {% for player in query_player %}
-                    <option value='{{ player["player"] }}'>{{ player["player"] }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class = "grid-item grid-item-2">
-            <h3 style = "padding: 10px;">Select Range of Gameweeks</h3>
-            <p>Gameweek
-                <select id = "matchweek_start">
-                    {% for player in query_matchweek %}
-                        <option value='{{ player["gameweek"] }}'>{{ player["gameweek"] }}</option>
-                    {% endfor %}
-                </select>
-            </p>
-            <p>Gameweek
-                <select id = "matchweek_end">
-                    {% for player in query_matchweek %}
-                        <option value='{{ player["gameweek"] }}'>{{ player["gameweek"] }}</option>
-                    {% endfor %}
-                </select>
-            </p>
-        </div>
-        <div class = "grid-item grid-item-3">
-            <button class= "btn btn-primary filterbutton" id = "player_match_stats"> Generate Stats </button>
-        </div>
-    </div>
-
-    <!-- Container that displays stats for player form comparison -->
-    <div class = "grid-container" id = "holds_player_match_stats">
-        <div class = "grid-item grid-item-4" id = "match_stats_player_name"></div>
-        <div class = "grid-item grid-item-5" id = "match_stats_player_name2"></div>
-        <div class = "grid-item grid-item-6" id = "games_played_player1"></div>
-        <div class = "grid-item grid-item-7" id = "games_played_player2"></div>
-        <div class = "grid-item grid-item-8" id = "goals"></div>
-        <div class = "grid-item grid-item-9" id = "goals2"></div>
-        <div class = "grid-item grid-item-10" id = "test_avg_goals"></div>
-        <div class = "grid-item grid-item-11" id = "test_avg_goals2"></div>
-        <div class = "grid-item grid-item-12" id = "assists"></div>
-        <div class = "grid-item grid-item-13" id = "assists2"></div>
-        <div class = "grid-item grid-item-14" id = "test_avg_assists"></div>
-        <div class = "grid-item grid-item-15" id = "test_avg_assists2"></div>
-        <div class = "grid-item grid-item-16" id = "avg_xG"></div>
-        <div class = "grid-item grid-item-17" id = "avg_xG2"></div>
-        <div class = "grid-item grid-item-18" id = "avg_xA"></div>
-        <div class = "grid-item grid-item-19" id = "avg_xA2"></div>
-        <div class = "grid-item grid-item-20" id = "shots_on_target1"></div>
-        <div class = "grid-item grid-item-21" id = "shots_on_target2"></div>
-        <div class = "grid-item grid-item-20" id = "avg_shots_on_target1"></div>
-        <div class = "grid-item grid-item-21" id = "avg_shots_on_target2"></div>
-        <div class = "grid-item grid-item-22" id = "avg_non_pk_xG"></div>
-        <div class = "grid-item grid-item-23" id = "avg_non_pk_xG2"></div>
-        <div class = "grid-item grid-item-24" id = "avg_shot_creating_actions"></div>
-        <div class = "grid-item grid-item-25" id = "avg_shot_creating_actions2"></div>
-        <div class = "grid-item grid-item-26" id = "avg_goal_creating_actions"></div>
-        <div class = "grid-item grid-item-27" id = "avg_goal_creating_actions2"></div>
-        <div class = "grid-item grid-item-28" id = "avg_progressive_passes"></div>
-        <div class = "grid-item grid-item-29" id = "avg_progressive_passes2"></div>
-        <div class = "grid-item grid-item-30" id = "avg_successful_dribbles"></div>
-        <div class = "grid-item grid-item-31" id = "avg_successful_dribbles2"></div>
-        <div class = "grid-item grid-item-32" id = "avg_attempted_dribbles"></div>
-        <div class = "grid-item grid-item-33" id = "avg_attempted_dribbles2"></div>
-        <div class = "grid-item grid-item-34" id = "avg_touches"></div>
-        <div class = "grid-item grid-item-35" id = "avg_touches2"></div>
-        <div class = "grid-item grid-item-36" id = "avg_presses"></div>
-        <div class = "grid-item grid-item-37" id = "avg_presses2"></div>
-        <div class = "grid-item grid-item-38" id = "avg_interceptions"></div>
-        <div class = "grid-item grid-item-39" id = "avg_interceptions2"></div>
-        <div class = "grid-item grid-item-40" id = "avg_blocks"></div>
-        <div class = "grid-item grid-item-41" id = "avg_blocks2"></div>
-    </div>
-
-                                <!--  NEW CHART-->
-
-    <!-- Player Comparison Test Chart -->
-    
-    <div class = "container-fluid" id = "compare_player_stats">
-        <h1 class = "containerHeadertext">Compare Offensive Stats of Two Players</h1>
-        <div class="container">
-            <div class = "container">
-                <h4 class = "header_for_graph">Stats include: Total FPL Points, Goals, Expected Goals, Assists, Expected Assists</h4>
-                <!-- Code for Filtering through all players in database -->
-                <h3 class = "header_for_graph">Select a player!</h3>
-
-                <!-- Compare Player #1 -->
-                <select id="comparePlayer1">
+    <section class = "chart_class" id = "player_form_comparison_section">
+    <!-- <div class = "grid-container"> -->
+        <div class = "container-fluid" id = "container_player_form_comparison">
+            <h1 class = "containerHeadertext">Compare Form of Players</h1>
+            <div class = "grid-item grid-item-1">
+                <select id = "player_select1">
                     {% for player in query_player %}
-                    <option>{{ player ["player"]}}</option>
+                        <option value='{{ player["player"] }}'>{{ player["player"] }}</option>
                     {% endfor %}
                 </select>
-                <br>
-                <br>
-                <h3 class = "header_for_graph">Compare to:</h3>
-                <!-- <br> -->
-                <!-- Compare Player #2 -->
-                <select id="comparePlayer2">
+                <select id = "player_select2">
                     {% for player in query_player %}
-                    <option>{{ player ["player"]}}</option>
+                        <option value='{{ player["player"] }}'>{{ player["player"] }}</option>
                     {% endfor %}
                 </select>
-                <br>
-                <button class= "btn btn-primary filterbutton" id = "comparePlayersButton"> Compare Players! </button>
-                <br>
+            </div>
+            <div class = "grid-item grid-item-2">
+                <h3 style = "padding: 10px;">Select Range of Gameweeks</h3>
+                <p>Gameweek
+                    <select id = "matchweek_start">
+                        {% for player in query_matchweek %}
+                            <option value='{{ player["gameweek"] }}'>{{ player["gameweek"] }}</option>
+                        {% endfor %}
+                    </select>
+                </p>
+                <p>Gameweek
+                    <select id = "matchweek_end">
+                        {% for player in query_matchweek %}
+                            <option value='{{ player["gameweek"] }}'>{{ player["gameweek"] }}</option>
+                        {% endfor %}
+                    </select>
+                </p>
+            </div>
+            <div class = "grid-item grid-item-3">
+                <button class= "btn btn-primary filterbutton" id = "player_match_stats"> Generate Stats </button>
             </div>
         </div>
 
-        <div class = "container-chart" id = "compare_player_chartjs_container">
-            <!-- ChartJS Plot Generated Here -->
-            <canvas id="comparePlayerGraph" width="400" height="275"></canvas>
+        <!-- Container that displays stats for player form comparison -->
+        <div class = "grid-container" id = "holds_player_match_stats">
+            <div class = "grid-item grid-item-4" id = "match_stats_player_name"></div>
+            <div class = "grid-item grid-item-5" id = "match_stats_player_name2"></div>
+            <div class = "grid-item grid-item-6" id = "games_played_player1"></div>
+            <div class = "grid-item grid-item-7" id = "games_played_player2"></div>
+            <div class = "grid-item grid-item-8" id = "goals"></div>
+            <div class = "grid-item grid-item-9" id = "goals2"></div>
+            <div class = "grid-item grid-item-10" id = "test_avg_goals"></div>
+            <div class = "grid-item grid-item-11" id = "test_avg_goals2"></div>
+            <div class = "grid-item grid-item-12" id = "assists"></div>
+            <div class = "grid-item grid-item-13" id = "assists2"></div>
+            <div class = "grid-item grid-item-14" id = "test_avg_assists"></div>
+            <div class = "grid-item grid-item-15" id = "test_avg_assists2"></div>
+            <div class = "grid-item grid-item-16" id = "avg_xG"></div>
+            <div class = "grid-item grid-item-17" id = "avg_xG2"></div>
+            <div class = "grid-item grid-item-18" id = "avg_xA"></div>
+            <div class = "grid-item grid-item-19" id = "avg_xA2"></div>
+            <div class = "grid-item grid-item-20" id = "shots_on_target1"></div>
+            <div class = "grid-item grid-item-21" id = "shots_on_target2"></div>
+            <div class = "grid-item grid-item-20" id = "avg_shots_on_target1"></div>
+            <div class = "grid-item grid-item-21" id = "avg_shots_on_target2"></div>
+            <div class = "grid-item grid-item-22" id = "avg_non_pk_xG"></div>
+            <div class = "grid-item grid-item-23" id = "avg_non_pk_xG2"></div>
+            <div class = "grid-item grid-item-24" id = "avg_shot_creating_actions"></div>
+            <div class = "grid-item grid-item-25" id = "avg_shot_creating_actions2"></div>
+            <div class = "grid-item grid-item-26" id = "avg_goal_creating_actions"></div>
+            <div class = "grid-item grid-item-27" id = "avg_goal_creating_actions2"></div>
+            <div class = "grid-item grid-item-28" id = "avg_progressive_passes"></div>
+            <div class = "grid-item grid-item-29" id = "avg_progressive_passes2"></div>
+            <div class = "grid-item grid-item-30" id = "avg_successful_dribbles"></div>
+            <div class = "grid-item grid-item-31" id = "avg_successful_dribbles2"></div>
+            <div class = "grid-item grid-item-32" id = "avg_attempted_dribbles"></div>
+            <div class = "grid-item grid-item-33" id = "avg_attempted_dribbles2"></div>
+            <div class = "grid-item grid-item-34" id = "avg_touches"></div>
+            <div class = "grid-item grid-item-35" id = "avg_touches2"></div>
+            <div class = "grid-item grid-item-36" id = "avg_presses"></div>
+            <div class = "grid-item grid-item-37" id = "avg_presses2"></div>
+            <div class = "grid-item grid-item-38" id = "avg_interceptions"></div>
+            <div class = "grid-item grid-item-39" id = "avg_interceptions2"></div>
+            <div class = "grid-item grid-item-40" id = "avg_blocks"></div>
+            <div class = "grid-item grid-item-41" id = "avg_blocks2"></div>
         </div>
+    </section>
+                                <!--  NEW CHART-->
+
+    <!-- Player Comparison Test Chart -->
+    <section class = "chart_class" id = "compare_player_stats_section">
+        <div class = "container-fluid" id = "compare_player_stats">
+            <h1 class = "containerHeadertext">Compare Offensive Stats of Two Players</h1>
+            <div class="container">
+                <div class = "container">
+                    <h4 class = "header_for_graph">Stats include: Total FPL Points, Goals, Expected Goals, Assists, Expected Assists</h4>
+                    <!-- Code for Filtering through all players in database -->
+                    <h3 class = "header_for_graph">Select a player!</h3>
+
+                    <!-- Compare Player #1 -->
+                    <select id="comparePlayer1">
+                        {% for player in query_player %}
+                        <option>{{ player ["player"]}}</option>
+                        {% endfor %}
+                    </select>
+                    <br>
+                    <br>
+                    <h3 class = "header_for_graph">Compare to:</h3>
+                    <!-- Compare Player #2 -->
+                    <select id="comparePlayer2">
+                        {% for player in query_player %}
+                        <option>{{ player ["player"]}}</option>
+                        {% endfor %}
+                    </select>
+                    <br>
+                    <button class= "btn btn-primary filterbutton" id = "comparePlayersButton"> Compare Players! </button>
+                    <br>
+                </div>
+            </div>
+
+            <div class = "container-chart" id = "compare_player_chartjs_container">
+                <!-- ChartJS Plot Generated Here -->
+                <canvas id="comparePlayerGraph" width="400" height="275"></canvas>
+            </div>
 
 
 
-    </div>
+        </div>
+    </section>
     <!-- End of Container -->
 
 
                         <!--  NEW TABLE (Containing Stats)-->    
      
     <!-- Price Filter Input -->
-    
-    <div class = "container-fluid" id = "table_container">
-        <h1 class = "containerHeadertext">Generate Table</h1>
-        <div id = "priceFilterContainer">
-            <h2 class = "header_for_graph">Generate Table Filtered by Player Value!</h2>
-            <input id = "priceFilter" placeholder="For Example: 4.5 ">
-            <br>
-            <button class= "btn btn-primary filterbutton" id = "priceFilterButton"> Filter by Price </button>
-        </div>
+    <section class = "chart_class" id = "table_section">
+        <div class = "container-fluid" id = "table_container">
+            <h1 class = "containerHeadertext">Generate Table</h1>
+            <div id = "priceFilterContainer">
+                <h2 class = "header_for_graph">Generate Table Filtered by Player Value!</h2>
+                <input id = "priceFilter" placeholder="For Example: 4.5 ">
+                <br>
+                <button class= "btn btn-primary filterbutton" id = "priceFilterButton"> Filter by Price </button>
+            </div>
 
-        <!-- Player Position Input -->
-        <div id = "positionFilterContainer">
-            <h2 class = "header_for_graph">Or Generate Table Filtered by Player Position</h2>
-            <select id = "queryPosition">
-                {% for position in query_fpl_positions %}
-                <option>{{ position ["player_position"]}}</option>
-                {% endfor %}
-            </select>
-            <br>
-            <button class= "btn btn-primary filterbutton" id = "positionButton"> Filter By Position </button>
-        </div>
+            <!-- Player Position Input -->
+            <div id = "positionFilterContainer">
+                <h2 class = "header_for_graph">Or Generate Table Filtered by Player Position</h2>
+                <select id = "queryPosition">
+                    {% for position in query_fpl_positions %}
+                    <option>{{ position ["player_position"]}}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <button class= "btn btn-primary filterbutton" id = "positionButton"> Filter By Position </button>
+            </div>
 
-        <!-- Tabulator Table -->
-        <div>
-            <div id="playerDataTable"></div>
+            <!-- Tabulator Table -->
+            <div>
+                <div id="playerDataTable"></div>
+            </div>
         </div>
-    </div>
+    </section>
+    <!-- End of Container -->
 
     <!-- Select Stat for All Players -->
+    <section class = "chart_class" id = "top_performers_section">
+        <div class = "container-fluid" id = "top_performers_chart">
+            <h1 class = "containerHeadertext">Top Performers Filtered by Category</h1>
+            <div class ="container">
+                <h2 class = "header_for_graph">Select Stat Below</h2>
+                <h4 class = "header_for_graph">Bar Graph generated in descending order</h4>
+                <select id = "statsList">
+                    {% for a,b in zipped_columns %}
+                        <option value='{{ a["name"]}}'>{{ b }}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
+            <div class = "container-chart" id="stats-top-performers-chartjs-container">
+                <canvas id = "statBarGraph" width="450" height="375"></canvas>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- End of Container -->
     
-    <div class = "container-fluid" id = "top_performers_chart">
-        <h1 class = "containerHeadertext">Top Performers Filtered by Category</h1>
-        <div class ="container">
-            <h2 class = "header_for_graph">Select Stat Below</h2>
-            <h4 class = "header_for_graph">Bar Graph generated in descending order</h4>
-            <select id = "statsList">
-                {% for a,b in zipped_columns %}
-                    <option value='{{ a["name"]}}'>{{ b }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <div class = "container-chart" id="stats-top-performers-chartjs-container">
-            <canvas id = "statBarGraph" width="450" height="375"></canvas>
-        </div>
-        
-    </div>
-
     <!-- Testing Scatter Plot for all players -->
-    
-    <div class = "container-fluid" id = "scatter_plots">
-        <h1 class = "containerHeadertext">Generate Scatter Plot of All Players</h1>
-        <div class = "container">
-            <h2 class = "header_for_graph">Select Stat Below to Build Scatter Plot</h2>
-            <select id = "statsList2">
-                {% for a,b in zipped_columns2 %}
-                    <option value='{{ a["name"]}}'>{{ b }}</option>
-                {% endfor %}
-            </select>
-            <button class= "btn btn-primary filterbutton" id = "scatterButton"> Filter Scatter Plot by Category</button>
-            <br>
-            <br>
-            <select id = "teamsList">
-                {% for a in teams %}
-                    <option value='{{ a["team_id"]}}'>{{ a["team_id"]}}</option>
-                {% endfor %}
-            </select>
-            <button class= "btn btn-primary filterbutton" id = "scatterButton2"> Add Team Filter Scatter Plot </button>
-            <div class = "container-chart" id = "scatter-plot-category-chartjs-container">
-                <canvas id="scatter_plot" width="450" height="375"></canvas>
+    <section class = "chart_class" id = "scatter_plots_section">
+        <div class = "container-fluid" id = "scatter_plots">
+            <h1 class = "containerHeadertext">Generate Scatter Plot of All Players</h1>
+            <div class = "container">
+                <h2 class = "header_for_graph">Select Stat Below to Build Scatter Plot</h2>
+                <select id = "statsList2">
+                    {% for a,b in zipped_columns2 %}
+                        <option value='{{ a["name"]}}'>{{ b }}</option>
+                    {% endfor %}
+                </select>
+                <button class= "btn btn-primary filterbutton" id = "scatterButton"> Filter Scatter Plot by Category</button>
+                <br>
+                <br>
+                <select id = "teamsList">
+                    {% for a in teams %}
+                        <option value='{{ a["team_id"]}}'>{{ a["team_id"]}}</option>
+                    {% endfor %}
+                </select>
+                <button class= "btn btn-primary filterbutton" id = "scatterButton2"> Add Team Filter Scatter Plot </button>
+                <div class = "container-chart" id = "scatter-plot-category-chartjs-container">
+                    <canvas id="scatter_plot" width="450" height="375"></canvas>
+                </div>
+                <br>
+                <div class = "container-chart" id = "scatter-plot-category-chartjs-container2">
+                    <canvas id = "scatter_plot2" width="450" height="375"></canvas>
+                </div>
             </div>
-            <br>
-            <div class = "container-chart" id = "scatter-plot-category-chartjs-container2">
-                <canvas id = "scatter_plot2" width="450" height="375"></canvas>
+            
+        </div>
+    </section>
+    <!-- End of Container -->
+
+    <!-- Scatter Plot/Trendline -->
+    <section class = "chart_class" id = "scatter_plot_positions_section">
+        <div class = "container-fluid" id = "scatter_plot_positions">
+            <h1 class = "containerHeadertext">Generate a Shots vs Goals Scatter Plot, Based on Player Position & Price of Current Season (Green)</h1>
+            <h3 class = "container-text">Trendline Calculated from Last Season's Stats (Red)</h3>
+            <div class = "container">
+                <!-- <h4 class = "header_for_graph">Stats include: Total FPL Points, Goals, Expected Goals, Assists, Expected Assists and more</h4> -->
+                <!-- Code for Filtering through all players in database -->
+                <select id="playerNameScatter">
+                    {% for player in query_player %}
+                    <option>{{ player ["player"]}}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <button class= "btn btn-primary filterbutton" id = "getPlayerStatScatterButton"> Get Player Stats! </button>
+                <br>
             </div>
-        </div>
-        
-    </div>
 
-    <div class = "container-fluid" id = "scatter_plot_positions">
-        <h1 class = "containerHeadertext">Generate a Shots vs Goals Scatter Plot, Based on Player Position & Price of Current Season (Green)</h1>
-        <h3 class = "container-text">Trendline Calculated from Last Season's Stats (Red)</h3>
-        <div class = "container">
-            <!-- <h4 class = "header_for_graph">Stats include: Total FPL Points, Goals, Expected Goals, Assists, Expected Assists and more</h4> -->
-            <!-- Code for Filtering through all players in database -->
-            <select id="playerNameScatter">
-                {% for player in query_player %}
-                <option>{{ player ["player"]}}</option>
-                {% endfor %}
-            </select>
-            <br>
-            <button class= "btn btn-primary filterbutton" id = "getPlayerStatScatterButton"> Get Player Stats! </button>
-            <br>
+            <div class = "container-chart" id = "scatter-trendline-chartjs-container">
+                <!-- ChartJS Plot Generated Here -->
+                <canvas id="scatterPlotbyPosition_Price" width="400" height="275"></canvas>
+            </div>    
+            
         </div>
-
-        <div class = "container-chart" id = "scatter-trendline-chartjs-container">
-            <!-- ChartJS Plot Generated Here -->
-            <canvas id="scatterPlotbyPosition_Price" width="400" height="275"></canvas>
-        </div>    
-        
-    </div>
+    </section>
+<!-- End of Container -->
 
     <!-- JS Capabilities -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
