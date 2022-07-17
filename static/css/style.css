@@ -1,33 +1,11 @@
 html {
-    scroll-behavior: smooth;}
+    scroll-behavior: smooth;
+    }
 
 /* Background color for body */
 body {
-    background-color: rgba(72, 142, 223, 0.849);}
-
-/* Carousel Styling */
-#carouselSlides{text-align: center;}
-
-.d-block.w-100{
-    margin-left: auto;
-    margin-right: auto;
-    padding-bottom: 50px;}
-
-/*  */
-#title_frontpage{text-align: center;}
-
-#header_pic{
-    margin-left: auto; 
-    margin-right: auto; 
-    display: block; 
-    height: 150px;}
-
-/* #dark_mode{
-    margin-left: 10px; 
-    background-color: #212529cf;}
-
-#reset_dark_mode{
-    margin-left: 5px;} */
+    background-color: rgb(226 238 251 / 91%);
+}
 
 #header{
     margin-bottom: 25px;}
@@ -35,10 +13,23 @@ body {
 /* Styling for Shortcuts Button */
 #dropdownMenuButton{
     background-color: rgb(245, 117, 43);
+    border-color: transparent;
 }
 
+#dropdownMenuButton:hover {
+    background-color: rgb(223 113 33);
+}
+
+/*Area of dropdown containing content*/
 .dropdown-menu.show{
     background-color: rgb(245, 117, 43);
+}
+
+/*Premier League Image Styling*/
+#header_pic{
+    width: 25%;
+    left: 63%;
+    position: relative;
 }
 
 /* Change color of text  */
@@ -52,7 +43,10 @@ body {
 }
 
 /* Class for all Text Headers */
-.header_for_graph{text-align: center;}
+.header_for_graph{
+    text-align: center;
+    color:white;
+}
 
 /* Plotly Stats Filter Table */
 
@@ -80,8 +74,8 @@ body {
 #priceFilter{
     width: 300px;}
 
-#priceFilterButton{
-    width: 150px;}
+/*#priceFilterButton{
+    width: 150px;}*/
 
 /* Player Filter */
 
@@ -102,6 +96,7 @@ body {
     display: none;
 }
 
+
 .btn.btn-primary.filterbutton{
     margin-top: 10px;}
 
@@ -115,6 +110,7 @@ body {
 #scatter_plot2{
     background-color: white;
     margin-top: 20px;
+    margin-bottom: 10px;
     /* Display None to Hide Canvas Tag */
     display: none;
     }
@@ -138,12 +134,14 @@ body {
 footer li {list-style-type: none;}
 
 /* Back to top Button Styling */
-footer li #back_to_top {bottom: 0px; position: fixed; margin-left: 15px; margin-bottom: 5px; background-color: rgb(214, 241, 57);}
+footer li #back_to_top {bottom: 0px; position: fixed; margin-left: 15px; margin-bottom: 5px; background-color:rgb(255,255,25);}
 
 footer li #back_to_top a {color: black;}
 
+footer li #back_to_top:hover {background-color: rgb(214, 241, 57)}
+
 @media only screen and (max-width: 990px){
-    #back_to_top {margin-left: 0px !important;}
+    #back_to_top {margin-left: 10px !important;}
 }
 
 /* ALL CONTAINERS */
@@ -155,8 +153,9 @@ footer li #back_to_top a {color: black;}
 .container-fluid{
     margin-bottom: 100px;
     margin-top: 100px;
-    width: 90%;
-    background-color: rgba(72, 142, 223, 0.99);
+    width: 95%;
+    background-color: rgb(47 93 144 / 99%);
+    border-radius: 25px
 }
 
 .containerHeadertext{
@@ -171,7 +170,7 @@ footer li #back_to_top a {color: black;}
     size: 20px;
     font-family: "Segoe UI";
     margin-bottom: 15px;
-    color: rgb(0, 0, 0);
+    color: white;
 }
 
 canvas{
@@ -187,17 +186,25 @@ canvas{
     margin: auto;
     height: 100vh;
     width: 75vw;
+    bottom: 15px;
   }
   
   /* Samsung Mobile Styling */
 
 @media only screen and (max-width: 990px) {
     /* #comparePlayerGraph{height: 550px !important;} */
+    #header_pic{
+        left: 58%;
+    }
 
     #priceFilter{width: 500px;
         font-size: 30px;}
     
-    .btn.btn-primary.filterbutton{width: 375px !important;
+    .btn.btn-primary.filterbutton{
+        /*width: 200px !important;*/
+        width: "fit-content";
+        font-weight: 300;
+        font-size: xx-large;
         font-size: 27px;}
     
     select{width: 50%;
@@ -211,8 +218,9 @@ canvas{
     
     .select2-selection.select2-selection--single{height: 35px !important;}
     
-    .btn.btn-primary{width: 15%;
-        font-size: 24px;}
+    .btn.btn-primary{
+        width: fit-content;
+        font-weight: 300;}
     
     #dropdownMenuButton{width: 100%;}
 
@@ -253,10 +261,12 @@ canvas{
 }
 
 .grid-container{
-    background-color: rgba(72, 142, 223, 0.99);
+    /*background-color: rgba(72, 142, 223, 0.99);*/
     display:grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr 2 fr ;
+    margin-left: 25%;
+    margin-right: 25%;
     /* grid-template-areas: "header header"; */
 }
 
@@ -267,30 +277,35 @@ canvas{
 
 .grid-item-2{
     text-align: center;
+    color: white;
 }
 
 #holds_player_match_stats{
-    display:grid;
+    /*display = none is a necessary state for JS function to work */
+    display:none;
     grid-template-columns: 3fr 3fr;
 }
 
 .grid-item-3{
     text-align: center;
-    
+    padding-bottom: 10px;
 }
 
 .grid-container div{
-    background-color: rgba(72, 142, 223, 0.99);
+    background-color: rgb(47 93 144 / 99%);
     border-color: black;
     text-align: center;
     color: white;
+    padding: 5px;
     
 }
 
 #match_stats_player_name{
     font-size: 30px;
+    font-weight: bold;
 }
 
 #match_stats_player_name2{
     font-size: 30px;
+    font-weight: bold;
 }

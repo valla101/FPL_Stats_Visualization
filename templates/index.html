@@ -18,36 +18,29 @@
 </head>
 
 <body id = "body">
-    <a><img id = header_pic src= 'https://www.fifplay.com/img/public/premier-league-3-logo.png'></a>
-        <!-- <button class="btn btn-primary" id = "dark_mode"> Dark Mode </button> -->
-    <!-- </header> -->
-
-    <nav class="navbar navbar-expand-lg navbar-expand-md navbar-expand-sm navbar-light">
-        <ul class = "nav" id = "shortcut_nav">
-          <li class = "nav-item">
-            <div class="dropdown">
-              <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Shortcuts
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="nav-link" href="#player_stats">Stats for Individual Player</a>
-                <a class="nav-link" href="#compare_player_stats">Compare Players</a>
-                <a class="nav-link" href="#table_container">Generate Table</a>
-                <a class="nav-link" href="#top_performers_chart">Top Performers by Stat</a>
-                <a class="nav-link" href="#scatter_plots">Generate Scatter Plot (Stat vs Minutes Played)</a>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </nav>
-
-    <section id = "intro_text">
-      <div class = "container-fluid">
-          <h1 class = "containerHeadertext">Fantasy Premier League Tool</h1>
-          <h4 class = "containerHeadertext">If you are an avid FPL aficionado, then you are aware of the value of statistics in order to select the best players</h4>
-          <h4 class = "containerHeadertext">Can't decide between 2 players? Use our player comparison tools (season or by comparing gameweek stats) and verify who is the most on form player!</h4>
-      </div>
-    </section>
+    <header>
+    	<div class = "wrapper" style = "background-color: white">
+			<nav class="navbar navbar-expand-lg navbar-expand-md navbar-expand-sm navbar-light">
+		        <ul class = "nav" id = "shortcut_nav">
+		          <li class = "nav-item">
+		            <div class="dropdown">
+		              <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		                Shortcuts
+		              </button>
+		              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+		                <a class="nav-link" href="#player_stats">Stats for Individual Player</a>
+		                <a class="nav-link" href="#compare_player_stats">Compare Players</a>
+		                <a class="nav-link" href="#table_container">Generate Table</a>
+		                <a class="nav-link" href="#top_performers_chart">Top Performers by Stat</a>
+		                <a class="nav-link" href="#scatter_plots">Generate Scatter Plot (Stat vs Minutes Played)</a>
+		              </div>
+		            </div>
+		          </li>
+		        </ul>
+		        <img id = header_pic src= 'https://www.fifplay.com/img/public/premier-league-3-logo.png'>
+	      	</nav>
+    	</div>
+    </header>
                                     <!--  NEW CHART-->
 
     <!-- Player Offensive Stats Chart -->
@@ -113,9 +106,7 @@
             <div class = "grid-item grid-item-3">
                 <button class= "btn btn-primary filterbutton" id = "player_match_stats"> Generate Stats </button>
             </div>
-        </div>
-
-        <!-- Container that displays stats for player form comparison -->
+            <!-- Container that displays stats for player form comparison -->
         <div class = "grid-container" id = "holds_player_match_stats">
             <div class = "grid-item grid-item-4" id = "match_stats_player_name"></div>
             <div class = "grid-item grid-item-5" id = "match_stats_player_name2"></div>
@@ -157,6 +148,7 @@
             <div class = "grid-item grid-item-39" id = "avg_interceptions2"></div>
             <div class = "grid-item grid-item-40" id = "avg_blocks"></div>
             <div class = "grid-item grid-item-41" id = "avg_blocks2"></div>
+        </div>
         </div>
     </section>
                                 <!--  NEW CHART-->

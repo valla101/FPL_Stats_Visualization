@@ -1383,6 +1383,34 @@ function PlayerFormComparison() {
 
     button.addEventListener("click", function PlayerFormQuery(){
       
+      // FUNCTION ADDED: This hides the display grid until button is clicked
+      function showGrid(){
+        var stats_container = document.getElementById("holds_player_match_stats");
+
+        // if (stats_container.style.display === "grid") {
+        //   stats_container.style.display = "none";
+        //   } else {
+        //     stats_container.style.display = "grid";
+        //   }
+
+        if (stats_container.style.display === "grid") {
+          stats_container.style.display = "none";
+          } else {
+            stats_container.style.display = "grid";
+          }
+
+        function buttonClickGridShow(){
+          
+          $("#player_match_stats").click(function(){
+            var stats_container = document.getElementById("holds_player_match_stats");
+            stats_container.style.display = "grid"
+          })
+        }
+        buttonClickGridShow()
+      }
+
+      showGrid()
+
       var playerDropdown = d3.select(player_select1);
       var player = playerDropdown.property("value");
 
@@ -1841,7 +1869,6 @@ function PlayerFormComparison() {
           document.getElementById("avg_xG").style.color = "yellow"
           document.getElementById("avg_xG2").style.color = "white"
         } else if (AvgxG < AvgxG2){
-          console.log(`${AvgxG} < ${AvgxG2}`)
           document.getElementById("avg_xG2").style.color = "yellow"
           document.getElementById("avg_xG").style.color = "white"
         } else if (AvgxG == AvgxG2){
